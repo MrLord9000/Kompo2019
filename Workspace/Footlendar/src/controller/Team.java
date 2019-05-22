@@ -40,7 +40,4 @@ public class Team {
 		this.logo = logo;
 	}
 	
-	
-	
-	
 }

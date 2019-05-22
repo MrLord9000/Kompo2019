@@ -10,13 +10,18 @@ public class Match {
 	private Score score;
 	private GregorianCalendar startTime;
 	
+	private NotifyTimer nt;
+	
 	
 	public Match(long id, Team home, Team away, GregorianCalendar startTime) {
 		this.id = id;
 		this.home = home;
 		this.away = away;
 		this.startTime = startTime;
-		this.score = null;
+		//this.score = null;
+		
+		nt = new NotifyTimer();
+		nt.start(this.startTime);
 	}
 
 	public Score getScore() 

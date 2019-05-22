@@ -1,7 +1,5 @@
 package controller;
 
-import java.io.Serializable;
-
 
 public class Score 
 {
@@ -54,3 +52,4 @@ public class Score
 		if(this.homeGoals == s.homeGoals && this.awayGoals == s.awayGoals) return true;
 		else return false;
 	}
+}
