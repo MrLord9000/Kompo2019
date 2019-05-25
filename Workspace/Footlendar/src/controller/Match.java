@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Match {
@@ -9,19 +10,21 @@ public class Match {
 	private Team away;
 	private Score score;
 	private GregorianCalendar startTime;
-	
+	private String description;
+	private static int minutesRemindBeforeStart = 1;
 	private NotifyTimer nt;
 	
 	
-	public Match(long id, Team home, Team away, GregorianCalendar startTime) {
+	public Match(long id, Team home, Team away, GregorianCalendar startTime, String description) {
 		this.id = id;
 		this.home = home;
 		this.away = away;
 		this.startTime = startTime;
-		//this.score = null;
+		this.score = null;
+		this.description = description;
 		
 		nt = new NotifyTimer();
-		nt.start(this.startTime);
+		nt.start(this.startTime, minutesRemindBeforeStart, info());
 	}
 
 	public Score getScore() 
@@ -54,6 +57,43 @@ public class Match {
 		return startTime;
 	}
 	
+	public static void setminutesRemindBeforeStart(int minutes)
+	{
+		minutesRemindBeforeStart = minutes;
+	}
 	
+	public String info()
+	{
+		String s = new String(); 
+		s += this.home.getName();
+		if(score == null)
+		{
+			s += " - : - ";
+		}
+		else
+		{
+			s += score.getHomeGoals() + " : " + score.getAwayGoals();
+		}
+		s += " " + away.getName();
+		s +=  "		" + startTime.get(Calendar.DAY_OF_MONTH) + "/" + (startTime.get(Calendar.MONTH) + 1) + 
+				"/" + startTime.get(Calendar.YEAR) + " " + startTime.get(Calendar.HOUR_OF_DAY) + ":";
+		if(startTime.get(Calendar.MINUTE) < 10)
+		{
+			s += "0";
+		}
+		s +=  startTime.get(Calendar.MINUTE) + ":";
+		if(startTime.get(Calendar.SECOND) < 10)
+		{
+			s += "0";
+		}
+		s += startTime.get(Calendar.SECOND);
+		s += "\n" + description;
+		return s;
+	}
+	
+	public void resetTimer()
+	{
+		nt.resetRemindTimer(startTime, minutesRemindBeforeStart, info());
+	}
 
 }
