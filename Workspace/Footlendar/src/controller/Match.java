@@ -24,7 +24,7 @@ public class Match {
 		this.description = description;
 		
 		nt = new NotifyTimer();
-		nt.start(this.startTime, minutesRemindBeforeStart, info());
+		nt.start(this.startTime, minutesRemindBeforeStart, this);
 	}
 
 	public Score getScore() 
@@ -93,7 +93,7 @@ public class Match {
 	
 	public void resetTimer()
 	{
-		nt.resetRemindTimer(startTime, minutesRemindBeforeStart, info());
+		nt.resetRemindTimer(startTime, minutesRemindBeforeStart, this);
 	}
 
 }
