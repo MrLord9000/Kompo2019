@@ -5,8 +5,8 @@
 	<classpathentry exported="true" kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="jgoodies-forms-1.8.0-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="jgoodies-common-1.8.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="mssql-jdbc-6.4.0.jre7.jar"/>
+	<classpathentry kind="lib" path="mssql-jdbc-7.2.2.jre11.jar"/>
 	<classpathentry kind="lib" path="mssql-jdbc-7.2.2.jre8.jar"/>
-	<classpathentry kind="lib" path="miglayout15-swing.jar"/>
+	<classpathentry kind="lib" path="miglayout15-swing.jar" sourcepath="miglayout-src.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

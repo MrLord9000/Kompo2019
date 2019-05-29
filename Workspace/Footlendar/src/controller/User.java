@@ -2,6 +2,8 @@ package controller;
 
 import java.util.LinkedList;
 
+import view.INotifier;
+
 public class User {
 
 	private static User instance = new User(); 

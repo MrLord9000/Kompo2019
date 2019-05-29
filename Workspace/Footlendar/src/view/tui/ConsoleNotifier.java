@@ -1,4 +1,6 @@
-package controller;
+package view.tui;
+
+import view.INotifier;
 
 public class ConsoleNotifier implements INotifier {
 

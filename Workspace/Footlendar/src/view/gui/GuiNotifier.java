@@ -1,4 +1,6 @@
-package controller;
+package view.gui;
+
+import view.INotifier;
 
 public class GuiNotifier implements INotifier {
 

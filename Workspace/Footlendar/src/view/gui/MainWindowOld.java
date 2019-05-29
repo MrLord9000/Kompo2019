@@ -1,4 +1,4 @@
-package view;
+package view.gui;
 
 import java.awt.EventQueue;
 
@@ -35,7 +35,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.ImageIcon;
 
-public class MainWindow
+public class MainWindowOld
 {
 
 	private JFrame frmFootlendarAlpha;
@@ -51,7 +51,7 @@ public class MainWindow
 			{
 				try
 				{
-					MainWindow window = new MainWindow();
+					MainWindowOld window = new MainWindowOld();
 					window.frmFootlendarAlpha.setVisible(true);
 				} catch (Exception e)
 				{
@@ -64,7 +64,7 @@ public class MainWindow
 	/**
 	 * Create the application.
 	 */
-	public MainWindow() {
+	public MainWindowOld() {
 		initialize();
 	}
 
@@ -80,7 +80,7 @@ public class MainWindow
 		frmFootlendarAlpha.setBounds(100, 100, 1024, 649);
 		frmFootlendarAlpha.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmFootlendarAlpha.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
-				ColumnSpec.decode("center:max(196dlu;pref)"),
+				ColumnSpec.decode("max(94dlu;min)"),
 				FormSpecs.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("100px:grow"),
 				ColumnSpec.decode("100px:grow"),
@@ -128,13 +128,13 @@ public class MainWindow
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnMyMatches, GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
-						.addComponent(btnMatchHistory, GroupLayout.PREFERRED_SIZE, 271, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnIncomingEvents, GroupLayout.PREFERRED_SIZE, 271, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnNextOption, GroupLayout.PREFERRED_SIZE, 271, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnNextOption_1, GroupLayout.PREFERRED_SIZE, 271, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(btnMyMatches, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnIncomingEvents, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnNextOption, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnNextOption_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnMatchHistory, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(167, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -149,7 +149,7 @@ public class MainWindow
 					.addComponent(btnNextOption, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnNextOption_1, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(285, Short.MAX_VALUE))
+					.addContainerGap(367, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		
@@ -209,7 +209,7 @@ public class MainWindow
 		JLabel label_1 = new JLabel("");
 		label_1.setForeground(Color.WHITE);
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
-		label_1.setIcon(new ImageIcon(MainWindow.class.getResource("/resources/football_64.png")));
+		label_1.setIcon(new ImageIcon(MainWindowOld.class.getResource("/resources/football_64.png")));
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
