@@ -1,14 +1,63 @@
 package model;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.LinkedList;
 import java.util.List;
 
 import controller.Match;
 
 public class MatchRepo implements IRepository<Match, Long> {
 
-	@Override
+	private LinkedList<Match> matches;
+	private static MatchRepo instance = new MatchRepo();
+	
+	
+	public static MatchRepo getInstance()
+	{
+		return instance;
+	}
+	
+	public MatchRepo() {
+		this.matches = new LinkedList<>();
+	}
+
 	public void load() {
-		// TODO Auto-generated method stub
+		try
+		{
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
+			Connection con = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true");
+			Statement stat = con.createStatement();
+			ResultSet rs = stat.executeQuery("SELECT * FROM Matches");
+			
+			while(rs.next())
+			{
+				
+				GregorianCalendar cal = convertSQLDateToGregorianCalendar(rs.getDate("startTime"), rs.getTime("startTime"));
+				Match m = new Match(rs.getInt("id"), TeamRepo.getInstance().get(rs.getString("home")), TeamRepo.getInstance().get(rs.getString("away")), cal, rs.getString("descr"));
+				//System.out.println(cal.get(Calendar.HOUR));
+				//System.out.println(TeamRepo.getInstance().get(rs.getString("home")));
+				matches.add(m);
+			}
+
+			
+			
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 	}
 
@@ -26,8 +75,7 @@ public class MatchRepo implements IRepository<Match, Long> {
 
 	@Override
 	public List<Match> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return matches;
 	}
 
 	@Override
@@ -39,7 +87,15 @@ public class MatchRepo implements IRepository<Match, Long> {
 	@Override
 	public void remove(Long id) {
 		// TODO Auto-generated method stub
+	}
 		
+		
+	private GregorianCalendar convertSQLDateToGregorianCalendar(java.sql.Date date, java.sql.Time time)
+	{
+		//System.out.println(date.getHours());
+		//System.out.println(date.getMinutes());
+		GregorianCalendar c = new GregorianCalendar(date.getYear() + 1900, date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
+		return c;
 	}
 
 }

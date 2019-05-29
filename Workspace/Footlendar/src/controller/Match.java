@@ -23,8 +23,13 @@ public class Match {
 		this.score = null;
 		this.description = description;
 		
-		nt = new NotifyTimer();
-		nt.start(this.startTime, minutesRemindBeforeStart, this);
+		if(this.startTime.after(new GregorianCalendar()))
+		{
+			nt = new NotifyTimer();
+			nt.start(this.startTime, minutesRemindBeforeStart, this);
+		}
+		
+		
 	}
 
 	public Score getScore() 
@@ -87,13 +92,21 @@ public class Match {
 			s += "0";
 		}
 		s += startTime.get(Calendar.SECOND);
-		s += "\n" + description;
+		s += "\t" + description;
 		return s;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return info();
 	}
 	
 	public void resetTimer()
 	{
 		nt.resetRemindTimer(startTime, minutesRemindBeforeStart, this);
 	}
+	
+	
 
 }
