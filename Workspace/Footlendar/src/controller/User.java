@@ -22,6 +22,7 @@ public class User {
 		return instance;
 	}
 	
+	
 	public void addFavouriteTeam(Team team)
 	{
 		if(team != null)
@@ -69,5 +70,15 @@ public class User {
 		{
 			notifier.notify("Match starts in " +minutesBefore + " minutes\n " + match.info());
 		}
+	}
+	
+	public LinkedList<Team> getFavTeams()
+	{
+		return favTeams;
+	}
+	
+	public LinkedList<Match> getTrackedMatches()
+	{
+		return trackedMatches;
 	}
 }

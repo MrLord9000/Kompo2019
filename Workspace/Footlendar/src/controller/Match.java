@@ -70,6 +70,7 @@ public class Match {
 	public String info()
 	{
 		String s = new String(); 
+		s += this.id + "  ";
 		s += this.home.getName();
 		if(score == null)
 		{
@@ -92,7 +93,7 @@ public class Match {
 			s += "0";
 		}
 		s += startTime.get(Calendar.SECOND);
-		s += "\t" + description;
+		s += "\t" + description + "\n";
 		return s;
 	}
 	
