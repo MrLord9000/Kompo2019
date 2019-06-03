@@ -9,12 +9,22 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JScrollPane;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
+
+import model.MatchRepo;
+
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -32,8 +42,10 @@ import net.miginfocom.swing.MigLayout;
 
 public class MainWindow extends JFrame
 {
-
+	private CalendarHandler calendarHandler;
 	private JPanel contentPane;
+	private JButton prevMonthBtn;
+	private JButton nextMonthBtn;
 
 	/**
 	 * Launch the application.
@@ -43,7 +55,8 @@ public class MainWindow extends JFrame
 		EventQueue.invokeLater(new Runnable()
 		{
 			public void run()
-			{
+			{				
+				
 				try
 				{
 					MainWindow frame = new MainWindow();
@@ -60,23 +73,60 @@ public class MainWindow extends JFrame
 	 * Create the frame.
 	 */
 	public MainWindow() {
+		
+		try
+		{
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} 
+		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e)
+		{
+			try
+			{
+				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+			} 
+			catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		// Window Title
 		setTitle("Footlendar v.0.06");
+		// Window default font
 		setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1401, 795);
+		// Default close operation - set to DISPOSE_ON_CLOSE for best compatibility
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		// ------------------------------------------------------------------------
+		// --- Set window bounds - keep in mind this should be resized ------------
+		
+			setBounds(100, 100, 1401, 795);
+			
+		// ------------------------------------------------------------------------
+		
+		// Creating main content pane
 		contentPane = new JPanel();
+		// Setting content pane border to empty
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		// Setting the current content pane
 		setContentPane(contentPane);
 		
+		// Left side Menu Panel constructor
 		JPanel MenuPanel = new JPanel();
 		
+		// Left side Calendar Panel constructor
 		JPanel CalendarPanel = new JPanel();
 		CalendarPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
 		
+		// Left side Notification Pane constructor
 		JScrollPane NotificationScrollPane = new JScrollPane();
 		NotificationScrollPane.setViewportBorder(null);
 		NotificationScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		NotificationScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		JPanel daysOfWeekPanel = new JPanel();
+		
+		// Main frame group layout configuration ----------------------------------------------------------------------------------
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -85,22 +135,64 @@ public class MainWindow extends JFrame
 					.addComponent(NotificationScrollPane, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(MenuPanel, GroupLayout.DEFAULT_SIZE, 1084, Short.MAX_VALUE)
-						.addComponent(CalendarPanel, GroupLayout.DEFAULT_SIZE, 1084, Short.MAX_VALUE))
+						.addComponent(daysOfWeekPanel, GroupLayout.DEFAULT_SIZE, 1084, Short.MAX_VALUE)
+						.addComponent(CalendarPanel, GroupLayout.DEFAULT_SIZE, 1084, Short.MAX_VALUE)
+						.addComponent(MenuPanel, GroupLayout.DEFAULT_SIZE, 1084, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(NotificationScrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(NotificationScrollPane, GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
+						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(MenuPanel, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
-							.addComponent(CalendarPanel, GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)))
-					.addContainerGap())
+							.addComponent(daysOfWeekPanel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(CalendarPanel, GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)))
+					.addGap(3))
 		);
+		daysOfWeekPanel.setLayout(new GridLayout(0, 7, 0, 0));
+		
+		JLabel label = new JLabel("Monday");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+		daysOfWeekPanel.add(label);
+		
+		JLabel label_2 = new JLabel("Tuesday");
+		label_2.setHorizontalAlignment(SwingConstants.CENTER);
+		label_2.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+		daysOfWeekPanel.add(label_2);
+		
+		JLabel label_3 = new JLabel("Wednesday");
+		label_3.setHorizontalAlignment(SwingConstants.CENTER);
+		label_3.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+		daysOfWeekPanel.add(label_3);
+		
+		JLabel label_4 = new JLabel("Thursday");
+		label_4.setHorizontalAlignment(SwingConstants.CENTER);
+		label_4.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+		daysOfWeekPanel.add(label_4);
+		
+		JLabel label_5 = new JLabel("Friday");
+		label_5.setHorizontalAlignment(SwingConstants.CENTER);
+		label_5.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+		daysOfWeekPanel.add(label_5);
+		
+		JLabel label_6 = new JLabel("Saturday");
+		label_6.setHorizontalAlignment(SwingConstants.CENTER);
+		label_6.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+		daysOfWeekPanel.add(label_6);
+		
+		JLabel label_7 = new JLabel("Sunday");
+		label_7.setHorizontalAlignment(SwingConstants.CENTER);
+		label_7.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+		daysOfWeekPanel.add(label_7);
+		// ------------------------------------------------------------------------------------------------------------------------
+		
+		// Calendar panel form layout configuration -------------------------------------------------------------------------------
 		CalendarPanel.setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.GLUE_COLSPEC,
@@ -118,7 +210,7 @@ public class MainWindow extends JFrame
 				FormSpecs.GLUE_COLSPEC,},
 			new RowSpec[] {
 				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.GLUE_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.GLUE_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
@@ -129,83 +221,60 @@ public class MainWindow extends JFrame
 				FormSpecs.GLUE_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.GLUE_ROWSPEC,}));
+		// ------------------------------------------------------------------------------------------------------------------------
 		
-		JLabel lblMonday = new JLabel("Monday");
-		lblMonday.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		lblMonday.setHorizontalAlignment(SwingConstants.CENTER);
-		CalendarPanel.add(lblMonday, "2, 2");
 		
-		JLabel lblTuesday = new JLabel("Tuesday");
-		lblTuesday.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTuesday.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		CalendarPanel.add(lblTuesday, "4, 2");
 		
-		JLabel lblWednesday = new JLabel("Wednesday");
-		lblWednesday.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWednesday.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		CalendarPanel.add(lblWednesday, "6, 2");
+		// ------------------------------------------------------------------------------------------------------------------------
+		// --- Here DayPanel factory should be implemented! -----------------------------------------------------------------------
+//			JPanel DayPanel = new JPanel();
+//			DayPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+//			CalendarPanel.add(DayPanel, "2, 4, fill, fill");
+//			
+//			JLabel dayNumber = new JLabel("99");
+//			dayNumber.setFont(new Font("Century Gothic", Font.PLAIN, 47));
+//			
+//			JLabel ballPic = new JLabel("");
+//			ballPic.setIcon(new ImageIcon(MainWindow.class.getResource("/resources/football_64.png")));
+//			ballPic.setHorizontalAlignment(SwingConstants.CENTER);
+//			ballPic.setFont(new Font("Century Gothic", Font.PLAIN, 47));
+//			
+//			JLabel lblNewEvents = new JLabel("2 new events");
+//			GroupLayout gl_DayPanel = new GroupLayout(DayPanel);
+//			gl_DayPanel.setHorizontalGroup(
+//				gl_DayPanel.createParallelGroup(Alignment.LEADING)
+//					.addGroup(gl_DayPanel.createSequentialGroup()
+//						.addContainerGap()
+//						.addGroup(gl_DayPanel.createParallelGroup(Alignment.LEADING)
+//							.addComponent(lblNewEvents, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+//							.addGroup(gl_DayPanel.createSequentialGroup()
+//								.addComponent(dayNumber, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
+//								.addGap(5)
+//								.addComponent(ballPic, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)))
+//						.addContainerGap())
+//			);
+//			gl_DayPanel.setVerticalGroup(
+//				gl_DayPanel.createParallelGroup(Alignment.LEADING)
+//					.addGroup(gl_DayPanel.createSequentialGroup()
+//						.addGroup(gl_DayPanel.createParallelGroup(Alignment.LEADING)
+//							.addComponent(dayNumber, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+//							.addComponent(ballPic, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE))
+//						.addPreferredGap(ComponentPlacement.RELATED)
+//						.addComponent(lblNewEvents, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+//						.addContainerGap())
+//			);
+//			DayPanel.setLayout(gl_DayPanel);
 		
-		JLabel lblThursday = new JLabel("Thursday");
-		lblThursday.setHorizontalAlignment(SwingConstants.CENTER);
-		lblThursday.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		CalendarPanel.add(lblThursday, "8, 2");
+		//DayPanelFactory.createDayPanel(CalendarPanel, Calendar.getInstance());
+		//DayPanelFactory.createMonth(CalendarPanel, Calendar.MONTH, Calendar.YEAR);
 		
-		JLabel lblFriday = new JLabel("Friday");
-		lblFriday.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFriday.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		CalendarPanel.add(lblFriday, "10, 2");
 		
-		JLabel lblSaturday = new JLabel("Saturday");
-		lblSaturday.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSaturday.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		CalendarPanel.add(lblSaturday, "12, 2");
 		
-		JLabel lblSunday = new JLabel("Sunday");
-		lblSunday.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSunday.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		CalendarPanel.add(lblSunday, "14, 2");
+		//CalendarPanel.add(, "4, 4, fill, fill");
+		// ------------------------------------------------------------------------------------------------------------------------
 		
-		JPanel DayPanel = new JPanel();
-		DayPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		CalendarPanel.add(DayPanel, "2, 4, fill, fill");
-		
-		JLabel dayNumber = new JLabel("1");
-		dayNumber.setFont(new Font("Century Gothic", Font.PLAIN, 47));
-		
-		JLabel ballPic = new JLabel("");
-		ballPic.setIcon(new ImageIcon(MainWindow.class.getResource("/resources/football_64.png")));
-		ballPic.setHorizontalAlignment(SwingConstants.CENTER);
-		ballPic.setFont(new Font("Century Gothic", Font.PLAIN, 47));
-		
-		JLabel lblNewEvents = new JLabel("2 new events");
-		GroupLayout gl_DayPanel = new GroupLayout(DayPanel);
-		gl_DayPanel.setHorizontalGroup(
-			gl_DayPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_DayPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_DayPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewEvents, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-						.addGroup(gl_DayPanel.createSequentialGroup()
-							.addComponent(dayNumber, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(ballPic, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)))
-					.addContainerGap())
-		);
-		gl_DayPanel.setVerticalGroup(
-			gl_DayPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_DayPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_DayPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(ballPic, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-						.addComponent(dayNumber, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblNewEvents, GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		DayPanel.setLayout(gl_DayPanel);
-		
-		JPanel panel = new JPanel();
-		CalendarPanel.add(panel, "14, 12, fill, fill");
+		//JPanel panel = new JPanel();
+		//CalendarPanel.add(panel, "14, 12, fill, fill");
 		
 		JLabel lblNotifications = new JLabel("Notifications");
 		lblNotifications.setFont(new Font("Century Gothic", Font.PLAIN, 16));
@@ -244,10 +313,23 @@ public class MainWindow extends JFrame
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.GLUE_ROWSPEC,}));
 		
-		JLabel lblJanuary = new JLabel("January 2019");
-		lblJanuary.setHorizontalAlignment(SwingConstants.CENTER);
-		lblJanuary.setFont(new Font("Century Gothic", Font.PLAIN, 24));
-		MenuPanel.add(lblJanuary, "1, 1, 9, 1");
+		
+		JLabel lblMonth = new JLabel("Month Year");
+		lblMonth.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMonth.setFont(new Font("Century Gothic", Font.PLAIN, 24));
+		MenuPanel.add(lblMonth, "3, 1, 5, 1");
+		
+		prevMonthBtn = new JButton("<");
+		MenuPanel.add(prevMonthBtn, "1, 1, fill, center");
+		MonthChangeListener lForPrevMonth = new MonthChangeListener();
+		prevMonthBtn.addActionListener(lForPrevMonth);
+		
+		nextMonthBtn = new JButton(">");
+		MenuPanel.add(nextMonthBtn, "9, 1, fill, center");
+		MonthChangeListener lForNextMonth = new MonthChangeListener();
+		nextMonthBtn.addActionListener(lForNextMonth);
+		
+		
 		
 		JButton btnOption = new JButton("Option 1");
 		MenuPanel.add(btnOption, "1, 3");
@@ -264,5 +346,31 @@ public class MainWindow extends JFrame
 		JButton btnOption_4 = new JButton("Option 5");
 		MenuPanel.add(btnOption_4, "9, 3");
 		contentPane.setLayout(gl_contentPane);
+		
+		
+		calendarHandler = new CalendarHandler(CalendarPanel, lblMonth);
+		calendarHandler.createMonth(Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.YEAR));
+		calendarHandler.updateMatches();
+	}
+	
+	private class MonthChangeListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0)
+		{
+			if(arg0.getSource() == prevMonthBtn)
+			{
+				calendarHandler.prevMonth();
+				calendarHandler.updateMatches();
+			}
+			else if(arg0.getSource() == nextMonthBtn)
+			{
+				calendarHandler.nextMonth();
+				calendarHandler.updateMatches();
+			}
+			
+		}
+		
 	}
 }
