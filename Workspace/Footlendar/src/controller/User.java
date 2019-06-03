@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.LinkedList;
 
 import model.MatchRepo;
@@ -120,21 +121,58 @@ public class User {
 	
 	public void addFavouriteTeam(Team team)
 	{
-		if(team != null)
+		if(team != null && favTeams.contains(team) == false)
 		{
 			favTeams.add(team);
 			saveTeams();
 		}
+		else
+		{
+			System.out.println("Wyjatek");
+		}
 		
+	}
+	
+	public LinkedList<Match> getMonthMatches(int month, int year)
+	{
+		LinkedList<Match> output = new LinkedList<Match>();
+		LinkedList<Match> allMatches = (LinkedList<Match>)MatchRepo.getInstance().getAll(); 
+		for(Match item : allMatches)
+		{
+			System.out.println(item.getStartTime().get(Calendar.MONTH));
+			System.out.println(month);
+			if(item.getStartTime().get(Calendar.MONTH) == month - 1 && item.getStartTime().get(Calendar.YEAR) == year)
+			{
+				output.add(item);
+			}
+		}
+		return output;
+	}
+
+ 	public LinkedList<Match> getTrackedMonthMatches(int month, int year)
+	{
+		LinkedList<Match> output = new LinkedList<Match>();
+		for(Match item : trackedMatches)
+		{
+			if(item.getStartTime().get(Calendar.MONTH) == month && item.getStartTime().get(Calendar.YEAR) == year)
+			{
+				output.add(item);
+			}
+		}
+		return output;
 	}
 	
 	
 	public void addTrackedMatch(Match match)
 	{
-		if(match != null)
+		if(match != null && trackedMatches.contains(match) == false)
 		{
 			trackedMatches.add(match);
 			saveMatches();
+		}
+		else
+		{
+			System.out.println("Wyjatek");
 		}
 	}
 	

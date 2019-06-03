@@ -46,6 +46,17 @@ public class Team {
 		return name + "\n";
 	}
 	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if(this == obj) return true;
+		if(obj == null) return false;
+		
+		Team t = (Team) obj;
+		if(this.name.equals(t.name)) return true;
+		else return false;
+	}
+	
 	
 	
 }

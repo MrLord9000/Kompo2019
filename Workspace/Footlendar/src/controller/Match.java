@@ -108,6 +108,15 @@ public class Match {
 		nt.resetRemindTimer(startTime, minutesRemindBeforeStart, this);
 	}
 	
-	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if(this == obj) return true;
+		if(obj == null) return false;
+		Match m = (Match) obj;
+		if(m.id == this.id) return true;
+		else return false;
+		
+	}
 
 }
