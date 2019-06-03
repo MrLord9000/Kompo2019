@@ -69,7 +69,10 @@ public class MatchRepo implements IRepository<Match, Long> {
 
 	@Override
 	public Match get(Long id) {
-		// TODO Auto-generated method stub
+		for(Match m: matches)
+		{
+			if(id == m.getId()) return m;
+		}
 		return null;
 	}
 

@@ -1,6 +1,5 @@
 package view.tui;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 import controller.User;
@@ -35,6 +34,7 @@ public class Main
 	{
 		TeamRepo.getInstance().load();
 		MatchRepo.getInstance().load();
+		User.getInstance().load();
 		User.getInstance().setNotifier(new ConsoleNotifier());
 		boolean exit = false;
 		while(exit == false)
@@ -80,6 +80,7 @@ public class Main
 				System.out.println("Type match id to track:");
 				buff = in.nextLine();
 				long id = Long.parseLong(buff);
+				System.out.println(id);
 				User.getInstance().addTrackedMatch(MatchRepo.getInstance().get(id));
 				//returnToMenu();
 				System.out.println("Press ENTER to return to menu");
@@ -96,6 +97,8 @@ public class Main
 				
 			case 7:
 				exit = true;
+				User.getInstance().save();
+				in.close();
 				break;
 			default:
 				break;
