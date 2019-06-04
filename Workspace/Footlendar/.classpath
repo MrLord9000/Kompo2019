@@ -7,5 +7,6 @@
 	<classpathentry exported="true" kind="lib" path="jgoodies-common-1.8.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="mssql-jdbc-6.4.0.jre7.jar"/>
 	<classpathentry exported="true" kind="lib" path="miglayout15-swing.jar"/>
+	<classpathentry exported="true" kind="lib" path="jsoup-1.11.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
