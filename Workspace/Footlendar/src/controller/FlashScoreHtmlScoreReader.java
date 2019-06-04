@@ -14,12 +14,12 @@ public class FlashScoreHtmlScoreReader implements IHtmlScoreReader
 	private Document doc;
 	
 	
-	public FlashScoreHtmlScoreReader(String url) 
+	public FlashScoreHtmlScoreReader() 
 	{
 		//this.url = url;
 		try
 		{
-			doc = Jsoup.connect(url).get();
+			doc = Jsoup.connect("http://www.livemecz.pl/world_cup_u20_final_stage/").get();
 			//System.out.println(doc.toString());
 		} 
 		catch (IOException e)
@@ -33,14 +33,14 @@ public class FlashScoreHtmlScoreReader implements IHtmlScoreReader
 		String score = null;
 		String css = "div#wyniki > div.league_box > div > div.n > a";
 		//String css = "tr.odd.stage-finish";
-		System.out.println(css);
+		//System.out.println(css);
 		Elements elements = doc.body().select(css);
 		for(Element e: elements)
 		{
 			String a = e.text();
 			if(a.contains(match.getHome().getName()) && a.contains(match.getAway().getName()))
 			{
-				System.out.println();
+				//System.out.println();
 				score = e.select("b").text();
 			}
 		}

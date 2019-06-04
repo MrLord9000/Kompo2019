@@ -27,7 +27,7 @@ public class MatchRepo implements IRepository<Match, Long> {
 		this.matches = new LinkedList<>();
 		
 		// Temp
-		matches.add(new Match(0, null, null, (GregorianCalendar) Calendar.getInstance(), null));
+		//matches.add(new Match(0, null, null, (GregorianCalendar) Calendar.getInstance(), null));
 	}
 
 	public void load() {

@@ -211,6 +211,14 @@ public class User {
 		}
 	}
 	
+	public void notifyOnUpdate(Match match)
+	{
+		if(containsFavClub(match))
+		{
+			notifier.notify("Goal!!!\n " + match.info());
+		}
+	}
+	
 	
 	public void notifyBefore(Match match, int minutesBefore)
 	{

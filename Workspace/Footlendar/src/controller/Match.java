@@ -23,11 +23,8 @@ public class Match {
 		this.score = null;
 		this.description = description;
 		
-		if(this.startTime.after(new GregorianCalendar()))
-		{
-			nt = new NotifyTimer();
-			nt.start(this.startTime, minutesRemindBeforeStart, this);
-		}
+		nt = new NotifyTimer();
+		nt.start(this.startTime, minutesRemindBeforeStart, this);
 		
 		
 	}
@@ -78,7 +75,7 @@ public class Match {
 		}
 		else
 		{
-			s += score.getHomeGoals() + " : " + score.getAwayGoals();
+			s += " " + score.getHomeGoals() + " : " + score.getAwayGoals();
 		}
 		s += " " + away.getName();
 		s +=  "		" + startTime.get(Calendar.DAY_OF_MONTH) + "/" + (startTime.get(Calendar.MONTH) + 1) + 
