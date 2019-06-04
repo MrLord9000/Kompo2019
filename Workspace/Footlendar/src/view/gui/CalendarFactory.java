@@ -2,6 +2,7 @@ package view.gui;
 
 import java.awt.Font;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -14,7 +15,7 @@ import javax.swing.border.BevelBorder;
 
 public final class CalendarFactory
 {
-	public static JPanel createDayPanel(JPanel calendarPanel, Calendar calendarDate)
+	public static JPanel createDayPanel(JPanel calendarPanel, GregorianCalendar calendarDate)
 	{
 		
 		JPanel DayPanel = new JPanel();
@@ -26,6 +27,7 @@ public final class CalendarFactory
 		column = column * 2;
 		
 		int row = calendarDate.get(Calendar.WEEK_OF_MONTH);
+		//System.out.println("Current week of month: " + row);
 		row = (row + 1) * 2;
 		
 		calendarPanel.add(DayPanel, column + ", " + row + ", fill, fill");

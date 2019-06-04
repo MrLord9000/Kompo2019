@@ -139,8 +139,6 @@ public class User {
 		LinkedList<Match> allMatches = (LinkedList<Match>)MatchRepo.getInstance().getAll(); 
 		for(Match item : allMatches)
 		{
-			System.out.println(item.getStartTime().get(Calendar.MONTH));
-			System.out.println(month);
 			if(item.getStartTime().get(Calendar.MONTH) == month - 1 && item.getStartTime().get(Calendar.YEAR) == year)
 			{
 				output.add(item);
@@ -149,6 +147,20 @@ public class User {
 		return output;
 	}
 
+	public LinkedList<Match> getDayMatches(int day, int month, int year)
+	{
+		LinkedList<Match> output = new LinkedList<Match>();
+		LinkedList<Match> allMatches = (LinkedList<Match>)MatchRepo.getInstance().getAll(); 
+		for(Match item : allMatches)
+		{
+			if(item.getStartTime().get(Calendar.DAY_OF_MONTH) == day && item.getStartTime().get(Calendar.MONTH) == month - 1 && item.getStartTime().get(Calendar.YEAR) == year)
+			{
+				output.add(item);
+			}
+		}
+		return output;
+	}
+	
  	public LinkedList<Match> getTrackedMonthMatches(int month, int year)
 	{
 		LinkedList<Match> output = new LinkedList<Match>();
