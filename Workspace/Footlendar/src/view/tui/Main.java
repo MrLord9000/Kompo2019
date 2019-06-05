@@ -2,6 +2,7 @@ package view.tui;
 
 import java.util.Scanner;
 
+import controller.MatchAlreadyInCollectionException;
 import controller.User;
 import model.MatchRepo;
 import model.TeamRepo;
@@ -81,7 +82,15 @@ public class Main
 				buff = in.nextLine();
 				long id = Long.parseLong(buff);
 				System.out.println(id);
-				User.getInstance().addTrackedMatch(MatchRepo.getInstance().get(id));
+				try
+				{
+					User.getInstance().addTrackedMatch(MatchRepo.getInstance().get(id));
+				} 
+				catch (MatchAlreadyInCollectionException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				//returnToMenu();
 				System.out.println("Press ENTER to return to menu");
 				in.next();

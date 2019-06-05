@@ -65,7 +65,7 @@ public class CalendarHandler
 		for(int i = 0; i < daysInMonth; i++)
 		{
 			//dayPanels[i] = CalendarFactory.createDayPanel(calendarPanel, currentDate);
-			dayPanels[i] = new CalendarPanel(parentPanel, currentDate, new LinkedList<Match>());
+			dayPanels[i] = new CalendarPanel(parentPanel, currentDate);
 			currentDate.add(Calendar.DAY_OF_MONTH, 1);
 		}
 		parentPanel.repaint();
@@ -73,20 +73,16 @@ public class CalendarHandler
 	
 	public void updateMatches()
 	{
+		// Get only the events from current month
 		LinkedList<Match> matches = User.getInstance().getMonthMatches(currentDate.get(Calendar.MONTH), currentDate.get(Calendar.YEAR));
+		System.out.println("Current month matches length: " + matches.size());
+		
+		// find a day with matches and update it
 		for(Match item : matches)
 		{
-			matches = User.getInstance().getDayMatches(currentDate.get(Calendar.DAY_OF_MONTH), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.YEAR));
+			//matches = User.getInstance().getDayMatches(currentDate.get(Calendar.DAY_OF_MONTH), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.YEAR));
 			int day = item.getStartTime().get(Calendar.DAY_OF_MONTH) - 1;
-			dayPanels[day].setNewEventsInfo(matches);
-//			Component[] eventInfo = dayPanels[day].getComponents();
-//			for(Component elem : eventInfo)
-//			{
-//				if(elem instanceof JLabel)
-//				{
-//					((JLabel) elem).setText("New unread event.");					
-//				}
-//			}
+			dayPanels[day].addEvent(item);
 		}
 	}
 }

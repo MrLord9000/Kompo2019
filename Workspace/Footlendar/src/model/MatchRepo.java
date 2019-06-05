@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import controller.Match;
+import controller.Team;
 
 public class MatchRepo implements IRepository<Match, Long> {
 
@@ -27,7 +28,10 @@ public class MatchRepo implements IRepository<Match, Long> {
 		this.matches = new LinkedList<>();
 		
 		// Temp
-		//matches.add(new Match(0, null, null, (GregorianCalendar) Calendar.getInstance(), null));
+		matches.add(new Match(0, new Team("Tem 1"), new Team("Team2"), (GregorianCalendar) GregorianCalendar.getInstance(), "to 2323est opis"));
+		matches.add(new Match(0, new Team("Team a"), new Team("Team3"), (GregorianCalendar) GregorianCalendar.getInstance(), "to j11est opis"));
+		matches.add(new Match(0, new Team("Team 2"), new Team("Team3"), new GregorianCalendar(2019, Calendar.JUNE, 22), "to jest o434pis"));
+		// Temp end
 	}
 
 	public void load() {

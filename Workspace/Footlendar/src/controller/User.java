@@ -175,8 +175,9 @@ public class User {
 	}
 	
 	
-	public void addTrackedMatch(Match match)
+	public void addTrackedMatch(Match match) throws MatchAlreadyInCollectionException
 	{
+		System.out.println(trackedMatches.contains(match));
 		if(match != null && trackedMatches.contains(match) == false)
 		{
 			trackedMatches.add(match);
@@ -184,7 +185,7 @@ public class User {
 		}
 		else
 		{
-			System.out.println("Wyjatek");
+			throw new MatchAlreadyInCollectionException("Specified match: " + match.toString() + " is already in tracked matches repository");
 		}
 	}
 	

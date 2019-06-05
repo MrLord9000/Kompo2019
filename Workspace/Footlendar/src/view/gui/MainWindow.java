@@ -413,7 +413,8 @@ public class MainWindow extends JFrame
 		// #### Calendar initialization ####
 		calendarHandler = new CalendarHandler(CalendarPanel, lblMonth);
 		calendarHandler.createMonth(GregorianCalendar.getInstance().get(Calendar.MONTH), GregorianCalendar.getInstance().get(Calendar.YEAR));
-		//calendarHandler.updateMatches();
+		System.out.println("Matches length: " + MatchRepo.getInstance().getAll().size());
+		calendarHandler.updateMatches();
 	}
 	
 	private class MonthChangeListener implements ActionListener

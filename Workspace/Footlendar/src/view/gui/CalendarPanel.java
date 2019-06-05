@@ -28,6 +28,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.BevelBorder;
 
 import controller.Match;
+import controller.MatchAlreadyInCollectionException;
 import controller.User;
 
 public class CalendarPanel extends JPanel
@@ -37,7 +38,9 @@ public class CalendarPanel extends JPanel
 	private static final BevelBorder loweredBorder = new BevelBorder(BevelBorder.LOWERED, null, null, null, null);
 	private static final BevelBorder raisedBorder = new BevelBorder(BevelBorder.RAISED, null, null, null, null);
 
-	private static final String ballNormal = "/resources/football_64.png";
+	private static final ImageIcon ballNormal = new ImageIcon(MainWindow.class.getResource("/resources/football_64.png"));
+	
+	private ListenForMouse mousePopupListener;
 	
 	private LinkedList<Match> dayEvents;
 	
@@ -50,11 +53,13 @@ public class CalendarPanel extends JPanel
 	private JPopupMenu popupMenu;
 	private DefaultListModel<String> defaultModel;
 	private JList<String> eventNamesList;
+	private JButton btnAddToTracked;
 	
-	public CalendarPanel(JPanel calendarPanel, GregorianCalendar calendarDate, final LinkedList<Match> dayEvents)
+	public CalendarPanel(JPanel calendarPanel, GregorianCalendar calendarDate)
 	{
 		parentPanel = calendarPanel;
 		panelDate = calendarDate;
+		dayEvents = new LinkedList<Match>();
 		
 		this.setBorder(raisedBorder);
 		
@@ -76,78 +81,51 @@ public class CalendarPanel extends JPanel
 		
 		this.add(dayNumber);
 		
-		this.dayEvents = dayEvents;
-		
+		// Create and prepare the label with ball picture 
 		ballPicture = new JLabel("");
+		ballPicture.setIcon(ballNormal);
+		ballPicture.setHorizontalAlignment(SwingConstants.CENTER);
+		ballPicture.setVisible(false);
 		this.add(ballPicture);
+		// Create and prepare the label for notifications
 		lblNewEvents = new JLabel("");
+		lblNewEvents.setFont(mainFont.deriveFont(11f));
+		lblNewEvents.setForeground(Color.RED);
 		this.add(lblNewEvents);
-		
-		// Set the match notification picture
-//		ballPicture.setIcon(new ImageIcon(MainWindow.class.getResource(ballNormal)));
-//		ballPicture.setHorizontalAlignment(SwingConstants.CENTER);
-
-		// Add the event notification label
-//		lblNewEvents.setText(dayEvents.size() + " events");
-//		lblNewEvents.setFont(mainFont.deriveFont(11f));
-//		lblNewEvents.setForeground(Color.RED);
 		
 		// ###################################################################
 		
-			// Create and add to this JPanel a popup menu
-			popupMenu = new JPopupMenu();
-			//addPopup(this, popupMenu);
-			
-			// Fill the popup menu with another JPanel
-			JPanel popupPanel = new JPanel();
-			popupMenu.add(popupPanel);
-			popupPanel.setLayout(new BorderLayout(0, 0));
-			
-			// Create new default list model
-			defaultModel = new DefaultListModel<String>();
-			
-			for(Match item : dayEvents)
-			{
-				defaultModel.addElement(item.getHome().getName() + " - " + item.getAway().getName() + " at " + item.getStartTime().get(Calendar.HOUR_OF_DAY) + ":" + item.getStartTime().get(Calendar.MINUTE));
-			}
+		// Create and add to this JPanel a popup menu
+		popupMenu = new JPopupMenu();
+		//addPopup(this, popupMenu);
+		
+		// Fill the popup menu with another JPanel
+		JPanel popupPanel = new JPanel();
+		popupMenu.add(popupPanel);
+		popupPanel.setLayout(new BorderLayout(0, 0));
+		
+		// Create new default list model
+		defaultModel = new DefaultListModel<String>();
 
-			// Create a new list for displaying match names
-			eventNamesList = new JList<String>(defaultModel);
-			eventNamesList.setFont(mainFont);
-			eventNamesList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-			eventNamesList.setLayoutOrientation(JList.VERTICAL);
-			eventNamesList.setVisibleRowCount(-1);
-			popupPanel.add(eventNamesList, BorderLayout.CENTER);
-			
-			// Create a label for popup menu
-			JLabel lblIncomingEvents = new JLabel("Incoming events");
-			lblIncomingEvents.setFont(new Font("Century Gothic", Font.PLAIN, 15));
-			lblIncomingEvents.setHorizontalAlignment(SwingConstants.CENTER);
-			popupPanel.add(lblIncomingEvents, BorderLayout.NORTH);
-			
-			// Create a button to add events
-			final JButton btnAddToTracked = new JButton("Add to tracked");
-			btnAddToTracked.addActionListener(new ActionListener()
-			{
-
-				@Override
-				public void actionPerformed(ActionEvent arg0)
-				{
-					if(arg0.getSource() == btnAddToTracked)
-					{
-						int[] eventIndices = eventNamesList.getSelectedIndices();
-						for(int i : eventIndices)
-						{
-							defaultModel.setElementAt("<trk> " + defaultModel.getElementAt(i), i);
-							User.getInstance().addTrackedMatch(dayEvents.get(i));
-						}
-					}
-					
-				}
-				
-			});
-			btnAddToTracked.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-			popupPanel.add(btnAddToTracked, BorderLayout.SOUTH);
+		// Create a new list for displaying match names
+		eventNamesList = new JList<String>(defaultModel);
+		eventNamesList.setFont(mainFont);
+		eventNamesList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		eventNamesList.setLayoutOrientation(JList.VERTICAL);
+		eventNamesList.setVisibleRowCount(-1);
+		popupPanel.add(eventNamesList, BorderLayout.CENTER);
+		
+		// Create a label for popup menu
+		JLabel lblIncomingEvents = new JLabel("Incoming events");
+		lblIncomingEvents.setFont(new Font("Century Gothic", Font.PLAIN, 15));
+		lblIncomingEvents.setHorizontalAlignment(SwingConstants.CENTER);
+		popupPanel.add(lblIncomingEvents, BorderLayout.NORTH);
+		
+		// Create a button to add events
+		btnAddToTracked = new JButton("Add to tracked");
+		btnAddToTracked.addActionListener(new AddToTrackedAction());
+		btnAddToTracked.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+		popupPanel.add(btnAddToTracked, BorderLayout.SOUTH);
 		
 		
 		GroupLayout gl_DayPanel = new GroupLayout(this);
@@ -180,60 +158,125 @@ public class CalendarPanel extends JPanel
 		this.setLayout(gl_DayPanel);
 	}
 	
-	public void setNewEventsInfo(LinkedList<Match> matches)
+	private class AddToTrackedAction implements ActionListener
 	{
-		addPopup(this, popupMenu);
-		dayEvents = matches;
-		for(Match item : dayEvents)
+
+		@Override
+		public void actionPerformed(ActionEvent arg0)
 		{
-			defaultModel.addElement(item.getHome().getName() + " - " + item.getAway().getName() + " at " + item.getStartTime().get(Calendar.HOUR_OF_DAY) + ":" + item.getStartTime().get(Calendar.MINUTE));
+			if(arg0.getSource() == btnAddToTracked)
+			{
+				int[] eventIndices = eventNamesList.getSelectedIndices();
+				for(int i : eventIndices)
+				{
+					defaultModel.setElementAt("<trk> " + defaultModel.getElementAt(i), i);
+					
+					try
+					{
+						User.getInstance().addTrackedMatch(dayEvents.get(i));
+					} 
+					catch (MatchAlreadyInCollectionException e)
+					{
+						e.printStackTrace();
+					}
+					
+					//Debug
+					System.out.println(User.getInstance().getTrackedMatches().size() + " matches in repo currently");
+				}
+			}
+			
 		}
-		eventNamesList = new JList<String>(defaultModel);
 		
-		// Set the match notification picture
-		ballPicture.setIcon(new ImageIcon(MainWindow.class.getResource(ballNormal)));
-		ballPicture.setHorizontalAlignment(SwingConstants.CENTER);
-		
-		// Add the event notification label
-		lblNewEvents.setText(dayEvents.size() + " events");
-		lblNewEvents.setFont(mainFont.deriveFont(11f));
-		lblNewEvents.setForeground(Color.RED);
 	}
 	
-	private static void addPopup(final JPanel component, final JPopupMenu popup) 
+	public void addEvent(Match match)
 	{
-		component.addMouseListener(new MouseAdapter() 
+		if(dayEvents.size() == 0)
 		{
-			public void mousePressed(MouseEvent e) 
+			addPopup(this, popupMenu);
+			
+			// Set the match notification picture
+			ballPicture.setVisible(true);
+		}
+		
+		dayEvents.add(match);
+		defaultModel.addElement(match.getHome().getName() + " - " + match.getAway().getName() + " at " + match.getStartTime().get(Calendar.HOUR_OF_DAY) + ":" + match.getStartTime().get(Calendar.MINUTE));
+		
+		// Add the event notification label
+		if(dayEvents.size() == 1)
+		{
+			lblNewEvents.setText("1 event");			
+		}
+		else
+		{
+			lblNewEvents.setText(dayEvents.size() + " events");
+		}
+	}
+	
+	public void clearEvents()
+	{
+		dayEvents.clear();
+		defaultModel.clear();
+		removePopup(this);
+		ballPicture.setVisible(false);
+		lblNewEvents.setText("");
+	}
+	
+	private void addPopup(final JPanel component, final JPopupMenu popup) 
+	{
+		mousePopupListener = new ListenForMouse(component, popup);
+		component.addMouseListener(mousePopupListener);
+	}
+	
+	private void removePopup(final JPanel component)
+	{
+		if(mousePopupListener != null)
+		{
+			component.removeMouseListener(mousePopupListener);
+			mousePopupListener = null;
+		}
+	}
+	
+	private class ListenForMouse extends MouseAdapter
+	{
+		private JPanel component;
+		private JPopupMenu popup;
+		
+		public ListenForMouse(JPanel component, JPopupMenu popup)
+		{
+			this.component = component;
+			this.popup = popup;
+		}
+		
+		public void mousePressed(MouseEvent e) 
+		{
+			if (e.getButton() == MouseEvent.BUTTON1) 
 			{
-				if (e.getButton() == MouseEvent.BUTTON1) 
-				{
-					showMenu(e);
-					component.setBorder(loweredBorder);
-				}
+				showMenu(e);
+				component.setBorder(loweredBorder);
 			}
-			public void mouseReleased(MouseEvent e) 
+		}
+		public void mouseReleased(MouseEvent e) 
+		{
+			if (e.getButton() == MouseEvent.BUTTON1) 
 			{
-				if (e.getButton() == MouseEvent.BUTTON1) 
-				{
-					//showMenu(e);
-					component.setBorder(raisedBorder);
-				}
+				//showMenu(e);
+				component.setBorder(raisedBorder);
 			}
-			private void showMenu(MouseEvent e) 
-			{
-				popup.show(e.getComponent(), e.getX() , e.getY());
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) 
-			{
-				component.setBackground(Color.decode("#cfe0e8"));
-			}
-			@Override
-			public void mouseExited(MouseEvent e) 
-			{
-				component.setBackground(Color.decode("#f0efef"));
-			}
-		});
+		}
+		private void showMenu(MouseEvent e) 
+		{
+			popup.show(e.getComponent(), e.getX() , e.getY());
+		}
+		@Override
+		public void mouseEntered(MouseEvent e) 
+		{
+			component.setBackground(Color.decode("#cfe0e8"));
+		}
+		@Override
+		public void mouseExited(MouseEvent e) 
+		{
+			component.setBackground(Color.decode("#f0efef"));
+		}
 	}
 }

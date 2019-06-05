@@ -28,7 +28,7 @@ public class Match {
 		
 		
 	}
-
+	
 	public Score getScore() 
 	{
 		return score;
