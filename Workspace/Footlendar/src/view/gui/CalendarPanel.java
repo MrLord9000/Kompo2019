@@ -174,10 +174,13 @@ public class CalendarPanel extends JPanel
 						User.getInstance().addTrackedMatch(dayEvents.get(i));
 						defaultModel.setElementAt("<trk> " + defaultModel.getElementAt(i), i);
 						MainWindow.getNotificationPanel().update();
+						btnAddToTracked.setText("Match added succesfully!");
+						btnAddToTracked.setForeground(Color.GREEN);
 					} 
 					catch (MatchAlreadyInCollectionException e)
 					{
-						e.printStackTrace();
+						btnAddToTracked.setText("Match already in collection!");
+						btnAddToTracked.setForeground(Color.RED);
 					}
 					
 				}
@@ -265,6 +268,8 @@ public class CalendarPanel extends JPanel
 		private void showMenu(MouseEvent e) 
 		{
 			popup.show(e.getComponent(), e.getX() , e.getY());
+			btnAddToTracked.setText("Add to tracked");
+			btnAddToTracked.setForeground(Color.BLACK);
 		}
 		@Override
 		public void mouseEntered(MouseEvent e) 

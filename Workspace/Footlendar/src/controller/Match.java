@@ -64,6 +64,11 @@ public class Match {
 		minutesRemindBeforeStart = minutes;
 	}
 	
+	public String getDescription()
+	{
+		return description;
+	}
+	
 	public String info()
 	{
 		String s = new String(); 

@@ -42,15 +42,12 @@ public class NotificationPanel extends JScrollPane
 		viewPanel = new JPanel();
 		this.setViewportView(viewPanel);
 		viewPanel.setLayout(new MigLayout("", "[210px,grow,fill]", "[28px,fill][28px][]"));
-				
-		//panel_1.add(new MatchPanel(new Match(4, new Team("Japonia U20"), new Team("Korea Po?udniowa U20"), new GregorianCalendar(2019, Calendar.JUNE, 22), "to jest o434pis")), "cell 0 0");
-		//MatchPanel matchPanel = new MatchPanel(new Match(4, new Team("Japonia U20"), new Team("Korea Po?udniowa U20"), new GregorianCalendar(2019, Calendar.JUNE, 22), "to jest o434pis"));
-		//panel_1.add(matchPanel, "cell 0 1");
 	}
 	
 	public void update()
 	{
 		matchPanels.clear();
+		viewPanel.removeAll();
 		
 		for(Match item : User.getInstance().getTrackedMatches())
 		{
