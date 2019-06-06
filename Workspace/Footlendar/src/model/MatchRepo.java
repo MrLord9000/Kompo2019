@@ -28,9 +28,9 @@ public class MatchRepo implements IRepository<Match, Long> {
 		this.matches = new LinkedList<>();
 		
 		// Temp
-		matches.add(new Match(0, new Team("Tem 1"), new Team("Team2"), (GregorianCalendar) GregorianCalendar.getInstance(), "to 2323est opis"));
-		matches.add(new Match(0, new Team("Team a"), new Team("Team3"), (GregorianCalendar) GregorianCalendar.getInstance(), "to j11est opis"));
-		matches.add(new Match(0, new Team("Team 2"), new Team("Team3"), new GregorianCalendar(2019, Calendar.JUNE, 22), "to jest o434pis"));
+		matches.add(new Match(0, new Team("Francja U20"), new Team("USA U20"), (GregorianCalendar) GregorianCalendar.getInstance(), "to 2323est opis"));
+		matches.add(new Match(1, new Team("Włochy U20"), new Team("Polska U20"), (GregorianCalendar) GregorianCalendar.getInstance(), "to j11est opis"));
+		matches.add(new Match(2, new Team("Argentyna U20"), new Team("Mali U20"), new GregorianCalendar(2019, Calendar.JUNE, 22), "to jest o434pis"));
 		// Temp end
 	}
 
@@ -51,14 +51,14 @@ public class MatchRepo implements IRepository<Match, Long> {
 				//System.out.println(TeamRepo.getInstance().get(rs.getString("home")));
 				matches.add(m);
 			}
-
 			
-			
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e)
+		} 
+		catch (InstantiationException | IllegalAccessException | ClassNotFoundException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (SQLException e)
+		} 
+		catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();

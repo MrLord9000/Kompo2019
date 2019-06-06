@@ -23,6 +23,8 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
+import controller.Match;
+import controller.Team;
 import model.MatchRepo;
 
 import com.jgoodies.forms.layout.FormSpecs;
@@ -55,6 +57,13 @@ import javax.swing.JLayeredPane;
 import javax.swing.JDesktopPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JCheckBox;
+import javax.swing.JTextArea;
+import javax.swing.BoxLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.SystemColor;
 
 public class MainWindow extends JFrame
 {
@@ -62,13 +71,14 @@ public class MainWindow extends JFrame
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static NotificationPanel notificationPanel;
 	private CalendarHandler calendarHandler;
 	private JPanel contentPane;
 	private JButton prevMonthBtn;
 	private JButton nextMonthBtn;
-
 	
 	
+	public static NotificationPanel getNotificationPanel() { return notificationPanel; }
 	/**
 	 * Launch the application.
 	 */
@@ -117,7 +127,7 @@ public class MainWindow extends JFrame
 		// Window default font
 		setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		// Default close operation - set to DISPOSE_ON_CLOSE for best compatibility
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// ------------------------------------------------------------------------
 		// --- Set window bounds - keep in mind this should be resized ------------
@@ -144,11 +154,9 @@ public class MainWindow extends JFrame
 		CalendarPanel.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
 		
 		// Left side Notification Pane constructor
-		JScrollPane NotificationScrollPane = new JScrollPane();
-		NotificationScrollPane.setViewportBorder(null);
-		NotificationScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		NotificationScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		notificationPanel = new NotificationPanel();
 		
+		// Center days of week panel creation
 		JPanel daysOfWeekPanel = new JPanel();
 		
 		// Main frame group layout configuration ----------------------------------------------------------------------------------
@@ -157,7 +165,7 @@ public class MainWindow extends JFrame
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(NotificationScrollPane, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)
+					.addComponent(notificationPanel, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(daysOfWeekPanel, GroupLayout.DEFAULT_SIZE, 1084, Short.MAX_VALUE)
@@ -170,7 +178,7 @@ public class MainWindow extends JFrame
 				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(NotificationScrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
+						.addComponent(notificationPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(MenuPanel, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
@@ -247,115 +255,11 @@ public class MainWindow extends JFrame
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.GLUE_ROWSPEC,}));
 		// ------------------------------------------------------------------------------------------------------------------------
+				
 		
 		
-		
-		// ------------------------------------------------------------------------------------------------------------------------
-		// --- Here DayPanel factory should be implemented! -----------------------------------------------------------------------
-//			JPanel DayPanel = new JPanel();
-//			DayPanel.setBorder(raisedBorder);
-//			CalendarPanel.add(DayPanel, "2, 4, fill, fill");
-//			
-//			JLabel dayNumber = new JLabel("99");
-//			dayNumber.setFont(new Font("Century Gothic", Font.PLAIN, 47));
-//			
-//			JLabel ballPic = new JLabel("");
-//			ballPic.setIcon(new ImageIcon(MainWindow.class.getResource("/resources/football_64.png")));
-//			ballPic.setHorizontalAlignment(SwingConstants.CENTER);
-//			ballPic.setFont(new Font("Century Gothic", Font.PLAIN, 47));
-//			
-//			JLabel lblNewEvents = new JLabel("2 new events");
-//			
-//			
-//			
-//			JPopupMenu popupMenu_1 = new JPopupMenu();
-//			//popupMenu_1.setPopupSize(new Dimension(150, 100));
-//			addPopup(DayPanel, popupMenu_1);
-//			
-//			JPanel panel = new JPanel();
-//			popupMenu_1.add(panel);
-//			panel.setLayout(new BorderLayout(0, 0));
-//			
-//			DefaultListModel<String> defaultModel = new DefaultListModel<String>();
-//			defaultModel.addElement("Match 1");
-//			defaultModel.addElement("Match 2");
-//			defaultModel.addElement("Match 3");
-//			//defaultModel.addElement("Match 4");
-//			
-//			JList<String> list = new JList<String>(defaultModel);
-//			list.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-//			list.setSize(150, 50);
-//			list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//			list.setLayoutOrientation(JList.VERTICAL);
-//			list.setVisibleRowCount(-1);
-//			list.setMaximumSize(new Dimension(130, 50));
-//			panel.add(list, BorderLayout.CENTER);
-//			
-//			JLabel lblIncomingEvents = new JLabel("Incoming events");
-//			lblIncomingEvents.setFont(new Font("Century Gothic", Font.PLAIN, 15));
-//			lblIncomingEvents.setHorizontalAlignment(SwingConstants.CENTER);
-//			panel.add(lblIncomingEvents, BorderLayout.NORTH);
-//			
-//			JButton btnAddToTracked = new JButton("Add to tracked");
-//			btnAddToTracked.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-//			panel.add(btnAddToTracked, BorderLayout.SOUTH);
-//			
-			
-//			
-//			GroupLayout gl_DayPanel = new GroupLayout(DayPanel);
-//			gl_DayPanel.setHorizontalGroup(
-//				gl_DayPanel.createParallelGroup(Alignment.LEADING)
-//					.addGroup(gl_DayPanel.createSequentialGroup()
-//						.addGroup(gl_DayPanel.createParallelGroup(Alignment.TRAILING)
-//							.addGroup(gl_DayPanel.createSequentialGroup()
-//								.addContainerGap()
-//								.addComponent(dayNumber, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
-//								.addPreferredGap(ComponentPlacement.RELATED)
-//								.addComponent(ballPic, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-//								.addGap(0, 0, Short.MAX_VALUE))
-//							.addGroup(gl_DayPanel.createSequentialGroup()
-//								.addGap(9)
-//								.addComponent(lblNewEvents, GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-//								.addGap(0)))
-//						.addGap(9))
-//			);
-//			gl_DayPanel.setVerticalGroup(
-//				gl_DayPanel.createParallelGroup(Alignment.LEADING)
-//					.addGroup(gl_DayPanel.createSequentialGroup()
-//						.addGroup(gl_DayPanel.createParallelGroup(Alignment.TRAILING, false)
-//							.addComponent(dayNumber, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-//							.addComponent(ballPic, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))
-//						.addPreferredGap(ComponentPlacement.RELATED)
-//						.addComponent(lblNewEvents, GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-//						.addGap(23))
-//			);
-//			DayPanel.setLayout(gl_DayPanel);
-		
-
-		// ------------------------------------------------------------------------------------------------------------------------
-		
-		JLabel lblNotifications = new JLabel("Notifications");
-		lblNotifications.setFont(new Font("Century Gothic", Font.PLAIN, 16));
-		lblNotifications.setHorizontalAlignment(SwingConstants.CENTER);
-		NotificationScrollPane.setColumnHeaderView(lblNotifications);
-		
-		JPanel panel_1 = new JPanel();
-		NotificationScrollPane.setViewportView(panel_1);
-		panel_1.setLayout(new MigLayout("", "[210px,grow,fill]", "[28px][28px]"));
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
-		panel_1.add(panel_2, "cell 0 0,growx,aligny top");
-		
-		JLabel lblNotification = new JLabel("Notification 1");
-		panel_2.add(lblNotification);
-		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
-		panel_1.add(panel_3, "cell 0 1,growx,aligny top");
-		
-		JLabel label_1 = new JLabel("Notification 1");
-		panel_3.add(label_1);
+				
+				
 		MenuPanel.setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.GLUE_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,

@@ -169,19 +169,17 @@ public class CalendarPanel extends JPanel
 				int[] eventIndices = eventNamesList.getSelectedIndices();
 				for(int i : eventIndices)
 				{
-					defaultModel.setElementAt("<trk> " + defaultModel.getElementAt(i), i);
-					
 					try
 					{
 						User.getInstance().addTrackedMatch(dayEvents.get(i));
+						defaultModel.setElementAt("<trk> " + defaultModel.getElementAt(i), i);
+						MainWindow.getNotificationPanel().update();
 					} 
 					catch (MatchAlreadyInCollectionException e)
 					{
 						e.printStackTrace();
 					}
 					
-					//Debug
-					System.out.println(User.getInstance().getTrackedMatches().size() + " matches in repo currently");
 				}
 			}
 			
