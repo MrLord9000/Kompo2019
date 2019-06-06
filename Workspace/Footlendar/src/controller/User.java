@@ -181,7 +181,7 @@ public class User {
 		if(match != null && trackedMatches.contains(match) == false)
 		{
 			trackedMatches.add(match);
-			saveMatches();
+			//saveMatches();
 		}
 		else
 		{

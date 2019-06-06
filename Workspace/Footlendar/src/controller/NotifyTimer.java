@@ -32,7 +32,7 @@ public class NotifyTimer {
 			this.startTimer.schedule(new TimerTask()
 			{
 				public void run()
-				{	
+				{	m.setScore(new Score());
 					User.getInstance().notifyOnStart(m);
 				}
 			}
@@ -74,9 +74,9 @@ public class NotifyTimer {
 				public void run()
 				{
 					//User.getInstance().notifyOnUpdate(m);
-					IHtmlScoreReader reader = new FlashScoreHtmlScoreReader();
+					IHtmlScoreReader reader = new TestHtmlScoreReader();
 					Score score = reader.getScore(m);
-					if(!score.equals(m.getScore()))
+					if(score != null && !score.equals(m.getScore()))
 					{
 						m.setScore(score);
 						User.getInstance().notifyOnUpdate(m);

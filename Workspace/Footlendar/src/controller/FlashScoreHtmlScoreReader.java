@@ -28,13 +28,14 @@ public class FlashScoreHtmlScoreReader implements IHtmlScoreReader
 		}
 	}
 	
-	public String getTextScore(Match match)
+	protected String getTextScore(Match match, String css)
 	{
 		String score = null;
-		String css = "div#wyniki > div.league_box > div > div.n > a";
+		//String css = "div#wyniki > div.league_box > div > div.n > a";
 		//String css = "tr.odd.stage-finish";
 		//System.out.println(css);
 		Elements elements = doc.body().select(css);
+		//System.out.println(elements.toString());
 		for(Element e: elements)
 		{
 			String a = e.text();
@@ -45,14 +46,13 @@ public class FlashScoreHtmlScoreReader implements IHtmlScoreReader
 			}
 		}
 		
-		
 		return score;
 	}
 	
 	@Override
 	public Score getScore(Match match)
 	{
-		String [] s = getTextScore(match).split("-");
+		String [] s = getTextScore(match, "div#wyniki > div.league_box > div > div.n > a").split("-");
 		int score1 = Integer.parseInt(s[0]);
 		int score2 = Integer.parseInt(s[1]);
 		
