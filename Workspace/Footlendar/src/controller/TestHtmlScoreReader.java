@@ -65,7 +65,6 @@ public class TestHtmlScoreReader implements IHtmlScoreReader
 			return score;
 		}
 		else return null;
-		
 	}
 
 }

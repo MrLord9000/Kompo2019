@@ -53,11 +53,15 @@ public class FlashScoreHtmlScoreReader implements IHtmlScoreReader
 	public Score getScore(Match match)
 	{
 		String [] s = getTextScore(match, "div#wyniki > div.league_box > div > div.n > a").split("-");
-		int score1 = Integer.parseInt(s[0]);
-		int score2 = Integer.parseInt(s[1]);
-		
-		Score score = new Score(score1, score2);
-		return score;
+		if(s.length > 0)
+		{
+			int score1 = Integer.parseInt(s[0]);
+			int score2 = Integer.parseInt(s[1]);
+			
+			Score score = new Score(score1, score2);
+			return score;
+		}
+		else return null;
 	}
 
 }

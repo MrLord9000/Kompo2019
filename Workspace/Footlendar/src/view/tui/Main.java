@@ -1,5 +1,7 @@
 package view.tui;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 import controller.MatchAlreadyInCollectionException;
@@ -18,7 +20,8 @@ public class Main
 		System.out.println("4. Show all teams");
 		System.out.println("5. Add events to track");
 		System.out.println("6. Add team to favourites");
-		System.out.println("7. Exit");
+		System.out.println("7. Remove events older than...");
+		System.out.println("8. Exit");
 	}
 	
 	private static void returnToMenu()
@@ -103,8 +106,17 @@ public class Main
 				System.out.println("Press ENTER to return to menu");
 				in.next();
 				break;
-				
 			case 7:
+				System.out.println("Type number of days:");
+				buff = in.nextLine();
+				int days = Integer.parseInt(buff);
+				GregorianCalendar before = new GregorianCalendar();
+				before.add(Calendar.DAY_OF_MONTH, -days);
+				MatchRepo.getInstance().removeBefore(before);
+				System.out.println("Press ENTER to return to menu");
+				in.next();
+				break;	
+			case 8:
 				exit = true;
 				User.getInstance().save();
 				in.close();

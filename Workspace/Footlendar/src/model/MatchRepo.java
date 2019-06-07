@@ -8,11 +8,13 @@ import java.sql.Statement;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import controller.Match;
 import controller.Team;
+import controller.User;
 
 public class MatchRepo implements IRepository<Match, Long> {
 
@@ -96,6 +98,19 @@ public class MatchRepo implements IRepository<Match, Long> {
 	@Override
 	public void remove(Long id) {
 		// TODO Auto-generated method stub
+	}
+	
+	public void removeBefore(GregorianCalendar before)
+	{
+		for(Iterator<Match> it = matches.iterator(); it.hasNext();)
+		{
+			Match m = it.next();
+			if(m.getStartTime().before(before))
+			{
+				User.getInstance().remove(m);
+				it.remove();
+			}
+		}
 	}
 		
 		

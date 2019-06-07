@@ -238,4 +238,15 @@ public class User {
 	{
 		return trackedMatches;
 	}
+	
+	public void remove(Match m)
+	{
+		if(trackedMatches.contains(m))
+		{
+			trackedMatches.remove(m);
+		}
+	}
 }
+
+
+	

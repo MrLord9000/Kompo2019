@@ -25,7 +25,9 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import controller.Match;
 import controller.Team;
+import controller.User;
 import model.MatchRepo;
+import model.TeamRepo;
 
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JButton;
@@ -91,6 +93,9 @@ public class MainWindow extends JFrame
 				
 				try
 				{
+					TeamRepo.getInstance().load();
+					MatchRepo.getInstance().load();
+					User.getInstance().load();
 					MainWindow frame = new MainWindow();
 					frame.setVisible(true);
 				} catch (Exception e)
