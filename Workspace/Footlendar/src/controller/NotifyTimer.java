@@ -5,6 +5,8 @@ import java.util.GregorianCalendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import model.MatchRepo;
+
 public class NotifyTimer {
 	
 	private Timer startTimer;
@@ -60,7 +62,7 @@ public class NotifyTimer {
 		
 		
 		//Run updateChecker Timer
-		GregorianCalendar endTime = (GregorianCalendar) startTime.clone();
+		final GregorianCalendar endTime = (GregorianCalendar) startTime.clone();
 		endTime.add(Calendar.HOUR, 3);
 		//System.out.println("xD");
 		if(endTime.after(new GregorianCalendar()))
@@ -80,6 +82,11 @@ public class NotifyTimer {
 					{
 						m.setScore(score);
 						User.getInstance().notifyOnUpdate(m);
+					}
+					if(endTime.before(new GregorianCalendar()))
+					{
+						MatchRepo.getInstance().updateScore(m);
+						updateChecker.cancel();
 					}
 					
 				}

@@ -30,7 +30,7 @@ public class TestHtmlScoreReader implements IHtmlScoreReader
 	
 	protected String getTextScore(Match match, String css)
 	{
-		String score = null;
+		String score = "";
 
 		Elements elements = doc.body().select(css);
 		//System.out.println(elements.toString());
@@ -43,7 +43,7 @@ public class TestHtmlScoreReader implements IHtmlScoreReader
 				score = e.select("b").text();
 			}
 		}
-		System.out.println(score);
+		//System.out.println(score);
 		return score;
 	}
 
@@ -55,8 +55,8 @@ public class TestHtmlScoreReader implements IHtmlScoreReader
 		//System.out.println(doc.select("*"));
 		
 		String [] s = getTextScore(match, "div#mecze > div.mecz").split("-");
-		//System.out.println(s.length);
-		if(s.length > 0)
+		System.out.println(s.length);
+		if(s.length > 1 && s != null)
 		{
 			int score1 = Integer.parseInt(s[0]);
 			int score2 = Integer.parseInt(s[1]);

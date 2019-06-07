@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,7 +14,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import controller.Match;
+import controller.Score;
 import controller.Team;
+import controller.TestHtmlScoreReader;
 import controller.User;
 
 public class MatchRepo implements IRepository<Match, Long> {
@@ -49,8 +52,30 @@ public class MatchRepo implements IRepository<Match, Long> {
 				
 				GregorianCalendar cal = convertSQLDateToGregorianCalendar(rs.getDate("startTime"), rs.getTime("startTime"));
 				Match m = new Match(rs.getInt("id"), TeamRepo.getInstance().get(rs.getString("home")), TeamRepo.getInstance().get(rs.getString("away")), cal, rs.getString("descr"));
-				//System.out.println(cal.get(Calendar.HOUR));
-				//System.out.println(TeamRepo.getInstance().get(rs.getString("home")));
+				Integer sh = rs.getInt("scoreHome");
+				Integer sa = rs.getInt("scoreAway");
+				
+				//System.out.println(sa);
+				if(sh >= 0 && sa >= 0)
+				{
+					Score score = new Score(sh, sa);
+					m.setScore(score);
+				}
+				else if(cal.before(new GregorianCalendar()))
+				{
+					m.setScore(new TestHtmlScoreReader().getScore(m));
+					GregorianCalendar endTime = (GregorianCalendar) cal.clone();
+					endTime.add(Calendar.HOUR, 3);
+					if(endTime.before(new GregorianCalendar()) && sh == -1 && sa == -1)
+					{
+						System.out.println(m);
+						PreparedStatement stat2 = con.prepareStatement("UPDATE Matches SET scoreHome=" + m.getScore().getHomeGoals() + " WHERE id=" + m.getId());
+						PreparedStatement stat3 = con.prepareStatement("UPDATE Matches SET scoreAway=" + m.getScore().getAwayGoals() + " WHERE id=" + m.getId());
+						stat2.executeUpdate();
+						stat3.executeUpdate();
+						con.commit();
+					}
+				}
 				matches.add(m);
 			}
 			
@@ -120,6 +145,34 @@ public class MatchRepo implements IRepository<Match, Long> {
 		//System.out.println(date.getMinutes());
 		GregorianCalendar c = new GregorianCalendar(date.getYear() + 1900, date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
 		return c;
+	}
+	
+	public void updateScore(Match m)
+	{
+		
+		try
+		{
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
+			Connection con = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true");
+			Statement stat = con.createStatement();
+			ResultSet rs = stat.executeQuery("UPDATE Matches SET scoreHome=" + m.getScore().getHomeGoals() + "AND SET scoreAway=" + m.getScore().getAwayGoals());
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
