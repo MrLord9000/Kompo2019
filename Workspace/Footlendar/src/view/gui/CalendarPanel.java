@@ -40,6 +40,8 @@ public class CalendarPanel extends JPanel
 
 	private static final ImageIcon ballNormal = new ImageIcon(MainWindow.class.getResource("/resources/football_64.png"));
 	
+	private Color defaultColor;
+	
 	private ListenForMouse mousePopupListener;
 	
 	private LinkedList<Match> dayEvents;
@@ -72,6 +74,17 @@ public class CalendarPanel extends JPanel
 			row = (row + 1) * 2;
 		// -------------------------------------------------------------------
 				
+		if(calendarDate.before(Calendar.getInstance()))
+		{
+			defaultColor = Color.decode("#B4B7BA");
+		}
+		else 
+		{
+			defaultColor = Color.decode("#f0efef");
+		}
+		
+		this.setBackground(defaultColor);
+			
 		// Add this calendar panel to the parent panel
 		parentPanel.add(this, column + ", " + row +", fill, fill");
 
@@ -173,7 +186,6 @@ public class CalendarPanel extends JPanel
 					{
 						User.getInstance().addTrackedMatch(dayEvents.get(i));
 						defaultModel.setElementAt("<trk> " + defaultModel.getElementAt(i), i);
-						MainWindow.getNotificationPanel().update();
 						btnAddToTracked.setText("Match added succesfully!");
 						btnAddToTracked.setForeground(Color.GREEN);
 					} 
@@ -181,6 +193,10 @@ public class CalendarPanel extends JPanel
 					{
 						btnAddToTracked.setText("Match already in collection!");
 						btnAddToTracked.setForeground(Color.RED);
+					}
+					finally
+					{
+						MainWindow.getNotificationPanel().update();
 					}
 					
 				}
@@ -279,7 +295,7 @@ public class CalendarPanel extends JPanel
 		@Override
 		public void mouseExited(MouseEvent e) 
 		{
-			component.setBackground(Color.decode("#f0efef"));
+			component.setBackground(defaultColor);
 		}
 	}
 }

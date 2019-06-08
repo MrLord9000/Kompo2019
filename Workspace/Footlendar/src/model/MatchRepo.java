@@ -13,6 +13,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import controller.FlashScoreHtmlScoreReader;
 import controller.Match;
 import controller.Score;
 import controller.Team;
@@ -43,7 +44,7 @@ public class MatchRepo implements IRepository<Match, Long> {
 		try
 		{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
-			Connection con = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true");
+			Connection con = DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=FootlendarDB;integratedSecurity=true");
 			Statement stat = con.createStatement();
 			ResultSet rs = stat.executeQuery("SELECT * FROM Matches");
 			
@@ -63,7 +64,7 @@ public class MatchRepo implements IRepository<Match, Long> {
 				}
 				else if(cal.before(new GregorianCalendar()))
 				{
-					m.setScore(new TestHtmlScoreReader().getScore(m));
+					m.setScore(new FlashScoreHtmlScoreReader().getScore(m));
 					GregorianCalendar endTime = (GregorianCalendar) cal.clone();
 					endTime.add(Calendar.HOUR, 3);
 					if(endTime.before(new GregorianCalendar()) && sh == -1 && sa == -1)

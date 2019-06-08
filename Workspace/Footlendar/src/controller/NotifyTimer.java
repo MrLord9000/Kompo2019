@@ -59,7 +59,7 @@ public class NotifyTimer {
 			, calculateDateToMiliseconds(startTime) - minutesBefore * 60 * 1000);
 			
 		}
-		
+		System.out.println(remTime.toString());
 		
 		//Run updateChecker Timer
 		final GregorianCalendar endTime = (GregorianCalendar) startTime.clone();

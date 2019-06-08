@@ -44,6 +44,8 @@ import javax.swing.SpringLayout;
 import java.awt.FlowLayout;
 import javax.swing.border.LineBorder;
 import net.miginfocom.swing.MigLayout;
+import view.tui.ConsoleNotifier;
+
 import javax.swing.JMenuBar;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
@@ -66,6 +68,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.SystemColor;
+import javax.swing.JCheckBoxMenuItem;
 
 public class MainWindow extends JFrame
 {
@@ -96,9 +99,11 @@ public class MainWindow extends JFrame
 					TeamRepo.getInstance().load();
 					MatchRepo.getInstance().load();
 					User.getInstance().load();
+					User.getInstance().setNotifier(new GuiNotifier());
 					MainWindow frame = new MainWindow();
 					frame.setVisible(true);
-				} catch (Exception e)
+				} 
+				catch (Exception e)
 				{
 					e.printStackTrace();
 				}
@@ -137,7 +142,7 @@ public class MainWindow extends JFrame
 		// ------------------------------------------------------------------------
 		// --- Set window bounds - keep in mind this should be resized ------------
 		
-			setBounds(100, 100, 1401, 795);
+			setBounds(100, 100, 1491, 795);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -167,24 +172,24 @@ public class MainWindow extends JFrame
 		// Main frame group layout configuration ----------------------------------------------------------------------------------
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(notificationPanel, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)
+					.addComponent(notificationPanel, GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
 					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(daysOfWeekPanel, GroupLayout.DEFAULT_SIZE, 1084, Short.MAX_VALUE)
-						.addComponent(CalendarPanel, GroupLayout.DEFAULT_SIZE, 1084, Short.MAX_VALUE)
-						.addComponent(MenuPanel, GroupLayout.DEFAULT_SIZE, 1084, Short.MAX_VALUE))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(MenuPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(daysOfWeekPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(CalendarPanel, GroupLayout.PREFERRED_SIZE, 1092, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addComponent(notificationPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
-						.addGroup(gl_contentPane.createSequentialGroup()
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
 							.addComponent(MenuPanel, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addComponent(daysOfWeekPanel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
@@ -321,6 +326,66 @@ public class MainWindow extends JFrame
 		
 		// #### Calendar initialization ####
 		calendarHandler = new CalendarHandler(CalendarPanel, lblMonth);
+		
+		JPanel panel = new JPanel();
+		CalendarPanel.add(panel, "2, 4, fill, fill");
+		
+		JPopupMenu popupMenu = new JPopupMenu();
+		popupMenu.setLabel("2 June 2019");
+		addPopup(panel, popupMenu);
+		
+		JPanel panel_1 = new JPanel();
+		popupMenu.add(panel_1);
+		panel_1.setLayout(new BorderLayout(0, 0));
+		
+		JPanel paneIncomingMatches = new JPanel();
+		panel_1.add(paneIncomingMatches, BorderLayout.NORTH);
+		paneIncomingMatches.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblIncomingMatches = new JLabel("Incoming Matches");
+		lblIncomingMatches.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+		lblIncomingMatches.setHorizontalAlignment(SwingConstants.CENTER);
+		paneIncomingMatches.add(lblIncomingMatches, BorderLayout.NORTH);
+		
+		JList list = new JList();
+		list.setModel(new AbstractListModel() {
+			String[] values = new String[] {"Match 1 aaa vs bbb", "Match 2 sss vs ssss", "Match 3 asd dsasd da"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		paneIncomingMatches.add(list, BorderLayout.CENTER);
+		
+		JButton btnAddToTracked = new JButton("Add to tracked");
+		btnAddToTracked.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		paneIncomingMatches.add(btnAddToTracked, BorderLayout.SOUTH);
+		
+		JPanel panePastEvents = new JPanel();
+		panel_1.add(panePastEvents, BorderLayout.SOUTH);
+		panePastEvents.setLayout(new BorderLayout(0, 0));
+		
+		JLabel lblPastEvents = new JLabel("Past Events");
+		lblPastEvents.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+		panePastEvents.add(lblPastEvents, BorderLayout.NORTH);
+		
+		JList list_1 = new JList();
+		list_1.setModel(new AbstractListModel() {
+			String[] values = new String[] {"dfasdfasdfas", "fasdfasdfasdf", "asdfasdfasdf"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		panePastEvents.add(list_1, BorderLayout.CENTER);
+		
+		JButton btnAddToFavorite = new JButton("Add to favorite");
+		btnAddToFavorite.setFont(new Font("Century Gothic", Font.PLAIN, 12));
+		panePastEvents.add(btnAddToFavorite, BorderLayout.SOUTH);
 		calendarHandler.createMonth(GregorianCalendar.getInstance().get(Calendar.MONTH), GregorianCalendar.getInstance().get(Calendar.YEAR));
 		System.out.println("Matches length: " + MatchRepo.getInstance().getAll().size());
 		calendarHandler.updateMatches();
@@ -345,5 +410,23 @@ public class MainWindow extends JFrame
 			
 		}
 		
+	}
+	
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
 	}
 }

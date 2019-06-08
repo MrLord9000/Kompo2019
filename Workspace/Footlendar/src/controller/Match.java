@@ -23,8 +23,8 @@ public class Match {
 		this.score = null;
 		this.description = description;
 		
-		nt = new NotifyTimer();
-		nt.start(this.startTime, minutesRemindBeforeStart, this);
+		//nt = new NotifyTimer();
+		//nt.start(this.startTime, minutesRemindBeforeStart, this);
 		
 		
 	}

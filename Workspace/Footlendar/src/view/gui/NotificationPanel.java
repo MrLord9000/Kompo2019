@@ -33,7 +33,7 @@ public class NotificationPanel extends JScrollPane
 		this.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		this.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
-		JLabel lblNotifications = new JLabel("Notifications");
+		JLabel lblNotifications = new JLabel("Tracked Matches");
 		lblNotifications.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		lblNotifications.setHorizontalAlignment(SwingConstants.CENTER);
 		this.setColumnHeaderView(lblNotifications);
@@ -42,6 +42,9 @@ public class NotificationPanel extends JScrollPane
 		viewPanel = new JPanel();
 		this.setViewportView(viewPanel);
 		viewPanel.setLayout(new MigLayout("", "[210px,grow,fill]", "[28px,fill][28px][]"));
+		
+		//Temp
+		//viewPanel.add(new MatchPanel(new Match(10, new Team("Polska U20"), new Team("Niemcy U20"), (GregorianCalendar) GregorianCalendar.getInstance(), "Opis")), "cell 0 " + (matchPanels.size() - 1));
 	}
 	
 	public void update()
