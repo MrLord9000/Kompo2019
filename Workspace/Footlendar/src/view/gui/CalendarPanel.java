@@ -71,11 +71,15 @@ public class CalendarPanel extends JPanel
 			row = (row + 1) * 2;
 		// -------------------------------------------------------------------
 				
-		if(calendarDate.before(Calendar.getInstance()))
+		if(calendarDate.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR) && calendarDate.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR))
+		{
+			defaultColor = Color.decode("#92B6D5");
+		}
+		else if (calendarDate.before(Calendar.getInstance()))
 		{
 			defaultColor = Color.decode("#B4B7BA");
 		}
-		else 
+		else
 		{
 			defaultColor = Color.decode("#f0efef");
 		}
@@ -138,26 +142,25 @@ public class CalendarPanel extends JPanel
 	
 	public void addEvent(Match match)
 	{
-		int initialSize = dayEvents.size();
+
 		dayEvents.add(match);
 
-		if(initialSize == 0)
+	}
+	
+	public void updatePopup()
+	{
+		if(dayEvents.size() > 0)
 		{
-			addPopup(this);	
-			// Set the match notification picture
+			addPopup(this);
 			ballPicture.setVisible(true);
-		}
-		
-//		defaultModel.addElement(match.getHome().getName() + " - " + match.getAway().getName() + " at " + match.getStartTime().get(Calendar.HOUR_OF_DAY) + ":" + match.getStartTime().get(Calendar.MINUTE));
-		
-		// Add the event notification label
-		if(dayEvents.size() == 1)
-		{
-			lblNewEvents.setText("1 event");			
-		}
-		else
-		{
-			lblNewEvents.setText(dayEvents.size() + " events");
+			if(dayEvents.size() == 1)
+			{
+				lblNewEvents.setText("1 event");			
+			}
+			else
+			{
+				lblNewEvents.setText(dayEvents.size() + " events");
+			}
 		}
 	}
 	

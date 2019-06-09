@@ -83,5 +83,10 @@ public class CalendarHandler
 			int day = item.getStartTime().get(Calendar.DAY_OF_MONTH) - 1;
 			dayPanels[day].addEvent(item);
 		}
+		
+		for(CalendarPanel item : dayPanels)
+		{
+			item.updatePopup();
+		}
 	}
 }

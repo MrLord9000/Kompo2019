@@ -89,12 +89,6 @@ public class MatchPanel extends JPanel
 		gbc_txtpnNotes.gridy = 3;
 		this.add(txtpnNotes, gbc_txtpnNotes);
 		
-//		JCheckBox chckbxNotifyMe = new JCheckBox("Notify me");
-//		GridBagConstraints gbc_chckbxNotifyMe = new GridBagConstraints();
-//		gbc_chckbxNotifyMe.gridx = 0;
-//		gbc_chckbxNotifyMe.gridy = 4;
-//		this.add(chckbxNotifyMe, gbc_chckbxNotifyMe);
-		
 		JButton btnNotification = new JButton("Notify me...");
 		GridBagConstraints gbc_btnNotification= new GridBagConstraints();
 		gbc_btnNotification.gridx = 0;
@@ -161,7 +155,14 @@ public class MatchPanel extends JPanel
 			
 			if(e.getSource() == chckbxmntmMinBefore)
 			{
-				nt.start((GregorianCalendar) GregorianCalendar.getInstance(), 30, trackedMatch);
+				if(chckbxmntmMinBefore.isSelected())
+				{
+					nt.start((GregorianCalendar) GregorianCalendar.getInstance(), 30, trackedMatch);					
+				}
+				else
+				{
+					
+				}
 			}
 			else if(e.getSource() == chckbxmntmHBefore)
 			{
