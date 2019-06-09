@@ -60,6 +60,7 @@ import java.awt.Dimension;
 import javax.swing.JLayeredPane;
 import javax.swing.JDesktopPane;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JCheckBox;
@@ -73,9 +74,6 @@ import javax.swing.JCheckBoxMenuItem;
 
 public class MainWindow extends JFrame
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private static NotificationPanel notificationPanel;
 	private CalendarHandler calendarHandler;
@@ -85,11 +83,19 @@ public class MainWindow extends JFrame
 	private JButton btnFavorites, btnAllEvents, btnAllTeams, btnAddEvent, btnSettings;
 	
 	private static MainWindow frame;
+	/**
+	 * Returns the main window component responsible for all the primary acitons.
+	 * @return		The main window component
+	 */
 	public static MainWindow getMainWindow() { return frame; }
-	
+	/**
+	 * Returns the left hand notification/tracked matches panel
+	 * @return		The notification panel component
+	 */
 	public static NotificationPanel getNotificationPanel() { return notificationPanel; }
 	/**
 	 * Launch the application.
+	 * 
 	 */
 	public static void main(String[] args)
 	{
@@ -117,7 +123,7 @@ public class MainWindow extends JFrame
 	}
 
 	/**
-	 * Create the frame.
+	 * Class constructor responsible for creating the main frame.
 	 */
 	public MainWindow() {
 		
@@ -156,21 +162,45 @@ public class MainWindow extends JFrame
 		menuBar.add(mnFile);
 		
 		JMenuItem mntmSave = new JMenuItem("Save");
+		mntmSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				JFileChooser fileChooser = new JFileChooser();
+				int returnVal = fileChooser.showSaveDialog(getMainWindow());
+			}
+		});
 		mnFile.add(mntmSave);
 		
 		JMenuItem mntmOpen = new JMenuItem("Open");
+		mntmOpen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				JFileChooser fileChooser = new JFileChooser();
+				int returnVal = fileChooser.showOpenDialog(getMainWindow());
+			}
+		});
 		mnFile.add(mntmOpen);
 		
 		JMenuItem mntmExport = new JMenuItem("Export");
+		mntmExport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				JFileChooser fileChooser = new JFileChooser();
+				int returnVal = fileChooser.showSaveDialog(getMainWindow());
+			}
+		});
 		mnFile.add(mntmExport);
 		
 		JMenu mnEdit = new JMenu("Edit");
 		menuBar.add(mnEdit);
 		
-		JMenuItem mntmSettings = new JMenuItem("Settings");
-		mnEdit.add(mntmSettings);
-		
 		JMenuItem mntmRefresh = new JMenuItem("Refresh");
+		mntmRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				CalendarHandler.updateMatches();
+			}
+		});
 		mnEdit.add(mntmRefresh);
 		
 		JMenu mnAbout = new JMenu("About");
@@ -370,6 +400,12 @@ public class MainWindow extends JFrame
 		calendarHandler.updateMatches();
 	}
 	
+	/**
+	 * Options listener class implementing ActionListener interface
+	 * Responsible for option buttons in the main window
+	 * @author Lord9000
+	 *
+	 */
 	private class OptionsListener implements ActionListener
 	{
 
@@ -404,6 +440,11 @@ public class MainWindow extends JFrame
 		
 	}
 	
+	/**
+	 * Listener class for switching between months 
+	 * @author Lord9000
+	 *
+	 */
 	private class MonthChangeListener implements ActionListener
 	{
 

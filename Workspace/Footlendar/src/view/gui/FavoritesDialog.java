@@ -33,8 +33,9 @@ public class FavoritesDialog extends JDialog
 
 	private JTable favMatchesTable;
 	private JList favTeamsList;
+
 	/**
-	 * Create the dialog.
+	 * Constructor for Favorites dialog.
 	 */
 	public FavoritesDialog() {
 		setBounds(100, 100, 605, 594);
@@ -157,6 +158,10 @@ public class FavoritesDialog extends JDialog
 		}
 	}
 	
+	/**
+	 * This function updates teams list when a change to the collection is needed
+	 * @param favTeams Reference to the collection of favourite teams to update
+	 */
 	private void updateTeamsList(LinkedList<Team> favTeams)
 	{
 		final String[] teamNames = new String[favTeams.size()];
@@ -178,6 +183,10 @@ public class FavoritesDialog extends JDialog
 		});
 	}
 	
+	/**
+	 * This function updates table of favourite matches when needed
+	 * @param allMatches Favourite matches to be updated into table
+	 */
 	private void updateMatchesTable(LinkedList<Match> allMatches)
 	{
 		Object[][] matchesModel = new Object[MatchRepo.getInstance().getAll().size()][5];

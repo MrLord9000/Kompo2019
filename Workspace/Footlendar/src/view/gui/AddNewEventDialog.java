@@ -59,6 +59,7 @@ public class AddNewEventDialog extends JDialog
 	private JTextPane txtpnEnterDescriptionHere;
 	private JDatePickerImpl datePicker;
 	JSpinner spinnerMinutes, spinnerHours;
+	
 	/**
 	 * Create the dialog.
 	 */
@@ -300,6 +301,9 @@ public class AddNewEventDialog extends JDialog
 		}
 	}
 	
+	/**
+	 * Updates the teamNames collection with all teams collection
+	 */
 	private void getTeamNames()
 	{
 		if(teamNames != null)
@@ -312,6 +316,9 @@ public class AddNewEventDialog extends JDialog
 		}
 	}
 	
+	/**
+	 * Updates the combo box and sets refs to items
+	 */
 	private void updateComboBoxes()
 	{
 		comboBoxHome.removeAllItems();

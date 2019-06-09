@@ -7,6 +7,11 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.JScrollPane;
 
 public class LiveScoresDialog extends JDialog
 {
@@ -33,25 +38,55 @@ public class LiveScoresDialog extends JDialog
 	 * Create the dialog.
 	 */
 	public LiveScoresDialog() {
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 778, 479);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			JLabel lblMatchName = new JLabel("Match name");
+			lblMatchName.setFont(new Font("Century Gothic", Font.PLAIN, 20));
+			lblMatchName.setHorizontalAlignment(SwingConstants.CENTER);
+			contentPanel.add(lblMatchName, BorderLayout.NORTH);
+		}
+		{
+			JLabel lblCurrentScore = new JLabel("Current score: ");
+			lblCurrentScore.setFont(new Font("Century Gothic", Font.PLAIN, 18));
+			lblCurrentScore.setHorizontalAlignment(SwingConstants.CENTER);
+			contentPanel.add(lblCurrentScore, BorderLayout.SOUTH);
+		}
+		{
+			JScrollPane scrollPane = new JScrollPane();
+			contentPanel.add(scrollPane, BorderLayout.CENTER);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
+				JPanel panel = new JPanel();
+				scrollPane.setViewportView(panel);
+				panel.setLayout(new MigLayout("", "[grow,fill]", "[][][][][]"));
+				{
+					JLabel lblNotificationPanel = new JLabel("Notification panel 1");
+					lblNotificationPanel.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+					panel.add(lblNotificationPanel, "cell 0 0");
+				}
+				{
+					JLabel label = new JLabel("Notification panel 1");
+					label.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+					panel.add(label, "cell 0 1");
+				}
+				{
+					JLabel label = new JLabel("Notification panel 1");
+					label.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+					panel.add(label, "cell 0 2");
+				}
+				{
+					JLabel label = new JLabel("Notification panel 1");
+					label.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+					panel.add(label, "cell 0 3");
+				}
+				{
+					JLabel label = new JLabel("Notification panel 1");
+					label.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+					panel.add(label, "cell 0 4");
+				}
 			}
 		}
 	}
