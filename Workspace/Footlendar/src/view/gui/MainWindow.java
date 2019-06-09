@@ -59,6 +59,7 @@ import javax.swing.DefaultListModel;
 import java.awt.Dimension;
 import javax.swing.JLayeredPane;
 import javax.swing.JDesktopPane;
+import javax.swing.JDialog;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JCheckBox;
@@ -81,7 +82,10 @@ public class MainWindow extends JFrame
 	private JPanel contentPane;
 	private JButton prevMonthBtn;
 	private JButton nextMonthBtn;
+	private JButton btnFavorites, btnAllEvents, btnAllTeams;
 	
+	private static MainWindow frame;
+	public static MainWindow getMainWindow() { return frame; }
 	
 	public static NotificationPanel getNotificationPanel() { return notificationPanel; }
 	/**
@@ -100,7 +104,7 @@ public class MainWindow extends JFrame
 					MatchRepo.getInstance().load();
 					User.getInstance().load();
 					User.getInstance().setNotifier(new GuiNotifier());
-					MainWindow frame = new MainWindow();
+					frame = new MainWindow();
 					frame.setVisible(true);
 				} 
 				catch (Exception e)
@@ -265,12 +269,7 @@ public class MainWindow extends JFrame
 				FormSpecs.GLUE_ROWSPEC,
 				FormSpecs.RELATED_GAP_ROWSPEC,
 				FormSpecs.GLUE_ROWSPEC,}));
-		// ------------------------------------------------------------------------------------------------------------------------
-				
-		
-		
-				
-				
+
 		MenuPanel.setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.GLUE_COLSPEC,
 				FormSpecs.RELATED_GAP_COLSPEC,
@@ -308,14 +307,17 @@ public class MainWindow extends JFrame
 		
 		// #### Option buttons ####
 		
-		JButton btnOption = new JButton("Option 1");
-		MenuPanel.add(btnOption, "1, 3");
+		btnFavorites = new JButton("Favorites");
+		btnFavorites.addActionListener(new OptionsListener());
+		MenuPanel.add(btnFavorites, "1, 3");
 		
-		JButton btnOption_1 = new JButton("Option 2");
-		MenuPanel.add(btnOption_1, "3, 3");
+		btnAllEvents = new JButton("All Events");
+		btnAllEvents.addActionListener(new OptionsListener());
+		MenuPanel.add(btnAllEvents, "3, 3");
 		
-		JButton btnOption_2 = new JButton("Option 3");
-		MenuPanel.add(btnOption_2, "5, 3");
+		btnAllTeams = new JButton("All Teams");
+		btnAllTeams.addActionListener(new OptionsListener());
+		MenuPanel.add(btnAllTeams, "5, 3");
 		
 		JButton btnOption_3 = new JButton("Option 4");
 		MenuPanel.add(btnOption_3, "7, 3");
@@ -327,9 +329,34 @@ public class MainWindow extends JFrame
 		
 		// #### Calendar initialization ####
 		calendarHandler = new CalendarHandler(CalendarPanel, lblMonth);
-		calendarHandler.createMonth(GregorianCalendar.getInstance().get(Calendar.MONTH), GregorianCalendar.getInstance().get(Calendar.YEAR));
-		//System.out.println("Matches length: " + MatchRepo.getInstance().getAll().size());
+		calendarHandler.createMonth(GregorianCalendar.getInstance().get(Calendar.MONTH) + 1, GregorianCalendar.getInstance().get(Calendar.YEAR));
 		calendarHandler.updateMatches();
+	}
+	
+	private class OptionsListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0)
+		{
+			if(arg0.getSource() == btnFavorites)
+			{
+				FavoritesDialog dialog = new FavoritesDialog();
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+			}
+			else if(arg0.getSource() == btnAllEvents)
+			{
+				AllEventsDialog dialog = new AllEventsDialog();
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+			}
+			else if(arg0.getSource() == btnAllTeams)
+			{
+				
+			}
+		}
+		
 	}
 	
 	private class MonthChangeListener implements ActionListener
@@ -348,26 +375,7 @@ public class MainWindow extends JFrame
 				calendarHandler.nextMonth();
 				calendarHandler.updateMatches();
 			}
-			
 		}
-		
 	}
 	
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
-	}
 }

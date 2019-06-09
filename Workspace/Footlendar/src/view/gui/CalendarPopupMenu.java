@@ -206,6 +206,7 @@ public class CalendarPopupMenu extends JPopupMenu
 					}		
 				}
 			}
+			MainWindow.getMainWindow().repaint();
 		}
 	}
 }

@@ -32,11 +32,15 @@ public class MatchRepo implements IRepository<Match, Long> {
 	
 	public MatchRepo() {
 		this.matches = new LinkedList<>();
-		matches.add( new Match(666, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("Włochy U20"), new GregorianCalendar(2019, 5, 12), "World Cup U20 Final Stage") );
+		
 		// Temp
-		//matches.add(new Match(0, new Team("Francja U20"), new Team("USA U20"), (GregorianCalendar) GregorianCalendar.getInstance(), "to 2323est opis"));
-		//matches.add(new Match(1, new Team("Włochy U20"), new Team("Polska U20"), (GregorianCalendar) GregorianCalendar.getInstance(), "to j11est opis"));
-		//matches.add(new Match(2, new Team("Argentyna U20"), new Team("Mali U20"), new GregorianCalendar(2019, Calendar.JUNE, 22), "to jest o434pis"));
+		GregorianCalendar cal1 = (GregorianCalendar) Calendar.getInstance();
+		cal1.add(Calendar.HOUR_OF_DAY, 1);
+		GregorianCalendar cal2 = (GregorianCalendar) Calendar.getInstance();
+		cal2.add(Calendar.HOUR_OF_DAY, -1);
+		matches.add( new Match(666, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("Włochy U20"), cal1, "World Cup U20 Final Stage") );
+		matches.add( new Match(667, TeamRepo.getInstance().get("Ecuador U20"), TeamRepo.getInstance().get("Korea Po?udniowa U20"), cal2, "World Cup U20 Final Stage") );
+		matches.add( new Match(668, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("Włochy U20"), new GregorianCalendar(2019, 5, 12, 14, 7), "World Cup U20 Final Stage") );
 		// Temp end
 	}
 
