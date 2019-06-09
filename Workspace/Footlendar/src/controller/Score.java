@@ -1,10 +1,12 @@
 package controller;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
-public class Score 
+public class Score implements XMLable
 {
-	private int homeGoals;
-	private int awayGoals;
+	private Integer homeGoals;
+	private Integer awayGoals;
 	
 	public Score()
 	{
@@ -51,5 +53,25 @@ public class Score
 		
 		if(this.homeGoals == s.homeGoals && this.awayGoals == s.awayGoals) return true;
 		else return false;
+	}
+
+	@Override
+	public Element createNode(Document doc)
+	{
+		Element score = doc.createElement("Score");
+		Element homeGoals = doc.createElement("homeGoals");
+		homeGoals.appendChild(doc.createTextNode(this.homeGoals.toString()));
+		score.appendChild(homeGoals);
+		Element awayGoals = doc.createElement("awayGoals");
+		awayGoals.appendChild(doc.createTextNode(this.awayGoals.toString()));
+		score.appendChild(awayGoals);
+		return score;
+	}
+
+	@Override
+	public void loadFromDocument(Document doc)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }

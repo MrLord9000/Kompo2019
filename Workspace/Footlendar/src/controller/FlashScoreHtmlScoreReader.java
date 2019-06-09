@@ -30,7 +30,7 @@ public class FlashScoreHtmlScoreReader implements IHtmlScoreReader
 	
 	protected String getTextScore(Match match, String css)
 	{
-		String score = null;
+		String score = "";
 		//String css = "div#wyniki > div.league_box > div > div.n > a";
 		//String css = "tr.odd.stage-finish";
 		//System.out.println(css);
@@ -53,7 +53,7 @@ public class FlashScoreHtmlScoreReader implements IHtmlScoreReader
 	public Score getScore(Match match)
 	{
 		String [] s = getTextScore(match, "div#wyniki > div.league_box > div > div.n > a").split("-");
-		if(s.length > 0)
+		if(s.length > 1 && s != null)
 		{
 			int score1 = Integer.parseInt(s[0]);
 			int score2 = Integer.parseInt(s[1]);

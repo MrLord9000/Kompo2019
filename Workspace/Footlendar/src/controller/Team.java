@@ -2,7 +2,10 @@ package controller;
 
 import java.awt.Image;
 
-public class Team {
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+public class Team implements XMLable{
 
 	private String name;
 	private Image logo;
@@ -56,6 +59,25 @@ public class Team {
 		if(this.name.equals(t.name)) return true;
 		else return false;
 	}
+
+	@Override
+	public Element createNode(Document doc)
+	{
+		Element team = doc.createElement("Team");
+		Element name = doc.createElement("Name");
+		name.appendChild(doc.createTextNode(this.name));
+		team.appendChild(name);
+		return team;
+	}
+
+	@Override
+	public void loadFromDocument(Document doc)
+	{
+		
+		
+	}
+	
+	
 	
 	
 	

@@ -3,7 +3,11 @@ package controller;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class Match {
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
+public class Match implements XMLable{
 	
 	private long id;
 	private Team home;
@@ -118,6 +122,53 @@ public class Match {
 		Match m = (Match) obj;
 		if(m.id == this.id) return true;
 		else return false;
+		
+	}
+
+	@Override
+	public Element createNode(Document doc)
+	{
+		Element match = doc.createElement("Match");
+		Element id = doc.createElement("ID");
+		id.appendChild(doc.createTextNode(this.id + ""));
+		match.appendChild(id);
+		Node home = this.home.createNode(doc);
+		match.appendChild(home);
+		Node away = this.away.createNode(doc);
+		match.appendChild(away);
+		if(score != null)
+		{
+			Node score = this.score.createNode(doc);
+			match.appendChild(score);
+		}
+		Element year = doc.createElement("Year");
+		year.appendChild(doc.createTextNode((this.startTime.get(Calendar.YEAR) + "")));
+		Element month = doc.createElement("Month");
+		month.appendChild(doc.createTextNode((this.startTime.get(Calendar.MONTH) + 1 + "")));
+		Element day = doc.createElement("Day");
+		day.appendChild(doc.createTextNode((this.startTime.get(Calendar.DAY_OF_MONTH) + "")));
+		Element hour = doc.createElement("Hour");
+		hour.appendChild(doc.createTextNode((this.startTime.get(Calendar.HOUR_OF_DAY) + "")));
+		Element minute = doc.createElement("Minute");
+		minute.appendChild(doc.createTextNode((this.startTime.get(Calendar.MINUTE) + "")));
+		Element startTime = doc.createElement("StartTime");
+		startTime.appendChild(year);
+		startTime.appendChild(month);
+		startTime.appendChild(day);
+		startTime.appendChild(hour);
+		startTime.appendChild(minute);
+		
+		match.appendChild(startTime);
+		
+		Element description = doc.createElement("Description");
+		description.appendChild(doc.createTextNode(this.getDescription()));
+		return match;
+	}
+
+	@Override
+	public void loadFromDocument(Document doc)
+	{
+		// TODO Auto-generated method stub
 		
 	}
 
