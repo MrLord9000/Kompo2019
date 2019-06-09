@@ -10,7 +10,10 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.ElementAlreadyInCollectionException;
 import controller.Team;
+import controller.User;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -26,7 +29,7 @@ public class TeamDetails extends JDialog
 	/**
 	 * Create the dialog.
 	 */
-	public TeamDetails(Team team) {
+	public TeamDetails(final Team team) {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -78,6 +81,22 @@ public class TeamDetails extends JDialog
 					}
 					
 				});
+				
+				JButton btnAddToFavorites = new JButton("Add to favorites");
+				btnAddToFavorites.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) 
+					{
+						try
+						{
+							User.getInstance().addFavouriteTeam(team);
+						} 
+						catch (ElementAlreadyInCollectionException e1)
+						{
+							e1.printStackTrace();
+						}
+					}
+				});
+				buttonPane.add(btnAddToFavorites);
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}

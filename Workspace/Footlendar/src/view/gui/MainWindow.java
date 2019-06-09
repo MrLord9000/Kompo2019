@@ -177,6 +177,13 @@ public class MainWindow extends JFrame
 		menuBar.add(mnAbout);
 		
 		JMenuItem mntmAboutThisProgram = new JMenuItem("About this program");
+		mntmAboutThisProgram.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AboutDialog dialog = new AboutDialog();
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+			}
+		});
 		mnAbout.add(mntmAboutThisProgram);
 			
 		// ------------------------------------------------------------------------
