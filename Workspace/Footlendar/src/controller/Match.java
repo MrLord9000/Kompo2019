@@ -167,6 +167,7 @@ public class Match implements XMLable{
 		
 		Element description = doc.createElement("Description");
 		description.appendChild(doc.createTextNode(this.getDescription()));
+		match.appendChild(description);
 		return match;
 	}
 

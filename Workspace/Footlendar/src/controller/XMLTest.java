@@ -26,12 +26,12 @@ public class XMLTest
 			e.printStackTrace();
 		}
 		
-//		XMLTeamLoader tl = new XMLTeamLoader(".\\src\\test3.xml");
-//		LinkedList<Team> l = tl.load();
-//		for(Team t: l)
-//		{
-//			System.out.println(t.toString());
-//		}
+		XMLMatchLoader tl = new XMLMatchLoader(".\\src\\test3.xml");
+		LinkedList<Match> l = tl.load();
+		for(Match t: l)
+		{
+			System.out.println(t.toString());
+		}
 	}
 
 }

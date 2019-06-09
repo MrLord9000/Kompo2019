@@ -34,21 +34,21 @@ public class MatchRepo implements IRepository<Match, Long> {
 		this.matches = new LinkedList<>();
 		
 		// Temp
-		GregorianCalendar cal1 = (GregorianCalendar) Calendar.getInstance();
-		cal1.add(Calendar.HOUR_OF_DAY, 1);
-		GregorianCalendar cal2 = (GregorianCalendar) Calendar.getInstance();
-		cal2.add(Calendar.HOUR_OF_DAY, -1);
-		matches.add( new Match(666, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("Włochy U20"), cal1, "World Cup U20 Final Stage") );
-		matches.add( new Match(667, TeamRepo.getInstance().get("Ecuador U20"), TeamRepo.getInstance().get("Korea Po?udniowa U20"), cal2, "World Cup U20 Final Stage") );
-		matches.add( new Match(668, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("Włochy U20"), new GregorianCalendar(2019, 5, 12, 14, 7), "World Cup U20 Final Stage") );
-		// Temp end
+//		GregorianCalendar cal1 = (GregorianCalendar) Calendar.getInstance();
+//		cal1.add(Calendar.HOUR_OF_DAY, 1);
+//		GregorianCalendar cal2 = (GregorianCalendar) Calendar.getInstance();
+//		cal2.add(Calendar.HOUR_OF_DAY, -1);
+//		matches.add( new Match(666, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("Włochy U20"), cal1, "World Cup U20 Final Stage") );
+//		matches.add( new Match(667, TeamRepo.getInstance().get("Ecuador U20"), TeamRepo.getInstance().get("Korea Po?udniowa U20"), cal2, "World Cup U20 Final Stage") );
+//		matches.add( new Match(668, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("Włochy U20"), new GregorianCalendar(2019, 5, 12, 14, 7), "World Cup U20 Final Stage") );
+//		// Temp end
 	}
 
 	public void load() {
 		try
 		{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
-			Connection con = DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=FootlendarDB;integratedSecurity=true");
+			Connection con = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true");
 			Statement stat = con.createStatement();
 			ResultSet rs = stat.executeQuery("SELECT * FROM Matches");
 			
