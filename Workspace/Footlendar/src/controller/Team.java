@@ -11,7 +11,6 @@ public class Team implements XMLable{
 	private Image logo;
 	
 	
-	
 	public Team(String name, Image logo) 
 	{
 		this.name = name;

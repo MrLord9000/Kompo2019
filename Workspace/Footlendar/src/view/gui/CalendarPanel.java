@@ -142,9 +142,10 @@ public class CalendarPanel extends JPanel
 	
 	public void addEvent(Match match)
 	{
-
-		dayEvents.add(match);
-
+		if(dayEvents.contains(match) == false)
+		{
+			dayEvents.add(match);			
+		}
 	}
 	
 	public void updatePopup()

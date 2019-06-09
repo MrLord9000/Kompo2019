@@ -58,6 +58,7 @@ public class AddNewEventDialog extends JDialog
 	private String homeName, awayName;
 	private JTextPane txtpnEnterDescriptionHere;
 	private JDatePickerImpl datePicker;
+	JSpinner spinnerMinutes, spinnerHours;
 	/**
 	 * Create the dialog.
 	 */
@@ -149,11 +150,11 @@ public class AddNewEventDialog extends JDialog
 		txtpnEnterDescriptionHere = new JTextPane();
 		txtpnEnterDescriptionHere.setText("Enter description here...");
 		
-		JSpinner spinner = new JSpinner();
-		spinner.setModel(new SpinnerNumberModel(0, null, 23, 1));
+		spinnerHours = new JSpinner();
+		spinnerHours.setModel(new SpinnerNumberModel(0, null, 23, 1));
 		
-		JSpinner spinner_1 = new JSpinner();
-		spinner_1.setModel(new SpinnerNumberModel(0, null, 59, 1));
+		spinnerMinutes = new JSpinner();
+		spinnerMinutes.setModel(new SpinnerNumberModel(0, null, 59, 1));
 		
 		JLabel lblH = new JLabel("H");
 		
@@ -209,13 +210,13 @@ public class AddNewEventDialog extends JDialog
 							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPanel.createSequentialGroup()
 									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
+									.addComponent(spinnerHours, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
 								.addGroup(gl_contentPanel.createSequentialGroup()
 									.addGap(17)
 									.addComponent(lblH)))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+								.addComponent(spinnerMinutes, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_contentPanel.createSequentialGroup()
 									.addGap(10)
 									.addComponent(lblMin)))
@@ -269,8 +270,8 @@ public class AddNewEventDialog extends JDialog
 							.addComponent(lblDescription, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPanel.createSequentialGroup()
 							.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(spinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(spinnerHours, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(spinnerMinutes, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblH)
@@ -345,7 +346,7 @@ public class AddNewEventDialog extends JDialog
 				MatchRepo.getInstance().add(new Match(new Random().nextInt(), 
 						TeamRepo.getInstance().get((String) comboBoxHome.getSelectedItem()), 
 						TeamRepo.getInstance().get((String) comboBoxAway.getSelectedItem()), 
-						new GregorianCalendar(datePicker.getModel().getYear(), datePicker.getModel().getMonth(), datePicker.getModel().getDay()),
+						new GregorianCalendar(datePicker.getModel().getYear(), datePicker.getModel().getMonth(), datePicker.getModel().getDay(), (int)spinnerHours.getValue(), (int)spinnerMinutes.getValue(), 0),
 						txtpnEnterDescriptionHere.getText()));
 				CalendarHandler.updateMatches();
 				MainWindow.getMainWindow().revalidate();

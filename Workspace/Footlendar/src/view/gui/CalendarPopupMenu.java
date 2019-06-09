@@ -82,6 +82,7 @@ public class CalendarPopupMenu extends JPopupMenu
 				
 				JLabel lblPastEvents = new JLabel("Past Events");
 				lblPastEvents.setFont(new Font("Century Gothic", Font.PLAIN, 13));
+				lblPastEvents.setHorizontalAlignment(SwingConstants.CENTER);
 				panePastEvents.add(lblPastEvents, BorderLayout.NORTH);
 				
 				listPast = new JList<String>(defaultModelPast);
