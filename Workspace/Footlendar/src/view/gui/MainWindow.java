@@ -107,6 +107,7 @@ public class MainWindow extends JFrame
 				{
 					e.printStackTrace();
 				}
+				
 			}
 		});
 	}
@@ -326,68 +327,8 @@ public class MainWindow extends JFrame
 		
 		// #### Calendar initialization ####
 		calendarHandler = new CalendarHandler(CalendarPanel, lblMonth);
-		
-		JPanel panel = new JPanel();
-		CalendarPanel.add(panel, "2, 4, fill, fill");
-		
-		JPopupMenu popupMenu = new JPopupMenu();
-		popupMenu.setLabel("2 June 2019");
-		addPopup(panel, popupMenu);
-		
-		JPanel panel_1 = new JPanel();
-		popupMenu.add(panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
-		
-		JPanel paneIncomingMatches = new JPanel();
-		panel_1.add(paneIncomingMatches, BorderLayout.NORTH);
-		paneIncomingMatches.setLayout(new BorderLayout(0, 0));
-		
-		JLabel lblIncomingMatches = new JLabel("Incoming Matches");
-		lblIncomingMatches.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		lblIncomingMatches.setHorizontalAlignment(SwingConstants.CENTER);
-		paneIncomingMatches.add(lblIncomingMatches, BorderLayout.NORTH);
-		
-		JList list = new JList();
-		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Match 1 aaa vs bbb", "Match 2 sss vs ssss", "Match 3 asd dsasd da"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		paneIncomingMatches.add(list, BorderLayout.CENTER);
-		
-		JButton btnAddToTracked = new JButton("Add to tracked");
-		btnAddToTracked.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-		paneIncomingMatches.add(btnAddToTracked, BorderLayout.SOUTH);
-		
-		JPanel panePastEvents = new JPanel();
-		panel_1.add(panePastEvents, BorderLayout.SOUTH);
-		panePastEvents.setLayout(new BorderLayout(0, 0));
-		
-		JLabel lblPastEvents = new JLabel("Past Events");
-		lblPastEvents.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		panePastEvents.add(lblPastEvents, BorderLayout.NORTH);
-		
-		JList list_1 = new JList();
-		list_1.setModel(new AbstractListModel() {
-			String[] values = new String[] {"dfasdfasdfas", "fasdfasdfasdf", "asdfasdfasdf"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		panePastEvents.add(list_1, BorderLayout.CENTER);
-		
-		JButton btnAddToFavorite = new JButton("Add to favorite");
-		btnAddToFavorite.setFont(new Font("Century Gothic", Font.PLAIN, 12));
-		panePastEvents.add(btnAddToFavorite, BorderLayout.SOUTH);
 		calendarHandler.createMonth(GregorianCalendar.getInstance().get(Calendar.MONTH), GregorianCalendar.getInstance().get(Calendar.YEAR));
-		System.out.println("Matches length: " + MatchRepo.getInstance().getAll().size());
+		//System.out.println("Matches length: " + MatchRepo.getInstance().getAll().size());
 		calendarHandler.updateMatches();
 	}
 	

@@ -32,7 +32,7 @@ public class MatchRepo implements IRepository<Match, Long> {
 	
 	public MatchRepo() {
 		this.matches = new LinkedList<>();
-		
+		matches.add( new Match(666, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("Włochy U20"), new GregorianCalendar(2019, 5, 12), "World Cup U20 Final Stage") );
 		// Temp
 		//matches.add(new Match(0, new Team("Francja U20"), new Team("USA U20"), (GregorianCalendar) GregorianCalendar.getInstance(), "to 2323est opis"));
 		//matches.add(new Match(1, new Team("Włochy U20"), new Team("Polska U20"), (GregorianCalendar) GregorianCalendar.getInstance(), "to j11est opis"));
@@ -133,7 +133,7 @@ public class MatchRepo implements IRepository<Match, Long> {
 			Match m = it.next();
 			if(m.getStartTime().before(before))
 			{
-				User.getInstance().remove(m);
+				User.getInstance().removeTrackedMatch(m);
 				it.remove();
 			}
 		}

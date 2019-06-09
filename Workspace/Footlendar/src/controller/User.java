@@ -13,11 +13,13 @@ public class User {
 	private static User instance = new User(); 
 	private LinkedList<Team> favTeams;
 	private LinkedList<Match> trackedMatches;
+	private LinkedList<Match> favMatches;
 	private INotifier notifier;
 	
 	public User()
 	{
 		this.favTeams = new LinkedList<>();
+		this.favMatches = new LinkedList<>();
 		this.trackedMatches = new LinkedList<>();
 	}
 	
@@ -59,19 +61,17 @@ public class User {
 			{
 				trackedMatches.add(MatchRepo.getInstance().get(l));
 			}
-		} catch (ClassNotFoundException | IOException e)
+		} 
+		catch (ClassNotFoundException | IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	public void load()
 	{
-		
 		loadTeams();
 		loadMatches();
-		
 	}
 	
 	private void saveTeams()
@@ -92,13 +92,13 @@ public class User {
 		}
 	}
 	
-	private void saveMatches()
+	private void saveMatches(LinkedList<Match> collection, String filepath)
 	{
-		ObjectFileWriter ofw = new ObjectFileWriter(".\\src\\trackedMatches.bin");
+		ObjectFileWriter ofw = new ObjectFileWriter(filepath);
 		
 		LinkedList<Long> l = new LinkedList<>();
 		
-		for(Match t: trackedMatches)
+		for(Match t: collection)
 		{
 			l.add(t.getId());
 		}
@@ -106,20 +106,31 @@ public class User {
 		try
 		{
 			ofw.save(l);
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	private void saveTrackedMatches()
+	{
+		saveMatches(trackedMatches, ".\\src\\trackedMatches.bin");
+	}
+	
+	private void saveFavMatches()
+	{
+		saveMatches(favMatches, ".\\src\\favMatches.bin");
 	}
 	
 	public void save()
 	{
 		saveTeams();
-		saveMatches();
+		saveTrackedMatches();
+		saveFavMatches();
 	}
 	
-	public void addFavouriteTeam(Team team)
+	public void addFavouriteTeam(Team team) throws ElementAlreadyInCollectionException
 	{
 		if(team != null && favTeams.contains(team) == false)
 		{
@@ -128,9 +139,36 @@ public class User {
 		}
 		else
 		{
-			System.out.println("Wyjatek");
+			throw new ElementAlreadyInCollectionException("Team " + team.getName() + " already in collection favTeams!");
 		}
 		
+	}
+	
+	public void addFavouriteMatch(Match match) throws ElementAlreadyInCollectionException
+	{
+		if(match != null && favMatches.contains(match) == false)
+		{
+			favMatches.add(match);
+			saveFavMatches();
+		}
+		else
+		{
+			throw new ElementAlreadyInCollectionException("Match " + match.info() + " already in collection favTeams!");
+		}
+	}
+	
+	public void addTrackedMatch(Match match) throws ElementAlreadyInCollectionException
+	{
+		System.out.println(trackedMatches.contains(match));
+		if(match != null && trackedMatches.contains(match) == false)
+		{
+			trackedMatches.add(match);
+			//saveMatches();
+		}
+		else
+		{
+			throw new ElementAlreadyInCollectionException("Specified match: " + match.toString() + " is already in tracked matches repository");
+		}
 	}
 	
 	public LinkedList<Match> getMonthMatches(int month, int year)
@@ -172,21 +210,6 @@ public class User {
 			}
 		}
 		return output;
-	}
-	
-	
-	public void addTrackedMatch(Match match) throws MatchAlreadyInCollectionException
-	{
-		System.out.println(trackedMatches.contains(match));
-		if(match != null && trackedMatches.contains(match) == false)
-		{
-			trackedMatches.add(match);
-			//saveMatches();
-		}
-		else
-		{
-			throw new MatchAlreadyInCollectionException("Specified match: " + match.toString() + " is already in tracked matches repository");
-		}
 	}
 	
 	public void setNotifier(INotifier notifier)
@@ -239,11 +262,34 @@ public class User {
 		return trackedMatches;
 	}
 	
-	public void remove(Match m)
+	public LinkedList<Match> getFavouriteMatches()
+	{
+		return favMatches;
+	}
+	
+	public boolean removeTrackedMatch(Match m)
 	{
 		if(trackedMatches.contains(m))
 		{
 			trackedMatches.remove(m);
+			return true;
+		}
+		else
+		{
+			return false;			
+		}
+	}
+	
+	public boolean removeFavouriteMatch(Match m)
+	{
+		if(favMatches.contains(m))
+		{
+			favMatches.remove(m);
+			return true;
+		}
+		else
+		{
+			return false;			
 		}
 	}
 }

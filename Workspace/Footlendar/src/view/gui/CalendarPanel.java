@@ -28,12 +28,12 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.BevelBorder;
 
 import controller.Match;
-import controller.MatchAlreadyInCollectionException;
+import controller.ElementAlreadyInCollectionException;
 import controller.User;
 
 public class CalendarPanel extends JPanel
 {
-	private static final Font mainFont = new Font("Century Gothic", Font.PLAIN, 13);
+	static final Font mainFont = new Font("Century Gothic", Font.PLAIN, 13);
 	
 	private static final BevelBorder loweredBorder = new BevelBorder(BevelBorder.LOWERED, null, null, null, null);
 	private static final BevelBorder raisedBorder = new BevelBorder(BevelBorder.RAISED, null, null, null, null);
@@ -52,10 +52,7 @@ public class CalendarPanel extends JPanel
 	private JLabel ballPicture;
 	private JLabel lblNewEvents;
 	
-	private JPopupMenu popupMenu;
-	private DefaultListModel<String> defaultModel;
-	private JList<String> eventNamesList;
-	private JButton btnAddToTracked;
+	private CalendarPopupMenu calendarPopupMenu;
 	
 	public CalendarPanel(JPanel calendarPanel, GregorianCalendar calendarDate)
 	{
@@ -107,39 +104,7 @@ public class CalendarPanel extends JPanel
 		this.add(lblNewEvents);
 		
 		// ###################################################################
-		
-		// Create and add to this JPanel a popup menu
-		popupMenu = new JPopupMenu();
-		//addPopup(this, popupMenu);
-		
-		// Fill the popup menu with another JPanel
-		JPanel popupPanel = new JPanel();
-		popupMenu.add(popupPanel);
-		popupPanel.setLayout(new BorderLayout(0, 0));
-		
-		// Create new default list model
-		defaultModel = new DefaultListModel<String>();
-
-		// Create a new list for displaying match names
-		eventNamesList = new JList<String>(defaultModel);
-		eventNamesList.setFont(mainFont);
-		eventNamesList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		eventNamesList.setLayoutOrientation(JList.VERTICAL);
-		eventNamesList.setVisibleRowCount(-1);
-		popupPanel.add(eventNamesList, BorderLayout.CENTER);
-		
-		// Create a label for popup menu
-		JLabel lblIncomingEvents = new JLabel("Incoming events");
-		lblIncomingEvents.setFont(new Font("Century Gothic", Font.PLAIN, 15));
-		lblIncomingEvents.setHorizontalAlignment(SwingConstants.CENTER);
-		popupPanel.add(lblIncomingEvents, BorderLayout.NORTH);
-		
-		// Create a button to add events
-		btnAddToTracked = new JButton("Add to tracked");
-		btnAddToTracked.addActionListener(new AddToTrackedAction());
-		btnAddToTracked.setFont(new Font("Century Gothic", Font.PLAIN, 13));
-		popupPanel.add(btnAddToTracked, BorderLayout.SOUTH);
-		
+	
 		
 		GroupLayout gl_DayPanel = new GroupLayout(this);
 		gl_DayPanel.setHorizontalGroup(
@@ -171,53 +136,19 @@ public class CalendarPanel extends JPanel
 		this.setLayout(gl_DayPanel);
 	}
 	
-	private class AddToTrackedAction implements ActionListener
-	{
-
-		@Override
-		public void actionPerformed(ActionEvent arg0)
-		{
-			if(arg0.getSource() == btnAddToTracked)
-			{
-				int[] eventIndices = eventNamesList.getSelectedIndices();
-				for(int i : eventIndices)
-				{
-					try
-					{
-						User.getInstance().addTrackedMatch(dayEvents.get(i));
-						defaultModel.setElementAt("<trk> " + defaultModel.getElementAt(i), i);
-						btnAddToTracked.setText("Match added succesfully!");
-						btnAddToTracked.setForeground(Color.GREEN);
-					} 
-					catch (MatchAlreadyInCollectionException e)
-					{
-						btnAddToTracked.setText("Match already in collection!");
-						btnAddToTracked.setForeground(Color.RED);
-					}
-					finally
-					{
-						MainWindow.getNotificationPanel().update();
-					}
-					
-				}
-			}
-			
-		}
-		
-	}
-	
 	public void addEvent(Match match)
 	{
-		if(dayEvents.size() == 0)
+		int initialSize = dayEvents.size();
+		dayEvents.add(match);
+
+		if(initialSize == 0)
 		{
-			addPopup(this, popupMenu);
-			
+			addPopup(this);	
 			// Set the match notification picture
 			ballPicture.setVisible(true);
 		}
 		
-		dayEvents.add(match);
-		defaultModel.addElement(match.getHome().getName() + " - " + match.getAway().getName() + " at " + match.getStartTime().get(Calendar.HOUR_OF_DAY) + ":" + match.getStartTime().get(Calendar.MINUTE));
+//		defaultModel.addElement(match.getHome().getName() + " - " + match.getAway().getName() + " at " + match.getStartTime().get(Calendar.HOUR_OF_DAY) + ":" + match.getStartTime().get(Calendar.MINUTE));
 		
 		// Add the event notification label
 		if(dayEvents.size() == 1)
@@ -233,15 +164,15 @@ public class CalendarPanel extends JPanel
 	public void clearEvents()
 	{
 		dayEvents.clear();
-		defaultModel.clear();
 		removePopup(this);
 		ballPicture.setVisible(false);
 		lblNewEvents.setText("");
 	}
 	
-	private void addPopup(final JPanel component, final JPopupMenu popup) 
+	private void addPopup(final JPanel component) 
 	{
-		mousePopupListener = new ListenForMouse(component, popup);
+		calendarPopupMenu = new CalendarPopupMenu(panelDate, dayEvents);
+		mousePopupListener = new ListenForMouse(component, calendarPopupMenu);
 		component.addMouseListener(mousePopupListener);
 	}
 	
@@ -257,9 +188,9 @@ public class CalendarPanel extends JPanel
 	private class ListenForMouse extends MouseAdapter
 	{
 		private JPanel component;
-		private JPopupMenu popup;
+		private CalendarPopupMenu popup;
 		
-		public ListenForMouse(JPanel component, JPopupMenu popup)
+		public ListenForMouse(JPanel component, CalendarPopupMenu popup)
 		{
 			this.component = component;
 			this.popup = popup;
@@ -284,8 +215,7 @@ public class CalendarPanel extends JPanel
 		private void showMenu(MouseEvent e) 
 		{
 			popup.show(e.getComponent(), e.getX() , e.getY());
-			btnAddToTracked.setText("Add to tracked");
-			btnAddToTracked.setForeground(Color.BLACK);
+			popup.resetButtons();
 		}
 		@Override
 		public void mouseEntered(MouseEvent e) 

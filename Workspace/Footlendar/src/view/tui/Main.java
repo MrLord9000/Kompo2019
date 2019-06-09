@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
-import controller.MatchAlreadyInCollectionException;
+import controller.ElementAlreadyInCollectionException;
 import controller.User;
 import model.MatchRepo;
 import model.TeamRepo;
@@ -89,7 +89,7 @@ public class Main
 				{
 					User.getInstance().addTrackedMatch(MatchRepo.getInstance().get(id));
 				} 
-				catch (MatchAlreadyInCollectionException e)
+				catch (ElementAlreadyInCollectionException e)
 				{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -101,7 +101,14 @@ public class Main
 			case 6:
 				System.out.println("Type team name to add:");
 				buff = in.nextLine();
-				User.getInstance().addFavouriteTeam(TeamRepo.getInstance().get(buff));
+				try
+				{
+					User.getInstance().addFavouriteTeam(TeamRepo.getInstance().get(buff));
+				} 
+				catch (ElementAlreadyInCollectionException e)
+				{
+					e.printStackTrace();
+				}
 				//returnToMenu();
 				System.out.println("Press ENTER to return to menu");
 				in.next();
