@@ -8,6 +8,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Calendar;
@@ -15,6 +19,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JCheckBoxMenuItem;
@@ -22,6 +27,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
@@ -33,11 +39,12 @@ public class MatchPanel extends JPanel
 {
 	private Match trackedMatch;
 	
-	private JCheckBoxMenuItem chckbxmntmMinBefore;
-	private JCheckBoxMenuItem chckbxmntmHBefore;
-	private JCheckBoxMenuItem chckbxmntmHBefore_1;
-	private JCheckBoxMenuItem chckbxmntmDayBefore;
-	private JCheckBoxMenuItem chckbxmntmDaysBefore;
+	private JRadioButtonMenuItem chckbxmntmMinBefore;
+	private JRadioButtonMenuItem chckbxmntmHBefore;
+	private JRadioButtonMenuItem chckbxmntmHBefore_1;
+	private JRadioButtonMenuItem chckbxmntmDayBefore;
+	private JRadioButtonMenuItem chckbxmntmDaysBefore;
+	private JTextPane txtpnNotes;
 	
 	public MatchPanel(Match trackedMatch)
 	{
@@ -80,8 +87,10 @@ public class MatchPanel extends JPanel
 		gbc_lblStartsAt.gridy = 2;
 		this.add(lblStartsAt, gbc_lblStartsAt);
 		
-		JTextPane txtpnNotes = new JTextPane();
+		txtpnNotes = new JTextPane();
 		txtpnNotes.setText(trackedMatch.getDescription());
+		txtpnNotes.addKeyListener(new DescriptionPanelListener());
+		txtpnNotes.addFocusListener(new DescriptionFocusListener());
 		GridBagConstraints gbc_txtpnNotes = new GridBagConstraints();
 		gbc_txtpnNotes.insets = new Insets(0, 0, 5, 0);
 		gbc_txtpnNotes.fill = GridBagConstraints.BOTH;
@@ -99,24 +108,31 @@ public class MatchPanel extends JPanel
 		addPopupBtn(btnNotification, popupMenu);
 		//addPopup(this, popupMenu);
 		
-		chckbxmntmMinBefore = new JCheckBoxMenuItem("30 min before");
+		ButtonGroup group = new ButtonGroup();
+		
+		chckbxmntmMinBefore = new JRadioButtonMenuItem("30 min before");
 		chckbxmntmMinBefore.addActionListener(new TimerNotificationAction());
+		group.add(chckbxmntmMinBefore);
 		popupMenu.add(chckbxmntmMinBefore);
 		
-		chckbxmntmHBefore = new JCheckBoxMenuItem("1 h before");
+		chckbxmntmHBefore = new JRadioButtonMenuItem("1 h before");
 		chckbxmntmHBefore.addActionListener(new TimerNotificationAction());
+		group.add(chckbxmntmHBefore);
 		popupMenu.add(chckbxmntmHBefore);
 		
-		chckbxmntmHBefore_1 = new JCheckBoxMenuItem("4 h before");
+		chckbxmntmHBefore_1 = new JRadioButtonMenuItem("4 h before");
 		chckbxmntmHBefore_1.addActionListener(new TimerNotificationAction());
+		group.add(chckbxmntmHBefore_1);
 		popupMenu.add(chckbxmntmHBefore_1);
 		
-		chckbxmntmDayBefore = new JCheckBoxMenuItem("1 day before");
+		chckbxmntmDayBefore = new JRadioButtonMenuItem("1 day before");
 		chckbxmntmDayBefore.addActionListener(new TimerNotificationAction());
+		group.add(chckbxmntmDayBefore);
 		popupMenu.add(chckbxmntmDayBefore);
 		
-		chckbxmntmDaysBefore = new JCheckBoxMenuItem("2 days before");
+		chckbxmntmDaysBefore = new JRadioButtonMenuItem("2 days before");
 		chckbxmntmDaysBefore.addActionListener(new TimerNotificationAction());
+		group.add(chckbxmntmDaysBefore);
 		popupMenu.add(chckbxmntmDaysBefore);
 		
 	}
@@ -141,6 +157,56 @@ public class MatchPanel extends JPanel
 		});
 	}
 	
+	private class DescriptionFocusListener implements FocusListener
+	{
+
+		@Override
+		public void focusGained(FocusEvent arg0)
+		{
+			txtpnNotes.setText(trackedMatch.getDescription());
+			
+		}
+
+		@Override
+		public void focusLost(FocusEvent arg0)
+		{
+			trackedMatch.setDescription(txtpnNotes.getText());
+		}
+		
+	}
+	
+	private class DescriptionPanelListener implements KeyListener
+	{
+		
+		@Override
+		public void keyPressed(KeyEvent arg0)
+		{
+			if(arg0.getKeyCode() == KeyEvent.VK_ENTER)
+			{
+				trackedMatch.setDescription(txtpnNotes.getText());
+			}
+			if(arg0.getKeyCode() == KeyEvent.VK_ESCAPE)
+			{
+				txtpnNotes.setText(trackedMatch.getDescription());
+			}
+		}
+
+		@Override
+		public void keyReleased(KeyEvent arg0)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void keyTyped(KeyEvent arg0)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
 	private class TimerNotificationAction implements ActionListener
 	{
 		
@@ -150,36 +216,29 @@ public class MatchPanel extends JPanel
 			AbstractButton abstractButton = (AbstractButton) e.getSource();
 			boolean selected = abstractButton.getModel().isSelected();
 			System.out.println("Button " + abstractButton.getText() + " is " + (selected ? "selected" : "unselected"));
+
+			if(chckbxmntmMinBefore.isSelected())
+			{
+				trackedMatch.setminutesRemindBeforeStart(30);
+			}
+			else if(chckbxmntmHBefore.isSelected())
+			{
+				trackedMatch.setminutesRemindBeforeStart(60);
+			}
+			else if(chckbxmntmHBefore_1.isSelected())
+			{
+				trackedMatch.setminutesRemindBeforeStart(4 * 60);
+			}
+			else if(chckbxmntmDayBefore.isSelected())
+			{
+				trackedMatch.setminutesRemindBeforeStart(24 * 60);
+			}
+			else if(chckbxmntmDaysBefore.isSelected())
+			{
+				trackedMatch.setminutesRemindBeforeStart(48 * 60);
+			}
 			
-			NotifyTimer nt = new NotifyTimer();
-			
-			if(e.getSource() == chckbxmntmMinBefore)
-			{
-				if(chckbxmntmMinBefore.isSelected())
-				{
-					nt.start((GregorianCalendar) GregorianCalendar.getInstance(), 30, trackedMatch);					
-				}
-				else
-				{
-					
-				}
-			}
-			else if(e.getSource() == chckbxmntmHBefore)
-			{
-				nt.start((GregorianCalendar) GregorianCalendar.getInstance(), 60, trackedMatch);
-			}
-			else if(e.getSource() == chckbxmntmHBefore_1)
-			{
-				nt.start((GregorianCalendar) GregorianCalendar.getInstance(), 240, trackedMatch);
-			}
-			else if(e.getSource() == chckbxmntmDayBefore)
-			{
-				nt.start((GregorianCalendar) GregorianCalendar.getInstance(), 24 * 60, trackedMatch);
-			}
-			else if(e.getSource() == chckbxmntmDaysBefore)
-			{
-				nt.start((GregorianCalendar) GregorianCalendar.getInstance(), 48 * 60, trackedMatch);
-			}
+			trackedMatch.resetTimer();
 		}
 		
 	}

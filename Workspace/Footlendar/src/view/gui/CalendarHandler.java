@@ -15,10 +15,10 @@ import controller.User;
 
 public class CalendarHandler
 {
-	private GregorianCalendar currentDate;
-	private JPanel parentPanel;
-	private JLabel headLabel;
-	private CalendarPanel[] dayPanels;
+	private static GregorianCalendar currentDate;
+	private static CalendarPanel[] dayPanels;
+	private static JPanel parentPanel;
+	private static JLabel headLabel;
 
 	public CalendarHandler(JPanel parentPanel, JLabel headLabel)
 	{
@@ -36,7 +36,7 @@ public class CalendarHandler
 		createMonth(currentDate.get(Calendar.MONTH) - 1, currentDate.get(Calendar.YEAR));
 	}
 	
-	public void createMonth(int month, int year)
+	public static void createMonth(int month, int year)
 	{
 		// Reset all the day panels
 		parentPanel.removeAll();
@@ -70,7 +70,8 @@ public class CalendarHandler
 		parentPanel.repaint();
 	}
 	
-	public void updateMatches()
+	
+	public static void updateMatches()
 	{
 		// Get only the events from current month
 		LinkedList<Match> matches = User.getInstance().getMonthMatches(currentDate.get(Calendar.MONTH), currentDate.get(Calendar.YEAR));

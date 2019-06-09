@@ -121,7 +121,7 @@ public class MatchRepo implements IRepository<Match, Long> {
 
 	@Override
 	public void add(Match item) {
-		// TODO Auto-generated method stub
+		matches.add(item);
 		
 	}
 

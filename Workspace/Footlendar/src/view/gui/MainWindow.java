@@ -82,7 +82,7 @@ public class MainWindow extends JFrame
 	private JPanel contentPane;
 	private JButton prevMonthBtn;
 	private JButton nextMonthBtn;
-	private JButton btnFavorites, btnAllEvents, btnAllTeams;
+	private JButton btnFavorites, btnAllEvents, btnAllTeams, btnAddEvent, btnSettings;
 	
 	private static MainWindow frame;
 	public static MainWindow getMainWindow() { return frame; }
@@ -151,6 +151,33 @@ public class MainWindow extends JFrame
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
+		
+		JMenu mnFile = new JMenu("File");
+		menuBar.add(mnFile);
+		
+		JMenuItem mntmSave = new JMenuItem("Save");
+		mnFile.add(mntmSave);
+		
+		JMenuItem mntmOpen = new JMenuItem("Open");
+		mnFile.add(mntmOpen);
+		
+		JMenuItem mntmExport = new JMenuItem("Export");
+		mnFile.add(mntmExport);
+		
+		JMenu mnEdit = new JMenu("Edit");
+		menuBar.add(mnEdit);
+		
+		JMenuItem mntmSettings = new JMenuItem("Settings");
+		mnEdit.add(mntmSettings);
+		
+		JMenuItem mntmRefresh = new JMenuItem("Refresh");
+		mnEdit.add(mntmRefresh);
+		
+		JMenu mnAbout = new JMenu("About");
+		menuBar.add(mnAbout);
+		
+		JMenuItem mntmAboutThisProgram = new JMenuItem("About this program");
+		mnAbout.add(mntmAboutThisProgram);
 			
 		// ------------------------------------------------------------------------
 		
@@ -319,11 +346,14 @@ public class MainWindow extends JFrame
 		btnAllTeams.addActionListener(new OptionsListener());
 		MenuPanel.add(btnAllTeams, "5, 3");
 		
-		JButton btnOption_3 = new JButton("Option 4");
-		MenuPanel.add(btnOption_3, "7, 3");
+		btnAddEvent = new JButton("Add Event");
+		btnAddEvent.addActionListener(new OptionsListener());
+		MenuPanel.add(btnAddEvent, "7, 3");
 		
-		JButton btnOption_4 = new JButton("Option 5");
-		MenuPanel.add(btnOption_4, "9, 3");
+		btnSettings = new JButton("Settings");
+		btnSettings.addActionListener(new OptionsListener());
+		MenuPanel.add(btnSettings, "9, 3");
+		
 		contentPane.setLayout(gl_contentPane);
 		
 		
@@ -347,13 +377,21 @@ public class MainWindow extends JFrame
 			}
 			else if(arg0.getSource() == btnAllEvents)
 			{
-				AllEventsDialog dialog = new AllEventsDialog();
+				AllElementsDialog dialog = new AllElementsDialog("Matches");
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setVisible(true);
 			}
 			else if(arg0.getSource() == btnAllTeams)
 			{
-				
+				AllElementsDialog dialog = new AllElementsDialog("Teams");
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+			}
+			else if(arg0.getSource() == btnAddEvent)
+			{
+				AddNewEventDialog dialog = new AddNewEventDialog();
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
 			}
 		}
 		

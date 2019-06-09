@@ -39,7 +39,7 @@ public class Team {
 	{
 		this.logo = logo;
 	}
-
+	
 	@Override
 	public String toString()
 	{

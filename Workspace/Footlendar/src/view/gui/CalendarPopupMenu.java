@@ -170,7 +170,7 @@ public class CalendarPopupMenu extends JPopupMenu
 						User.getInstance().addTrackedMatch(incomingMatches.get(i));
 						defaultModelIncoming.setElementAt("<tracked> " + defaultModelIncoming.getElementAt(i), i);
 						btnAddToTracked.setText("Match added succesfully!");
-						btnAddToTracked.setForeground(Color.GREEN);
+						btnAddToTracked.setForeground(Color.decode("#006E51"));
 					} 
 					catch (ElementAlreadyInCollectionException e)
 					{
@@ -193,7 +193,7 @@ public class CalendarPopupMenu extends JPopupMenu
 						User.getInstance().addFavouriteMatch(pastMatches.get(i));
 						defaultModelPast.setElementAt("<favorite> " + defaultModelPast.getElementAt(i), i);
 						btnAddToFavorite.setText("Match added succesfully!");
-						btnAddToFavorite.setForeground(Color.GREEN);
+						btnAddToFavorite.setForeground(Color.decode("#006E51"));
 					} 
 					catch (ElementAlreadyInCollectionException e)
 					{
@@ -206,7 +206,7 @@ public class CalendarPopupMenu extends JPopupMenu
 					}		
 				}
 			}
-			MainWindow.getMainWindow().repaint();
+			MainWindow.getMainWindow().revalidate();
 		}
 	}
 }

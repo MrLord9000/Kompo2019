@@ -96,7 +96,10 @@ public class NotifyTimer {
 	
 	public void resetRemindTimer(GregorianCalendar startTime, int minutesBefore, Match match) 
 	{
-		remindBeforeTimer.cancel();
+		if(remindBeforeTimer != null)
+		{
+			remindBeforeTimer.cancel();			
+		}
 		remindBeforeTimer = new Timer();
 		final Match m = match;
 		final int mb = minutesBefore;

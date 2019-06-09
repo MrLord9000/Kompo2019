@@ -75,12 +75,18 @@ public class TeamRepo implements IRepository<Team, String> {
 
 	@Override
 	public void add(Team item) {
-		// TODO Auto-generated method stub
+		teams.add(item);
+		System.out.println("Added team " + item.getName());
+	}
+
+	public void remove(Team item) {
+		teams.remove(item);
 		
 	}
 
 	@Override
-	public void remove(String id) {
+	public void remove(String id)
+	{
 		// TODO Auto-generated method stub
 		
 	}

@@ -73,11 +73,11 @@ public class CalendarPanel extends JPanel
 				
 		if(calendarDate.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR) && calendarDate.get(Calendar.YEAR) == Calendar.getInstance().get(Calendar.YEAR))
 		{
-			defaultColor = Color.decode("#92B6D5");
+			defaultColor = Color.decode("#8d9db6");
 		}
 		else if (calendarDate.before(Calendar.getInstance()))
 		{
-			defaultColor = Color.decode("#B4B7BA");
+			defaultColor = Color.decode("#bccad6");
 		}
 		else
 		{

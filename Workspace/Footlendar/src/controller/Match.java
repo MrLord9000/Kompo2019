@@ -11,7 +11,7 @@ public class Match {
 	private Score score;
 	private GregorianCalendar startTime;
 	private String description;
-	private static int minutesRemindBeforeStart = 1;
+	private int minutesRemindBeforeStart = 1;
 	private NotifyTimer nt;
 	
 	
@@ -23,10 +23,15 @@ public class Match {
 		this.score = null;
 		this.description = description;
 		
-		//nt = new NotifyTimer();
+		nt = new NotifyTimer();
 		//nt.start(this.startTime, minutesRemindBeforeStart, this);
 		
 		
+	}
+	
+	public void setDescription(String desc)
+	{
+		description = desc;
 	}
 	
 	public Score getScore() 
@@ -59,7 +64,7 @@ public class Match {
 		return startTime;
 	}
 	
-	public static void setminutesRemindBeforeStart(int minutes)
+	public void setminutesRemindBeforeStart(int minutes)
 	{
 		minutesRemindBeforeStart = minutes;
 	}
