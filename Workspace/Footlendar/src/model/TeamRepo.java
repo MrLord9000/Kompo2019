@@ -31,7 +31,7 @@ public class TeamRepo implements IRepository<Team, String> {
 		try
 		{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
-			Connection con = DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=FootlendarDB;integratedSecurity=true");
+			Connection con = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true");
 			Statement stat = con.createStatement();
 			ResultSet rs = stat.executeQuery("SELECT * FROM Teams");
 			while(rs.next())
