@@ -34,7 +34,11 @@ public class AllElementsDialog extends JDialog
 	private String collectionName;
 
 	/**
-	 * Create the dialog.
+	 * Main class constructor
+	 * Creates the all elements dialog.
+	 * Note - the way this component chooses variants is safe only when used locally so this class shouldn't be used outside of this program
+	 * @param	collectionName	should be set to either "Matches" or "Teams", responsible for diferrent variants of this component
+	 * 
 	 */
 	public AllElementsDialog(String collectionName) {
 		this.collectionName = collectionName;
@@ -138,6 +142,11 @@ public class AllElementsDialog extends JDialog
 
 	}
 
+	/**
+	 * Listener class responsible for displaying details about selected matches/teams
+	 * @author Lord9000
+	 *
+	 */
 	private class MatchDetailsListener implements ActionListener
 	{
 

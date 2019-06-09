@@ -27,7 +27,7 @@ public class TeamDetails extends JDialog
 	private final JPanel contentPanel = new JPanel();
 
 	/**
-	 * Create the dialog.
+	 * Constructor for team details dialog window.
 	 */
 	public TeamDetails(final Team team) {
 		setBounds(100, 100, 450, 300);

@@ -25,7 +25,7 @@ public class MatchDetails extends JDialog
 {
 
 	/**
-	 * Create the dialog.
+	 * Main constructor creating the dialog window
 	 */
 	public MatchDetails(Match match) 
 	{
