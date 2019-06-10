@@ -7,6 +7,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+/**
+ * Main match class. contains all the data regarding a specific match
+ * @author Adrian Zieliñski
+ *
+ */
 public class Match implements XMLable{
 	
 	private long id;
@@ -18,7 +23,14 @@ public class Match implements XMLable{
 	private int minutesRemindBeforeStart = 1;
 	private NotifyTimer nt;
 	
-	
+	/**
+	 * Class constructor.
+	 * @param id			Match id to be created
+	 * @param home			Home team to be added
+	 * @param away			Away team to be added
+	 * @param startTime		Start taime of the match
+	 * @param description	Match description
+	 */
 	public Match(long id, Team home, Team away, GregorianCalendar startTime, String description) {
 		this.id = id;
 		this.home = home;

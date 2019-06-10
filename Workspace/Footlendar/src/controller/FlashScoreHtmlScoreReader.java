@@ -7,13 +7,19 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+/**
+ * Class for reading match scores from a live score website
+ * @author Adrian Zieliñski
+ *
+ */
 public class FlashScoreHtmlScoreReader implements IHtmlScoreReader
 {
-
-	//private String url;
 	private Document doc;
 	
-	
+	/**
+	 * Class constructor. At the moment it only sets te default website.
+	 * Should support custom websites in the future
+	 */
 	public FlashScoreHtmlScoreReader() 
 	{
 		//this.url = url;

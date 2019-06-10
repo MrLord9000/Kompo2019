@@ -22,7 +22,11 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
+import controller.DataBaseMatchLoader;
+import controller.DataBaseTeamLoader;
+import controller.DataBaseWriter;
 import controller.GoogleCalendarExporter;
+import controller.Match;
 import controller.User;
 import controller.XMLFileWriter;
 import controller.XMLMatchLoader;
@@ -47,6 +51,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.Toolkit;
 
+/**
+ * Main application window.
+ * Displays the calendar, options bar and notifications panel on the left.
+ * @author Filip Mazurek
+ *
+ */
 public class MainWindow extends JFrame
 {
 	private static final long serialVersionUID = 1L;
@@ -55,7 +65,7 @@ public class MainWindow extends JFrame
 	private JPanel contentPane;
 	private JButton prevMonthBtn;
 	private JButton nextMonthBtn;
-	private JButton btnFavorites, btnAllEvents, btnAllTeams, btnAddEvent, btnSettings;
+	private JButton btnFavorites, btnAllEvents, btnAllTeams, btnAddEvent, btnDelete;
 	
 	private static MainWindow frame;
 	/**
@@ -68,21 +78,30 @@ public class MainWindow extends JFrame
 	 * @return		The notification panel component
 	 */
 	public static NotificationPanel getNotificationPanel() { return notificationPanel; }
-	/**
-	 * Launch the application.
-	 * 
-	 */
-	
 
 	/**
 	 * Class constructor responsible for creating the main frame.
 	 */
 	public MainWindow() {
 		
+		TeamRepo.getInstance().setLoader(new DataBaseTeamLoader("jdbc:sqlserver://localhost:1433;databaseName=FootlendarDB;integratedSecurity=true"));
+		TeamRepo.getInstance().setSaver(new DataBaseWriter("jdbc:sqlserver://localhost:1433;databaseName=FootlendarDB;integratedSecurity=true"));
 		TeamRepo.getInstance().load();
+		MatchRepo.getInstance().setLoader(new DataBaseMatchLoader("jdbc:sqlserver://localhost:1433;databaseName=FootlendarDB;integratedSecurity=true"));
+		MatchRepo.getInstance().setSaver(new DataBaseWriter("jdbc:sqlserver://localhost:1433;databaseName=FootlendarDB;integratedSecurity=true"));
 		MatchRepo.getInstance().load();
 		User.getInstance().load();
 		User.getInstance().setNotifier(new GuiNotifier());
+		
+		// Temp
+				GregorianCalendar cal1 = (GregorianCalendar) Calendar.getInstance();
+				cal1.add(Calendar.HOUR_OF_DAY, 1);
+				GregorianCalendar cal2 = (GregorianCalendar) Calendar.getInstance();
+				cal2.add(Calendar.HOUR_OF_DAY, -1);
+				MatchRepo.getInstance().add( new Match(666, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("W³ochy U20"), cal1, "World Cup U20 Final Stage") );
+				MatchRepo.getInstance().add( new Match(667, TeamRepo.getInstance().get("Ecuador U20"), TeamRepo.getInstance().get("Korea Po?udniowa U20"), cal2, "World Cup U20 Final Stage") );
+				MatchRepo.getInstance().add( new Match(668, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("W³ochy U20"), new GregorianCalendar(2019, 5, 12, 14, 7), "World Cup U20 Final Stage") );
+		// Temp end
 		
 		frame = this;
 		frame.setVisible(true);
@@ -133,7 +152,9 @@ public class MainWindow extends JFrame
 				if(returnVal == JFileChooser.APPROVE_OPTION) 
 				{
 					// Here file saving should happen
-					MatchRepo.getInstance().saveToXML(chooser.getSelectedFile().getAbsolutePath());
+					XMLFileWriter xmlWriter = new XMLFileWriter(chooser.getSelectedFile().getAbsolutePath());
+					MatchRepo.getInstance().setSaver(xmlWriter);
+					MatchRepo.getInstance().save();
 				}
 			
 			}
@@ -150,7 +171,9 @@ public class MainWindow extends JFrame
 				if(returnVal == JFileChooser.APPROVE_OPTION) 
 				{
 					// Here file opening should happen
-					MatchRepo.getInstance().loadFromXML(chooser.getSelectedFile().getAbsolutePath());
+					XMLMatchLoader xmlLoader = new XMLMatchLoader(chooser.getSelectedFile().getAbsolutePath());
+					MatchRepo.getInstance().setLoader(xmlLoader);
+					MatchRepo.getInstance().load();
 					CalendarHandler.updateMatches();
 				}
 			}
@@ -375,9 +398,9 @@ public class MainWindow extends JFrame
 		btnAddEvent.addActionListener(new OptionsListener());
 		MenuPanel.add(btnAddEvent, "7, 3");
 		
-		btnSettings = new JButton("Settings");
-		btnSettings.addActionListener(new OptionsListener());
-		MenuPanel.add(btnSettings, "9, 3");
+		btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new OptionsListener());
+		MenuPanel.add(btnDelete, "9, 3");
 		
 		contentPane.setLayout(gl_contentPane);
 		
@@ -421,6 +444,12 @@ public class MainWindow extends JFrame
 			else if(arg0.getSource() == btnAddEvent)
 			{
 				AddNewEventDialog dialog = new AddNewEventDialog();
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+			}
+			else if(arg0.getSource() == btnDelete)
+			{
+				DeleteDialog dialog = new DeleteDialog();
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setVisible(true);
 			}

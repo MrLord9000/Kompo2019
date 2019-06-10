@@ -5,8 +5,19 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+/**
+ * Class responsible for handling export to Google Calendar format
+ * @author Filip Mazurek
+ *
+ */
 public class GoogleCalendarExporter
 {
+	/**
+	 * Export data to Google Calendar format
+	 * @param exportData	Collection of matches to be exported
+	 * @param filePath		File to be exported to
+	 * @throws IOException	Throws IOException by csvWriter
+	 */
 	public static void export(List<Match> exportData, String filePath) throws IOException
 	{
 		FileWriter csvWriter = new FileWriter(filePath);

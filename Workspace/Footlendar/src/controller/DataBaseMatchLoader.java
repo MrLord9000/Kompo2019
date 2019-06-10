@@ -12,14 +12,25 @@ import java.util.LinkedList;
 
 import model.TeamRepo;
 
+/**
+ * Database loader class. Used in Match Repo for loading data from database
+ * @author Adrian Zieliñski
+ */
 public class DataBaseMatchLoader implements ILoadable<Match>
 {
 	private String path;
 	
+	/**
+	 * Class constructor.
+	 * @param path 	Sets the path to the database.
+	 */
 	public DataBaseMatchLoader(String path) {
 		this.path = path;
 	}
 	
+	/**
+	 * Method responsible for loading data from database specified in constructor
+	 */
 	public LinkedList<Match> load() {
 		LinkedList<Match> matches = new LinkedList<>();
 		try

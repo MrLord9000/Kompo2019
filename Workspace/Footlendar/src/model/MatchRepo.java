@@ -26,32 +26,40 @@ import controller.Team;
 import controller.TestHtmlScoreReader;
 import controller.User;
 
+/**
+ * Implemments repository for all matches.
+ * This class also holds references to default file loader and saver.
+ * @author Adrian Zieli�ski
+ *
+ */
 public class MatchRepo implements IRepository<Match, Long> {
 
 	private LinkedList<Match> matches;
 	private static MatchRepo instance = new MatchRepo();
 	private ILoadable<Match> loader;
-	private ISaveable saver;
+	private ISaveable<Match> saver;
 	
+	/**
+	 * Static method for getting singleton User instance
+	 * @return singleton User instance
+	 */
 	public static MatchRepo getInstance()
 	{
 		return instance;
 	}
 	
-	public MatchRepo() {
+	/*
+	 * Class constructor. Initializes collections with empty LinkedLists
+	 */
+	public MatchRepo() 
+	{
 		this.matches = new LinkedList<>();
-		
-		// Temp
-//		GregorianCalendar cal1 = (GregorianCalendar) Calendar.getInstance();
-//		cal1.add(Calendar.HOUR_OF_DAY, 1);
-//		GregorianCalendar cal2 = (GregorianCalendar) Calendar.getInstance();
-//		cal2.add(Calendar.HOUR_OF_DAY, -1);
-//		matches.add( new Match(666, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("Włochy U20"), cal1, "World Cup U20 Final Stage") );
-//		matches.add( new Match(667, TeamRepo.getInstance().get("Ecuador U20"), TeamRepo.getInstance().get("Korea Po?udniowa U20"), cal2, "World Cup U20 Final Stage") );
-//		matches.add( new Match(668, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("Włochy U20"), new GregorianCalendar(2019, 5, 12, 14, 7), "World Cup U20 Final Stage") );
-//		// Temp end
 	}
 	
+	/**
+	 * Sets default match repo loader
+	 * @param l ILoadable to be set
+	 */
 	public void setLoader(ILoadable<Match> l)
 	{
 		if(l != null)
@@ -60,6 +68,10 @@ public class MatchRepo implements IRepository<Match, Long> {
 		}
 	}
 	
+	/**
+	 * Sets default match repo saver
+	 * @param s ISaveable to be set
+	 */
 	public void setSaver(ISaveable s)
 	{
 		if(s != null)
@@ -78,7 +90,7 @@ public class MatchRepo implements IRepository<Match, Long> {
 	public void save() {
 		try
 		{
-			saver.save(matches);
+			saver.saveCollection(matches);
 		} catch (ParserConfigurationException | TransformerFactoryConfigurationError | TransformerException e)
 		{
 			// TODO Auto-generated catch block

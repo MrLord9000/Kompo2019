@@ -31,6 +31,11 @@ import controller.Match;
 import controller.ElementAlreadyInCollectionException;
 import controller.User;
 
+/**
+ * A single calendar panel class. 
+ * @author Filip Mazurek
+ *
+ */
 public class CalendarPanel extends JPanel
 {
 	static final Font mainFont = new Font("Century Gothic", Font.PLAIN, 13);

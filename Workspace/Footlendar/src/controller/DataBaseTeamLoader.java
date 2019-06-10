@@ -7,14 +7,25 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 
+/**
+ * Database loader class. Used in Team Repo for loading data from database
+ * @author Adrian Zieliñski
+ */
 public class DataBaseTeamLoader implements ILoadable<Team>
 {
 private String path;
 	
+	/**
+	 * Class constructor.
+	 * @param path 	Sets the path to the database.
+	 */
 	public DataBaseTeamLoader(String path) {
 		this.path = path;
 	}
 
+	/**
+	 * Method responsible for loading data from database specified in constructor
+	 */
 	@Override
 	public LinkedList<Team> load()
 	{

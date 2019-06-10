@@ -5,18 +5,31 @@ import java.awt.Image;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+/**
+ * Team class for storing team data
+ * @author Adrian Zieliñski
+ *
+ */
 public class Team implements XMLable{
 
 	private String name;
 	private Image logo;
 	
-	
+	/**
+	 * Class constructor.
+	 * @param name	Team name
+	 * @param logo	Team logo
+	 */
 	public Team(String name, Image logo) 
 	{
 		this.name = name;
 		this.logo = logo;
 	}
-	
+
+	/**
+	 * Class constructor.
+	 * @param name	Team name
+	 */
 	public Team(String name) 
 	{
 		this.name = name;
@@ -27,6 +40,7 @@ public class Team implements XMLable{
 	{
 		return name;
 	}
+	
 	public void setName(String name) 
 	{
 		this.name = name;
@@ -75,9 +89,4 @@ public class Team implements XMLable{
 		
 		
 	}
-	
-	
-	
-	
-	
 }

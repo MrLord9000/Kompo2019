@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.File;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -15,10 +16,11 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class XMLFileWriter<T extends XMLable> 
+public class XMLFileWriter<T extends XMLable> implements ISaveable<T>
 {
 	private String path;
 	
@@ -44,7 +46,7 @@ public class XMLFileWriter<T extends XMLable>
         transf.transform(source, file);
 	}
 	
-	public void saveCollection(List<T> obj) throws ParserConfigurationException, TransformerFactoryConfigurationError, TransformerException
+	public void saveCollection(LinkedList<T> obj) throws ParserConfigurationException, TransformerFactoryConfigurationError, TransformerException
 	{
 		DocumentBuilder docb = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		Document doc = docb.newDocument();
@@ -66,4 +68,8 @@ public class XMLFileWriter<T extends XMLable>
         transf.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
         transf.transform(source, file);
 	}
+
+
+
+
 }

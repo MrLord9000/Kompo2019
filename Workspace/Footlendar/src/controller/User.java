@@ -8,6 +8,12 @@ import model.MatchRepo;
 import model.TeamRepo;
 import view.INotifier;
 
+/**
+ * User class holds information about favourite teams and matches, as well as about tracked matches.
+ * It is also used to set appropriate notifier.
+ * @author Adrian Zieliñski
+ *
+ */
 public class User {
 
 	private static User instance = new User(); 
@@ -16,6 +22,9 @@ public class User {
 	private LinkedList<Match> favMatches;
 	private INotifier notifier;
 	
+	/*
+	 * Class constructor. Initializes collections with empty LinkedLists
+	 */
 	public User()
 	{
 		this.favTeams = new LinkedList<>();
@@ -23,6 +32,10 @@ public class User {
 		this.trackedMatches = new LinkedList<>();
 	}
 	
+	/**
+	 * Static method for getting singleton User instance
+	 * @return singleton User instance
+	 */
 	public static User getInstance()
 	{
 		return instance;

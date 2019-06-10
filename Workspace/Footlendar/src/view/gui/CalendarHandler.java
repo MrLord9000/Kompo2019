@@ -13,6 +13,11 @@ import javax.swing.SwingConstants;
 import controller.Match;
 import controller.User;
 
+/**
+ * Class responsible for controlling the calendar panels, updating matches from MatchRepo and switching current month view.
+ * @author fmaz9
+ *
+ */
 public class CalendarHandler
 {
 	private static GregorianCalendar currentDate;
@@ -20,22 +25,38 @@ public class CalendarHandler
 	private static JPanel parentPanel;
 	private static JLabel headLabel;
 
+	/**
+	 * Class sonstructor. Creates calendar handler
+	 * @param parentPanel Panel the handler should be assigned to
+	 * @param headLabel   Head label for displaying current date
+	 */
 	public CalendarHandler(JPanel parentPanel, JLabel headLabel)
 	{
 		this.parentPanel = parentPanel;
 		this.headLabel = headLabel;
 	}
 	
+	/**
+	 * Method for switching to next month
+	 */
 	public void nextMonth()
 	{
 		createMonth(currentDate.get(Calendar.MONTH) + 1, currentDate.get(Calendar.YEAR));
 	}
 	
+	/**
+	 * Method for switching to previous month
+	 */
 	public void prevMonth()
 	{
 		createMonth(currentDate.get(Calendar.MONTH) - 1, currentDate.get(Calendar.YEAR));
 	}
 	
+	/**
+	 * Creates new month calendar panel, for specified month and year
+	 * @param month Specified year
+	 * @param year  Specified month
+	 */
 	public static void createMonth(int month, int year)
 	{
 		// Reset all the day panels
@@ -70,12 +91,19 @@ public class CalendarHandler
 		parentPanel.repaint();
 	}
 	
-	
+	/**
+	 * Method useful for updating match data displayed on the calendar
+	 */
 	public static void updateMatches()
 	{
 		// Get only the events from current month
 		LinkedList<Match> matches = User.getInstance().getMonthMatches(currentDate.get(Calendar.MONTH), currentDate.get(Calendar.YEAR));
 		System.out.println("Current month matches length: " + matches.size());
+		
+		for(CalendarPanel item : dayPanels)
+		{
+			item.clearEvents();
+		}
 		
 		// find a day with matches and update it
 		for(Match item : matches)
