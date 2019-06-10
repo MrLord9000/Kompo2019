@@ -143,7 +143,6 @@ public class MatchRepo implements IRepository<Match, Long> {
 		}
 	}
 		
-		
 	private GregorianCalendar convertSQLDateToGregorianCalendar(java.sql.Date date, java.sql.Time time)
 	{
 		//System.out.println(date.getHours());
@@ -151,6 +150,7 @@ public class MatchRepo implements IRepository<Match, Long> {
 		GregorianCalendar c = new GregorianCalendar(date.getYear() + 1900, date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
 		return c;
 	}
+
 	
 	public void updateScore(Match m)
 	{

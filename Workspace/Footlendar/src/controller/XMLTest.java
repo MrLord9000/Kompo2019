@@ -19,7 +19,7 @@ public class XMLTest
 		XMLFileWriter<Match> w = new XMLFileWriter<>(".\\src\\test3.xml");
 		try
 		{
-			w.saveCollection(MatchRepo.getInstance().getAll());
+			w.saveCollection((LinkedList<Match>) MatchRepo.getInstance().getAll());
 		} catch (ParserConfigurationException | TransformerFactoryConfigurationError | TransformerException e)
 		{
 			// TODO Auto-generated catch block

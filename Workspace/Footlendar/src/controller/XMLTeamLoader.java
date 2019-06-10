@@ -14,7 +14,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class XMLTeamLoader
+public class XMLTeamLoader implements ILoadable<Team>
 {
 	private String path;
 	

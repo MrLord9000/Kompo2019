@@ -16,7 +16,7 @@ import org.xml.sax.SAXException;
 
 import model.TeamRepo;
 
-public class XMLMatchLoader
+public class XMLMatchLoader implements ILoadable<Match>
 {
 	private String path;
 	
