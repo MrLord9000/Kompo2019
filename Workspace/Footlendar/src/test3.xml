@@ -1,0 +1,1045 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+  <Match>
+    <ID>8</ID>
+    <Team>
+      <Name>Tahiti U20</Name>
+    </Team>
+    <Team>
+      <Name>Senegal U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>0</homeGoals>
+      <awayGoals>3</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>23</Day>
+      <Hour>18</Hour>
+      <Minute>0</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa A Kolejka 1</Description>
+  </Match>
+  <Match>
+    <ID>9</ID>
+    <Team>
+      <Name>Meksyk U20</Name>
+    </Team>
+    <Team>
+      <Name>Włochy U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>1</homeGoals>
+      <awayGoals>3</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>23</Day>
+      <Hour>18</Hour>
+      <Minute>0</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa B Kolejka 1</Description>
+  </Match>
+  <Match>
+    <ID>10</ID>
+    <Team>
+      <Name>Polska U20</Name>
+    </Team>
+    <Team>
+      <Name>Kolumbia U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>0</homeGoals>
+      <awayGoals>2</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>23</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa A Kolejka 1</Description>
+  </Match>
+  <Match>
+    <ID>11</ID>
+    <Team>
+      <Name>Japonia U20</Name>
+    </Team>
+    <Team>
+      <Name>Ecuador U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>1</homeGoals>
+      <awayGoals>1</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>23</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa B Kolejka 1</Description>
+  </Match>
+  <Match>
+    <ID>12</ID>
+    <Team>
+      <Name>Katar U20</Name>
+    </Team>
+    <Team>
+      <Name>Nigeria U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>0</homeGoals>
+      <awayGoals>4</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>24</Day>
+      <Hour>18</Hour>
+      <Minute>0</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa D Kolejka 1</Description>
+  </Match>
+  <Match>
+    <ID>13</ID>
+    <Team>
+      <Name>Honduras U20</Name>
+    </Team>
+    <Team>
+      <Name>Nowa Zelandia U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>0</homeGoals>
+      <awayGoals>5</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>24</Day>
+      <Hour>18</Hour>
+      <Minute>0</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa C Kolejka 1</Description>
+  </Match>
+  <Match>
+    <ID>14</ID>
+    <Team>
+      <Name>Urugwaj U20</Name>
+    </Team>
+    <Team>
+      <Name>Norwegia U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>3</homeGoals>
+      <awayGoals>1</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>24</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa C Kolejka 1</Description>
+  </Match>
+  <Match>
+    <ID>15</ID>
+    <Team>
+      <Name>Ukraina U20</Name>
+    </Team>
+    <Team>
+      <Name>USA U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>2</homeGoals>
+      <awayGoals>1</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>24</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa D Kolejka 1</Description>
+  </Match>
+  <Match>
+    <ID>16</ID>
+    <Team>
+      <Name>Portugalia U20</Name>
+    </Team>
+    <Team>
+      <Name>Korea Po?udniowa U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>1</homeGoals>
+      <awayGoals>0</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>25</Day>
+      <Hour>15</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa F Kolejka 1</Description>
+  </Match>
+  <Match>
+    <ID>17</ID>
+    <Team>
+      <Name>Panama U20</Name>
+    </Team>
+    <Team>
+      <Name>Mali U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>1</homeGoals>
+      <awayGoals>1</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>25</Day>
+      <Hour>18</Hour>
+      <Minute>0</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa E Kolejka 1</Description>
+  </Match>
+  <Match>
+    <ID>18</ID>
+    <Team>
+      <Name>Francja U20</Name>
+    </Team>
+    <Team>
+      <Name>Arabia Saudyjska U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>2</homeGoals>
+      <awayGoals>0</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>25</Day>
+      <Hour>18</Hour>
+      <Minute>0</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa E Kolejka 1</Description>
+  </Match>
+  <Match>
+    <ID>19</ID>
+    <Team>
+      <Name>Argentyna U20</Name>
+    </Team>
+    <Team>
+      <Name>RPA U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>5</homeGoals>
+      <awayGoals>2</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>25</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa F Kolejka 1</Description>
+  </Match>
+  <Match>
+    <ID>20</ID>
+    <Team>
+      <Name>Meksyk U20</Name>
+    </Team>
+    <Team>
+      <Name>Japonia U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>0</homeGoals>
+      <awayGoals>3</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>26</Day>
+      <Hour>15</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa B Kolejka 2</Description>
+  </Match>
+  <Match>
+    <ID>21</ID>
+    <Team>
+      <Name>Senegal U20</Name>
+    </Team>
+    <Team>
+      <Name>Kolumbia U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>2</homeGoals>
+      <awayGoals>3</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>26</Day>
+      <Hour>18</Hour>
+      <Minute>0</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa A Kolejka 2</Description>
+  </Match>
+  <Match>
+    <ID>22</ID>
+    <Team>
+      <Name>Ecuador U20</Name>
+    </Team>
+    <Team>
+      <Name>Włochy U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>0</homeGoals>
+      <awayGoals>1</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>26</Day>
+      <Hour>18</Hour>
+      <Minute>0</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa B Kolejka 2</Description>
+  </Match>
+  <Match>
+    <ID>23</ID>
+    <Team>
+      <Name>Polska U20</Name>
+    </Team>
+    <Team>
+      <Name>Tahiti U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>5</homeGoals>
+      <awayGoals>0</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>26</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa A Kolejka 2</Description>
+  </Match>
+  <Match>
+    <ID>24</ID>
+    <Team>
+      <Name>Katar U20</Name>
+    </Team>
+    <Team>
+      <Name>Ukraina U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>0</homeGoals>
+      <awayGoals>1</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>27</Day>
+      <Hour>18</Hour>
+      <Minute>0</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa D Kolejka 2</Description>
+  </Match>
+  <Match>
+    <ID>25</ID>
+    <Team>
+      <Name>Honduras U20</Name>
+    </Team>
+    <Team>
+      <Name>Urugwaj U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>0</homeGoals>
+      <awayGoals>2</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>27</Day>
+      <Hour>18</Hour>
+      <Minute>0</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa C Kolejka 2</Description>
+  </Match>
+  <Match>
+    <ID>26</ID>
+    <Team>
+      <Name>USA U20</Name>
+    </Team>
+    <Team>
+      <Name>Nigeria U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>2</homeGoals>
+      <awayGoals>0</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>27</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa D Kolejka 2</Description>
+  </Match>
+  <Match>
+    <ID>27</ID>
+    <Team>
+      <Name>Norwegia U20</Name>
+    </Team>
+    <Team>
+      <Name>Nowa Zelandia U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>0</homeGoals>
+      <awayGoals>2</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>27</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa C Kolejka 2</Description>
+  </Match>
+  <Match>
+    <ID>28</ID>
+    <Team>
+      <Name>Portugalia U20</Name>
+    </Team>
+    <Team>
+      <Name>Argentyna U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>0</homeGoals>
+      <awayGoals>2</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>28</Day>
+      <Hour>18</Hour>
+      <Minute>0</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa F Kolejka 2</Description>
+  </Match>
+  <Match>
+    <ID>29</ID>
+    <Team>
+      <Name>Panama U20</Name>
+    </Team>
+    <Team>
+      <Name>Francja U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>0</homeGoals>
+      <awayGoals>2</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>28</Day>
+      <Hour>18</Hour>
+      <Minute>0</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa E Kolejka 2</Description>
+  </Match>
+  <Match>
+    <ID>30</ID>
+    <Team>
+      <Name>RPA U20</Name>
+    </Team>
+    <Team>
+      <Name>Korea Po?udniowa U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>0</homeGoals>
+      <awayGoals>1</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>28</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa F Kolejka 2</Description>
+  </Match>
+  <Match>
+    <ID>31</ID>
+    <Team>
+      <Name>Arabia Saudyjska U20</Name>
+    </Team>
+    <Team>
+      <Name>Mali U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>3</homeGoals>
+      <awayGoals>4</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>28</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa E Kolejka 2</Description>
+  </Match>
+  <Match>
+    <ID>32</ID>
+    <Team>
+      <Name>Włochy U20</Name>
+    </Team>
+    <Team>
+      <Name>Japonia U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>0</homeGoals>
+      <awayGoals>0</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>29</Day>
+      <Hour>18</Hour>
+      <Minute>0</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa B Kolejka 3</Description>
+  </Match>
+  <Match>
+    <ID>33</ID>
+    <Team>
+      <Name>Ecuador U20</Name>
+    </Team>
+    <Team>
+      <Name>Meksyk U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>1</homeGoals>
+      <awayGoals>0</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>29</Day>
+      <Hour>18</Hour>
+      <Minute>0</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa B Kolejka 3</Description>
+  </Match>
+  <Match>
+    <ID>34</ID>
+    <Team>
+      <Name>Senegal U20</Name>
+    </Team>
+    <Team>
+      <Name>Polska U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>0</homeGoals>
+      <awayGoals>0</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>29</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa A Kolejka 3</Description>
+  </Match>
+  <Match>
+    <ID>35</ID>
+    <Team>
+      <Name>Kolumbia U20</Name>
+    </Team>
+    <Team>
+      <Name>Tahiti U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>6</homeGoals>
+      <awayGoals>0</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>29</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa A Kolejka 3</Description>
+  </Match>
+  <Match>
+    <ID>36</ID>
+    <Team>
+      <Name>Nowa Zelandia U20</Name>
+    </Team>
+    <Team>
+      <Name>Urugwaj U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>0</homeGoals>
+      <awayGoals>2</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>30</Day>
+      <Hour>18</Hour>
+      <Minute>0</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa C Kolejka 3</Description>
+  </Match>
+  <Match>
+    <ID>37</ID>
+    <Team>
+      <Name>Norwegia U20</Name>
+    </Team>
+    <Team>
+      <Name>Honduras U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>12</homeGoals>
+      <awayGoals>0</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>30</Day>
+      <Hour>18</Hour>
+      <Minute>0</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa C Kolejka 3</Description>
+  </Match>
+  <Match>
+    <ID>38</ID>
+    <Team>
+      <Name>USA U20</Name>
+    </Team>
+    <Team>
+      <Name>Katar U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>1</homeGoals>
+      <awayGoals>0</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>30</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa D Kolejka 3</Description>
+  </Match>
+  <Match>
+    <ID>39</ID>
+    <Team>
+      <Name>Nigeria U20</Name>
+    </Team>
+    <Team>
+      <Name>Ukraina U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>1</homeGoals>
+      <awayGoals>1</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>30</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa D Kolejka 3</Description>
+  </Match>
+  <Match>
+    <ID>41</ID>
+    <Team>
+      <Name>Arabia Saudyjska U20</Name>
+    </Team>
+    <Team>
+      <Name>Panama U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>1</homeGoals>
+      <awayGoals>2</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>31</Day>
+      <Hour>18</Hour>
+      <Minute>0</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa E Kolejka 3</Description>
+  </Match>
+  <Match>
+    <ID>42</ID>
+    <Team>
+      <Name>RPA U20</Name>
+    </Team>
+    <Team>
+      <Name>Portugalia U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>1</homeGoals>
+      <awayGoals>1</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>31</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa F Kolejka 3</Description>
+  </Match>
+  <Match>
+    <ID>43</ID>
+    <Team>
+      <Name>Korea Po?udniowa U20</Name>
+    </Team>
+    <Team>
+      <Name>Argentyna U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>2</homeGoals>
+      <awayGoals>1</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>31</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa F Kolejka 3</Description>
+  </Match>
+  <Match>
+    <ID>44</ID>
+    <Team>
+      <Name>Mali U20</Name>
+    </Team>
+    <Team>
+      <Name>Francja U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>2</homeGoals>
+      <awayGoals>3</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>5</Month>
+      <Day>31</Day>
+      <Hour>18</Hour>
+      <Minute>0</Minute>
+    </StartTime>
+    <Description>Faza grupowa MŚ U 20 Grupa E Kolejka 3</Description>
+  </Match>
+  <Match>
+    <ID>45</ID>
+    <Team>
+      <Name>Włochy U20</Name>
+    </Team>
+    <Team>
+      <Name>Polska U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>1</homeGoals>
+      <awayGoals>0</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>6</Month>
+      <Day>2</Day>
+      <Hour>17</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza finałowa 1/8 MŚ U 20</Description>
+  </Match>
+  <Match>
+    <ID>46</ID>
+    <Team>
+      <Name>Kolumbia U20</Name>
+    </Team>
+    <Team>
+      <Name>Nowa Zelandia U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>1</homeGoals>
+      <awayGoals>1</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>6</Month>
+      <Day>2</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza finałowa 1/8 MŚ U 20</Description>
+  </Match>
+  <Match>
+    <ID>47</ID>
+    <Team>
+      <Name>Urugwaj U20</Name>
+    </Team>
+    <Team>
+      <Name>Ecuador U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>1</homeGoals>
+      <awayGoals>3</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>6</Month>
+      <Day>3</Day>
+      <Hour>17</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza finałowa 1/8 MŚ U 20</Description>
+  </Match>
+  <Match>
+    <ID>48</ID>
+    <Team>
+      <Name>Ukraina U20</Name>
+    </Team>
+    <Team>
+      <Name>Panama U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>4</homeGoals>
+      <awayGoals>1</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>6</Month>
+      <Day>3</Day>
+      <Hour>17</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza finałowa 1/8 MŚ U 20</Description>
+  </Match>
+  <Match>
+    <ID>49</ID>
+    <Team>
+      <Name>Senegal U20</Name>
+    </Team>
+    <Team>
+      <Name>Nigeria U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>2</homeGoals>
+      <awayGoals>1</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>6</Month>
+      <Day>3</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza finałowa 1/8 MŚ U 20</Description>
+  </Match>
+  <Match>
+    <ID>50</ID>
+    <Team>
+      <Name>Japonia U20</Name>
+    </Team>
+    <Team>
+      <Name>Korea Po?udniowa U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>0</homeGoals>
+      <awayGoals>1</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>6</Month>
+      <Day>3</Day>
+      <Hour>17</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza finałowa 1/8 MŚ U 20</Description>
+  </Match>
+  <Match>
+    <ID>51</ID>
+    <Team>
+      <Name>Francja U20</Name>
+    </Team>
+    <Team>
+      <Name>USA U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>2</homeGoals>
+      <awayGoals>3</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>6</Month>
+      <Day>4</Day>
+      <Hour>17</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza finałowa 1/8 MŚ U 20</Description>
+  </Match>
+  <Match>
+    <ID>52</ID>
+    <Team>
+      <Name>Argentyna U20</Name>
+    </Team>
+    <Team>
+      <Name>Mali U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>1</homeGoals>
+      <awayGoals>1</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>6</Month>
+      <Day>4</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza finałowa 1/8 MŚ U 20</Description>
+  </Match>
+  <Match>
+    <ID>53</ID>
+    <Team>
+      <Name>Kolumbia U20</Name>
+    </Team>
+    <Team>
+      <Name>Ukraina U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>1</homeGoals>
+      <awayGoals>1</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>6</Month>
+      <Day>7</Day>
+      <Hour>15</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza finałowa 1/4 MŚ U 20</Description>
+  </Match>
+  <Match>
+    <ID>54</ID>
+    <Team>
+      <Name>Włochy U20</Name>
+    </Team>
+    <Team>
+      <Name>Mali U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>4</homeGoals>
+      <awayGoals>2</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>6</Month>
+      <Day>7</Day>
+      <Hour>18</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza finałowa 1/4 MŚ U 20</Description>
+  </Match>
+  <Match>
+    <ID>55</ID>
+    <Team>
+      <Name>USA U20</Name>
+    </Team>
+    <Team>
+      <Name>Ecuador U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>1</homeGoals>
+      <awayGoals>2</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>6</Month>
+      <Day>8</Day>
+      <Hour>17</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza finałowa 1/4 MŚ U 20</Description>
+  </Match>
+  <Match>
+    <ID>56</ID>
+    <Team>
+      <Name>Korea Po?udniowa U20</Name>
+    </Team>
+    <Team>
+      <Name>Senegal U20</Name>
+    </Team>
+    <Score>
+      <homeGoals>3</homeGoals>
+      <awayGoals>3</awayGoals>
+    </Score>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>6</Month>
+      <Day>8</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza finałowa 1/4 MŚ U 20</Description>
+  </Match>
+  <Match>
+    <ID>57</ID>
+    <Team>
+      <Name>Ukraina U20</Name>
+    </Team>
+    <Team>
+      <Name>Włochy U20</Name>
+    </Team>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>6</Month>
+      <Day>11</Day>
+      <Hour>17</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza finałowa 1/2 MŚ U20</Description>
+  </Match>
+  <Match>
+    <ID>58</ID>
+    <Team>
+      <Name>Ecuador U20</Name>
+    </Team>
+    <Team>
+      <Name>Korea Po?udniowa U20</Name>
+    </Team>
+    <StartTime>
+      <Year>2019</Year>
+      <Month>6</Month>
+      <Day>11</Day>
+      <Hour>20</Hour>
+      <Minute>30</Minute>
+    </StartTime>
+    <Description>Faza finałowa 1/2 MŚ U20</Description>
+  </Match>
+</root>

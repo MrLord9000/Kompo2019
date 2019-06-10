@@ -13,7 +13,13 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+
 import controller.FlashScoreHtmlScoreReader;
+import controller.ILoadable;
+import controller.ISaveable;
 import controller.Match;
 import controller.Score;
 import controller.Team;
@@ -24,6 +30,8 @@ public class MatchRepo implements IRepository<Match, Long> {
 
 	private LinkedList<Match> matches;
 	private static MatchRepo instance = new MatchRepo();
+	private ILoadable<Match> loader;
+	private ISaveable saver;
 	
 	public static MatchRepo getInstance()
 	{
@@ -43,65 +51,39 @@ public class MatchRepo implements IRepository<Match, Long> {
 //		matches.add( new Match(668, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("Włochy U20"), new GregorianCalendar(2019, 5, 12, 14, 7), "World Cup U20 Final Stage") );
 //		// Temp end
 	}
+	
+	public void setLoader(ILoadable<Match> l)
+	{
+		if(l != null)
+		{
+			this.loader = l;
+		}
+	}
+	
+	public void setSaver(ISaveable s)
+	{
+		if(s != null)
+		{
+			this.saver = s;
+		}
+	}
 
 	public void load() {
-		try
-		{
-			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
-			Connection con = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true");
-			Statement stat = con.createStatement();
-			ResultSet rs = stat.executeQuery("SELECT * FROM Matches");
-			
-			while(rs.next())
-			{
-				
-				GregorianCalendar cal = convertSQLDateToGregorianCalendar(rs.getDate("startTime"), rs.getTime("startTime"));
-				Match m = new Match(rs.getInt("id"), TeamRepo.getInstance().get(rs.getString("home")), TeamRepo.getInstance().get(rs.getString("away")), cal, rs.getString("descr"));
-				Integer sh = rs.getInt("scoreHome");
-				Integer sa = rs.getInt("scoreAway");
-				
-				//System.out.println(sa);
-				if(sh >= 0 && sa >= 0)
-				{
-					Score score = new Score(sh, sa);
-					m.setScore(score);
-				}
-				else if(cal.before(new GregorianCalendar()))
-				{
-					m.setScore(new FlashScoreHtmlScoreReader().getScore(m));
-					GregorianCalendar endTime = (GregorianCalendar) cal.clone();
-					endTime.add(Calendar.HOUR, 3);
-					if(endTime.before(new GregorianCalendar()) && sh == -1 && sa == -1)
-					{
-						System.out.println(m);
-						PreparedStatement stat2 = con.prepareStatement("UPDATE Matches SET scoreHome=" + m.getScore().getHomeGoals() + " WHERE id=" + m.getId());
-						PreparedStatement stat3 = con.prepareStatement("UPDATE Matches SET scoreAway=" + m.getScore().getAwayGoals() + " WHERE id=" + m.getId());
-						stat2.executeUpdate();
-						stat3.executeUpdate();
-						con.commit();
-					}
-				}
-				matches.add(m);
-			}
-			
-		} 
-		catch (InstantiationException | IllegalAccessException | ClassNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
+		matches = loader.load();
 		
 	}
 
 	@Override
 	public void save() {
-		// TODO Auto-generated method stub
+		try
+		{
+			saver.save(matches);
+		} catch (ParserConfigurationException | TransformerFactoryConfigurationError | TransformerException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
