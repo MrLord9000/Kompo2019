@@ -13,18 +13,12 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactoryConfigurationError;
-
 import controller.FlashScoreHtmlScoreReader;
 import controller.Match;
 import controller.Score;
 import controller.Team;
 import controller.TestHtmlScoreReader;
 import controller.User;
-import controller.XMLFileWriter;
-import controller.XMLMatchLoader;
 
 public class MatchRepo implements IRepository<Match, Long> {
 
@@ -40,13 +34,13 @@ public class MatchRepo implements IRepository<Match, Long> {
 		this.matches = new LinkedList<>();
 		
 		// Temp
-		GregorianCalendar cal1 = (GregorianCalendar) Calendar.getInstance();
-		cal1.add(Calendar.HOUR_OF_DAY, 1);
-		GregorianCalendar cal2 = (GregorianCalendar) Calendar.getInstance();
-		cal2.add(Calendar.HOUR_OF_DAY, -1);
-		matches.add( new Match(666, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("W³ochy U20"), cal1, "World Cup U20 Final Stage") );
-		matches.add( new Match(667, TeamRepo.getInstance().get("Ecuador U20"), TeamRepo.getInstance().get("Korea Po?udniowa U20"), cal2, "World Cup U20 Final Stage") );
-		matches.add( new Match(668, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("W³ochy U20"), new GregorianCalendar(2019, 5, 12, 14, 7), "World Cup U20 Final Stage") );
+//		GregorianCalendar cal1 = (GregorianCalendar) Calendar.getInstance();
+//		cal1.add(Calendar.HOUR_OF_DAY, 1);
+//		GregorianCalendar cal2 = (GregorianCalendar) Calendar.getInstance();
+//		cal2.add(Calendar.HOUR_OF_DAY, -1);
+//		matches.add( new Match(666, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("WÅ‚ochy U20"), cal1, "World Cup U20 Final Stage") );
+//		matches.add( new Match(667, TeamRepo.getInstance().get("Ecuador U20"), TeamRepo.getInstance().get("Korea Po?udniowa U20"), cal2, "World Cup U20 Final Stage") );
+//		matches.add( new Match(668, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("WÅ‚ochy U20"), new GregorianCalendar(2019, 5, 12, 14, 7), "World Cup U20 Final Stage") );
 //		// Temp end
 	}
 
@@ -54,7 +48,7 @@ public class MatchRepo implements IRepository<Match, Long> {
 		try
 		{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
-			Connection con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=FootlendarDB;integratedSecurity=true");
+			Connection con = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true");
 			Statement stat = con.createStatement();
 			ResultSet rs = stat.executeQuery("SELECT * FROM Matches");
 			
@@ -105,54 +99,14 @@ public class MatchRepo implements IRepository<Match, Long> {
 		
 	}
 
-	public void loadFromXML(String filePath)
-	{
-		XMLMatchLoader matchLoader = new XMLMatchLoader(filePath);
-		LinkedList<Match> loadedMatches = matchLoader.load();
-		
-		for(Match item : loadedMatches)
-		{
-//			if(matches.contains(item) == false)
-//			{
-				matches.add(item);
-//			}
-		}
-	}
-	
-	public void saveToXML(String filePath)
-	{
-		XMLFileWriter xmlWriter = new XMLFileWriter(filePath);
-		try
-		{
-			xmlWriter.saveCollection(MatchRepo.getInstance().getAll());
-		} 
-		catch (ParserConfigurationException e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
-		catch (TransformerFactoryConfigurationError e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
-		catch (TransformerException e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}
-	
 	@Override
-	public void save() 
-	{
-		
+	public void save() {
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Match get(Long id) 
-	{
+	public Match get(Long id) {
 		for(Match m: matches)
 		{
 			if(id == m.getId()) return m;
@@ -189,7 +143,6 @@ public class MatchRepo implements IRepository<Match, Long> {
 		}
 	}
 		
-		
 	private GregorianCalendar convertSQLDateToGregorianCalendar(java.sql.Date date, java.sql.Time time)
 	{
 		//System.out.println(date.getHours());
@@ -197,6 +150,7 @@ public class MatchRepo implements IRepository<Match, Long> {
 		GregorianCalendar c = new GregorianCalendar(date.getYear() + 1900, date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
 		return c;
 	}
+
 	
 	public void updateScore(Match m)
 	{
