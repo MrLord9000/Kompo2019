@@ -28,7 +28,7 @@ public class Match implements XMLable{
 		this.description = description;
 		
 		nt = new NotifyTimer();
-		//nt.start(this.startTime, minutesRemindBeforeStart, this);
+		nt.start(this.startTime, minutesRemindBeforeStart, this);
 		
 		
 	}

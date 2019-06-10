@@ -9,7 +9,7 @@ import controller.User;
 import model.MatchRepo;
 import model.TeamRepo;
 
-public class Main
+public class TextInterface
 {
 	
 	private static void showMenu()
@@ -34,7 +34,7 @@ public class Main
 		showMenu();
 	}
 
-	public static void main(String[] args)
+	public static void runText(String[] args)
 	{
 		TeamRepo.getInstance().load();
 		MatchRepo.getInstance().load();

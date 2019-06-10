@@ -64,7 +64,7 @@ public class XMLMatchLoader
 			int hour = Integer.parseInt(e.getElementsByTagName("Hour").item(0).getTextContent());
 			int minute = Integer.parseInt(e.getElementsByTagName("Minute").item(0).getTextContent());
 			String description = e.getElementsByTagName("Description").item(0).getTextContent();
-			GregorianCalendar date = new GregorianCalendar(year, month, day, hour, minute);
+			GregorianCalendar date = new GregorianCalendar(year, month - 1, day, hour, minute);
 			Match m = new Match(id, home, away, date, description);
 			NodeList scores1 = e.getElementsByTagName("homeGoals");
 			NodeList scores2 = e.getElementsByTagName("awayGoals");

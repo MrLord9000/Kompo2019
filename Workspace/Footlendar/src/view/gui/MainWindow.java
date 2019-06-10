@@ -1,6 +1,5 @@
 package view.gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,6 +10,7 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -18,59 +18,34 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.JScrollPane;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
-import controller.Match;
-import controller.Team;
+import controller.GoogleCalendarExporter;
 import controller.User;
+import controller.XMLFileWriter;
+import controller.XMLMatchLoader;
 import model.MatchRepo;
 import model.TeamRepo;
 
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JButton;
 import java.awt.Font;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.border.MatteBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+
 import java.awt.Color;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.ListModel;
-import javax.swing.border.BevelBorder;
-import javax.swing.ImageIcon;
-import javax.swing.JTextPane;
-import javax.swing.SpringLayout;
-import java.awt.FlowLayout;
 import javax.swing.border.LineBorder;
-import net.miginfocom.swing.MigLayout;
-import view.tui.ConsoleNotifier;
-
 import javax.swing.JMenuBar;
-import javax.swing.JPopupMenu;
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JList;
-import javax.swing.ListSelectionModel;
-import javax.swing.AbstractListModel;
-import javax.swing.DefaultListModel;
-
-import java.awt.Dimension;
-import javax.swing.JLayeredPane;
-import javax.swing.JDesktopPane;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JCheckBox;
-import javax.swing.JTextArea;
-import javax.swing.BoxLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.SystemColor;
-import javax.swing.JCheckBoxMenuItem;
+import java.awt.Toolkit;
 
 public class MainWindow extends JFrame
 {
@@ -97,35 +72,22 @@ public class MainWindow extends JFrame
 	 * Launch the application.
 	 * 
 	 */
-	public static void main(String[] args)
-	{
-		EventQueue.invokeLater(new Runnable()
-		{
-			public void run()
-			{				
-				
-				try
-				{
-					TeamRepo.getInstance().load();
-					MatchRepo.getInstance().load();
-					User.getInstance().load();
-					User.getInstance().setNotifier(new GuiNotifier());
-					frame = new MainWindow();
-					frame.setVisible(true);
-				} 
-				catch (Exception e)
-				{
-					e.printStackTrace();
-				}
-				
-			}
-		});
-	}
+	
 
 	/**
 	 * Class constructor responsible for creating the main frame.
 	 */
 	public MainWindow() {
+		
+		TeamRepo.getInstance().load();
+		MatchRepo.getInstance().load();
+		User.getInstance().load();
+		User.getInstance().setNotifier(new GuiNotifier());
+		
+		frame = this;
+		frame.setVisible(true);
+		
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/resources/football_64.png")));
 		
 		try
 		{
@@ -161,32 +123,58 @@ public class MainWindow extends JFrame
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
 		
-		JMenuItem mntmSave = new JMenuItem("Save");
+		JMenuItem mntmSave = new JMenuItem("Save all matches");
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				JFileChooser fileChooser = new JFileChooser();
-				int returnVal = fileChooser.showSaveDialog(getMainWindow());
+				JFileChooser chooser = new JFileChooser();
+				chooser.setFileFilter(new FileNameExtensionFilter("XML file (.xml)", "xml"));
+				int returnVal = chooser.showSaveDialog(getMainWindow());
+				if(returnVal == JFileChooser.APPROVE_OPTION) 
+				{
+					// Here file saving should happen
+					MatchRepo.getInstance().saveToXML(chooser.getSelectedFile().getAbsolutePath());
+				}
+			
 			}
 		});
 		mnFile.add(mntmSave);
 		
-		JMenuItem mntmOpen = new JMenuItem("Open");
+		JMenuItem mntmOpen = new JMenuItem("Open saved matches");
 		mntmOpen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				JFileChooser fileChooser = new JFileChooser();
-				int returnVal = fileChooser.showOpenDialog(getMainWindow());
+				JFileChooser chooser = new JFileChooser();
+				chooser.setFileFilter(new FileNameExtensionFilter("XML file (.xml)", "xml"));
+				int returnVal = chooser.showOpenDialog(getMainWindow());
+				if(returnVal == JFileChooser.APPROVE_OPTION) 
+				{
+					// Here file opening should happen
+					MatchRepo.getInstance().loadFromXML(chooser.getSelectedFile().getAbsolutePath());
+					CalendarHandler.updateMatches();
+				}
 			}
 		});
 		mnFile.add(mntmOpen);
 		
-		JMenuItem mntmExport = new JMenuItem("Export");
+		JMenuItem mntmExport = new JMenuItem("Export to Google Calendar");
 		mntmExport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
 				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setFileFilter(new FileNameExtensionFilter("CSV file (.csv)", "csv"));
 				int returnVal = fileChooser.showSaveDialog(getMainWindow());
+				if(returnVal == JFileChooser.APPROVE_OPTION)
+				{
+					try
+					{
+						GoogleCalendarExporter.export(MatchRepo.getInstance().getAll(), fileChooser.getSelectedFile().getAbsolutePath());
+					} 
+					catch (IOException e1)
+					{
+						e1.printStackTrace();
+					}
+				}
 			}
 		});
 		mnFile.add(mntmExport);
@@ -244,12 +232,12 @@ public class MainWindow extends JFrame
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(notificationPanel, GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+					.addComponent(notificationPanel, GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
 					.addGap(18)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(MenuPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(CalendarPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(daysOfWeekPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(CalendarPanel, GroupLayout.PREFERRED_SIZE, 1092, GroupLayout.PREFERRED_SIZE))
+						.addComponent(MenuPanel, GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
@@ -257,13 +245,13 @@ public class MainWindow extends JFrame
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(notificationPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+						.addComponent(notificationPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
+						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(MenuPanel, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addComponent(daysOfWeekPanel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(CalendarPanel, GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)))
+							.addComponent(CalendarPanel, GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)))
 					.addGap(3))
 		);
 		daysOfWeekPanel.setLayout(new GridLayout(0, 7, 0, 0));
@@ -463,5 +451,6 @@ public class MainWindow extends JFrame
 			}
 		}
 	}
-	
+
+
 }

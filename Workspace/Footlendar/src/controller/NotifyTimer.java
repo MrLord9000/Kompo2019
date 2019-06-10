@@ -76,6 +76,7 @@ public class NotifyTimer {
 				public void run()
 				{
 					//User.getInstance().notifyOnUpdate(m);
+					System.out.println("Checking match score");
 					IHtmlScoreReader reader = new FlashScoreHtmlScoreReader();
 					Score score = reader.getScore(m);
 					if(score != null && !score.equals(m.getScore()))

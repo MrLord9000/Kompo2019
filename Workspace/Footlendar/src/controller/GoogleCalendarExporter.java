@@ -2,6 +2,7 @@ package controller;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class GoogleCalendarExporter
@@ -20,10 +21,17 @@ public class GoogleCalendarExporter
 		
 		// Writing header to the csv file
 		csvWriter.append("Subject, Start Date, Start Time, Description\n");
+		SimpleDateFormat startDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat startTimeFormat = new SimpleDateFormat("HH:mm");
 		
 		for(Match item : exportData)
 		{
 			csvWriter.append(item.getHome().getName() + " - " + item.getAway().getName() + ", ");
+			csvWriter.append(startDateFormat.format(item.getStartTime().getTime()) + ", ");
+			csvWriter.append(startTimeFormat.format(item.getStartTime().getTime()) + ", ");
+			csvWriter.append(item.getDescription() + ",\n");
 		}
+		
+		csvWriter.close();
 	}
 }

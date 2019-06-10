@@ -32,7 +32,7 @@ public class AboutDialog extends JDialog
 		lblProgramCreatedBy.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		JLabel lblFilipMazurek = new JLabel("Filip Mazurek");
 		lblFilipMazurek.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		JLabel lblAdrianZieliski = new JLabel("Adrian Zieliński");
+		JLabel lblAdrianZieliski = new JLabel("Adrian Zieli\u0144ski");
 		lblAdrianZieliski.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		JLabel lblProgramowanieKomponentowe = new JLabel("Programowanie Komponentowe 2019");
 		lblProgramowanieKomponentowe.setFont(new Font("Century Gothic", Font.PLAIN, 11));
