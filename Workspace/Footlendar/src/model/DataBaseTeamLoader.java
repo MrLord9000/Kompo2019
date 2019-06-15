@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
+
+import controller.ILoadable;
+import controller.Team;
 
 /**
  * Database loader class. Used in Team Repo for loading data from database

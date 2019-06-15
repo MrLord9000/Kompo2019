@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,10 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 
-import model.TeamRepo;
+import controller.FlashScoreHtmlScoreReader;
+import controller.ILoadable;
+import controller.Match;
+import controller.Score;
 
 /**
  * Database loader class. Used in Match Repo for loading data from database

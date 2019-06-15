@@ -116,6 +116,18 @@ public class MatchRepo implements IRepository<Match, Long> {
 	@Override
 	public void add(Match item) {
 		matches.add(item);
+		if(saver != null)
+		{
+			try
+			{
+				saver.save(item);
+			} catch (ParserConfigurationException | TransformerFactoryConfigurationError | TransformerException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		
 	}
 
@@ -139,8 +151,6 @@ public class MatchRepo implements IRepository<Match, Long> {
 		
 	private GregorianCalendar convertSQLDateToGregorianCalendar(java.sql.Date date, java.sql.Time time)
 	{
-		//System.out.println(date.getHours());
-		//System.out.println(date.getMinutes());
 		GregorianCalendar c = new GregorianCalendar(date.getYear() + 1900, date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
 		return c;
 	}
@@ -148,29 +158,16 @@ public class MatchRepo implements IRepository<Match, Long> {
 	
 	public void updateScore(Match m)
 	{
-		
-		try
+		if(saver != null)
 		{
-			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
-			Connection con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=FootlendarDB;integratedSecurity=true");
-			Statement stat = con.createStatement();
-			ResultSet rs = stat.executeQuery("UPDATE Matches SET scoreHome=" + m.getScore().getHomeGoals() + "AND SET scoreAway=" + m.getScore().getAwayGoals());
-		} catch (SQLException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InstantiationException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try
+			{
+				saver.update(m);
+			} catch (ParserConfigurationException | TransformerFactoryConfigurationError | TransformerException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

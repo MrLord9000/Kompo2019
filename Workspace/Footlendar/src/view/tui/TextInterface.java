@@ -5,7 +5,10 @@ import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 import controller.ElementAlreadyInCollectionException;
+import controller.Match;
 import controller.User;
+import model.DataBaseMatchLoader;
+import model.DataBaseTeamLoader;
 import model.MatchRepo;
 import model.TeamRepo;
 
@@ -36,10 +39,19 @@ public class TextInterface
 
 	public static void runText(String[] args)
 	{
+		TeamRepo.getInstance().setLoader(new DataBaseTeamLoader("jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true"));
+		MatchRepo.getInstance().setLoader(new DataBaseMatchLoader("jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true"));
 		TeamRepo.getInstance().load();
 		MatchRepo.getInstance().load();
 		User.getInstance().load();
 		User.getInstance().setNotifier(new ConsoleNotifier());
+		GregorianCalendar cal1 = (GregorianCalendar) Calendar.getInstance();
+		cal1.add(Calendar.HOUR_OF_DAY, 1);
+		GregorianCalendar cal2 = (GregorianCalendar) Calendar.getInstance();
+		cal2.add(Calendar.HOUR_OF_DAY, -1);
+		MatchRepo.getInstance().add( new Match(666, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("W³ochy U20"), cal1, "World Cup U20 Final Stage") );
+		MatchRepo.getInstance().add( new Match(667, TeamRepo.getInstance().get("Ecuador U20"), TeamRepo.getInstance().get("Korea Po?udniowa U20"), cal2, "World Cup U20 Final Stage") );
+		MatchRepo.getInstance().add( new Match(668, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("W³ochy U20"), new GregorianCalendar(2019, 5, 12, 14, 7), "World Cup U20 Final Stage") );
 		boolean exit = false;
 		while(exit == false)
 		{

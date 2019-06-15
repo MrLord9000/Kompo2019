@@ -22,16 +22,16 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
-import controller.DataBaseMatchLoader;
-import controller.DataBaseTeamLoader;
-import controller.DataBaseWriter;
 import controller.GoogleCalendarExporter;
 import controller.Match;
 import controller.User;
-import controller.XMLFileWriter;
-import controller.XMLMatchLoader;
+import model.DataBaseMatchLoader;
+import model.DataBaseTeamLoader;
+import model.DataBaseWriter;
 import model.MatchRepo;
 import model.TeamRepo;
+import model.XMLFileWriter;
+import model.XMLMatchLoader;
 
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JButton;
@@ -84,18 +84,19 @@ public class MainWindow extends JFrame
 	 */
 	public MainWindow() {
 		
-		TeamRepo.getInstance().setLoader(new DataBaseTeamLoader("jdbc:sqlserver://localhost:1433;databaseName=FootlendarDB;integratedSecurity=true"));
-		TeamRepo.getInstance().setSaver(new DataBaseWriter("jdbc:sqlserver://localhost:1433;databaseName=FootlendarDB;integratedSecurity=true"));
+		TeamRepo.getInstance().setLoader(new DataBaseTeamLoader("jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true"));
+		TeamRepo.getInstance().setSaver(new DataBaseWriter("jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true"));
 		TeamRepo.getInstance().load();
-		MatchRepo.getInstance().setLoader(new DataBaseMatchLoader("jdbc:sqlserver://localhost:1433;databaseName=FootlendarDB;integratedSecurity=true"));
-		MatchRepo.getInstance().setSaver(new DataBaseWriter("jdbc:sqlserver://localhost:1433;databaseName=FootlendarDB;integratedSecurity=true"));
+		//MatchRepo.getInstance().setLoader(new DataBaseMatchLoader(".\\src\\resources\\data.xml"));
+		MatchRepo.getInstance().setLoader(new DataBaseMatchLoader("jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true"));
+		MatchRepo.getInstance().setSaver(new DataBaseWriter("jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true"));
 		MatchRepo.getInstance().load();
 		User.getInstance().load();
 		User.getInstance().setNotifier(new GuiNotifier());
 		
 		// Temp
 				GregorianCalendar cal1 = (GregorianCalendar) Calendar.getInstance();
-				cal1.add(Calendar.HOUR_OF_DAY, 1);
+				cal1.add(Calendar.MINUTE, 1);
 				GregorianCalendar cal2 = (GregorianCalendar) Calendar.getInstance();
 				cal2.add(Calendar.HOUR_OF_DAY, -1);
 				MatchRepo.getInstance().add( new Match(666, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("W³ochy U20"), cal1, "World Cup U20 Final Stage") );

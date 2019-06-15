@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 import java.io.File;
 import java.util.LinkedList;
@@ -19,6 +19,9 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import controller.ISaveable;
+import controller.XMLable;
 
 public class XMLFileWriter<T extends XMLable> implements ISaveable<T>
 {
@@ -67,6 +70,14 @@ public class XMLFileWriter<T extends XMLable> implements ISaveable<T>
         transf.setOutputProperty(OutputKeys.INDENT, "yes");
         transf.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
         transf.transform(source, file);
+	}
+
+	@Override
+	public void update(T m)
+			throws ParserConfigurationException, TransformerFactoryConfigurationError, TransformerException
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 

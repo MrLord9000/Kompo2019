@@ -67,7 +67,7 @@ public class NotifyTimer {
 		//System.out.println("xD");
 		if(endTime.after(new GregorianCalendar()))
 		{
-			
+			m.setScore(new Score());
 			this.updateChecker = new Timer();
 			this.updateChecker.schedule(new TimerTask()
 			{
@@ -76,13 +76,15 @@ public class NotifyTimer {
 				public void run()
 				{
 					//User.getInstance().notifyOnUpdate(m);
-					System.out.println("Checking match score");
-					IHtmlScoreReader reader = new FlashScoreHtmlScoreReader();
+					//System.out.println("Checking match score");
+					IHtmlScoreReader reader = new TestHtmlScoreReader();
 					Score score = reader.getScore(m);
+					//System.out.println(score.getHomeGoals());
 					if(score != null && !score.equals(m.getScore()))
 					{
 						m.setScore(score);
 						User.getInstance().notifyOnUpdate(m);
+						System.out.println("Update");
 					}
 					if(endTime.before(new GregorianCalendar()))
 					{

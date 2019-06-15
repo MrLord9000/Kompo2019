@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +14,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import model.TeamRepo;
+import controller.ILoadable;
+import controller.Match;
+import controller.Score;
+import controller.Team;
 
 public class XMLMatchLoader implements ILoadable<Match>
 {
