@@ -10,8 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import controller.Match;
 import controller.User;
+import model.Match;
 
 /**
  * Class responsible for controlling the calendar panels, updating matches from MatchRepo and switching current month view.

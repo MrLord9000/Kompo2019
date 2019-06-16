@@ -27,9 +27,9 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.BevelBorder;
 
-import controller.Match;
 import controller.ElementAlreadyInCollectionException;
 import controller.User;
+import model.Match;
 
 /**
  * A single calendar panel class.

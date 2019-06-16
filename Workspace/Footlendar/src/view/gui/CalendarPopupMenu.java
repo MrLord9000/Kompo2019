@@ -21,8 +21,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
 import controller.ElementAlreadyInCollectionException;
-import controller.Match;
 import controller.User;
+import model.Match;
 import model.MatchRepo;
 
 /**

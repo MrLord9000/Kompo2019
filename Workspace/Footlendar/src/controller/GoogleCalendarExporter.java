@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import model.Match;
+
 /**
  * Class responsible for handling export to Google Calendar format
  * @author Filip Mazurek

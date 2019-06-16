@@ -15,9 +15,9 @@ import org.jdatepicker.impl.UtilDateModel;
 
 import com.jgoodies.common.collect.LinkedListModel;
 
-import controller.Match;
-import controller.Team;
+import model.Match;
 import model.MatchRepo;
+import model.Team;
 import model.TeamRepo;
 
 import javax.swing.ComboBoxModel;

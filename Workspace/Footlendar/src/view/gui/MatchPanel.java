@@ -32,8 +32,8 @@ import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 
-import controller.Match;
 import controller.NotifyTimer;
+import model.Match;
 
 /**
  * Class responsible for displaying tracked match panel.

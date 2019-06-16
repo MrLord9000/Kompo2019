@@ -10,10 +10,10 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import controller.Match;
-import controller.Team;
 import controller.User;
+import model.Match;
 import model.MatchRepo;
+import model.Team;
 
 import javax.swing.JSplitPane;
 import javax.swing.JTable;

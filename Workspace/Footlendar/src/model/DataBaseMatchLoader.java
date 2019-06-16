@@ -12,8 +12,6 @@ import java.util.LinkedList;
 
 import controller.FlashScoreHtmlScoreReader;
 import controller.ILoadable;
-import controller.Match;
-import controller.Score;
 
 /**
  * Database loader class. Used in Match Repo for loading data from database

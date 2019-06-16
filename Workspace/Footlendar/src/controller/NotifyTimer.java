@@ -5,7 +5,9 @@ import java.util.GregorianCalendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import model.Match;
 import model.MatchRepo;
+import model.Score;
 
 public class NotifyTimer {
 	

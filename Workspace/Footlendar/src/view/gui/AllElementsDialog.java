@@ -19,9 +19,9 @@ import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import controller.Match;
-import controller.Team;
+import model.Match;
 import model.MatchRepo;
+import model.Team;
 import model.TeamRepo;
 
 import javax.swing.JScrollPane;

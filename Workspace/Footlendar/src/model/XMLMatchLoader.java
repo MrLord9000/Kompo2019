@@ -15,9 +15,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import controller.ILoadable;
-import controller.Match;
-import controller.Score;
-import controller.Team;
 
 public class XMLMatchLoader implements ILoadable<Match>
 {

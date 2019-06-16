@@ -10,7 +10,6 @@ import java.util.List;
 
 import controller.ILoadable;
 import controller.ISaveable;
-import controller.Team;
 
 /**
  * Team repository class, holds all teams and loader/saver

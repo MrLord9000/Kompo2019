@@ -1,7 +1,9 @@
-package controller;
+package model;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import controller.XMLable;
 
 public class Score implements XMLable
 {

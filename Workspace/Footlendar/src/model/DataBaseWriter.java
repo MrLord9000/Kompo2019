@@ -6,10 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 
 import controller.ISaveable;
-import controller.Match;
 
 /**
  * Class responsible for implementing database saving.
@@ -40,12 +40,12 @@ public class DataBaseWriter implements ISaveable<Match>
 		{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
 			Connection con = DriverManager.getConnection(path);
-			PreparedStatement stat = con.prepareStatement("INSERT INTO Matches(id, home, away, startTime, descr) VALUES(?, ?, ?, ?, ?)");
-			stat.setLong(1, m.getId());
-			stat.setString(2, m.getHome().getName());
-			stat.setString(3, m.getAway().getName());
-			stat.setDate(4, new java.sql.Date(m.getStartTime().getTimeInMillis()));
-			stat.setString(5, m.getDescription());
+			PreparedStatement stat = con.prepareStatement("INSERT INTO Matches(home, away, startTime, descr) VALUES(?, ?, ?, ?)");
+			//stat.setLong(1, m.getId());
+			stat.setString(1, m.getHome().getName());
+			stat.setString(2, m.getAway().getName());
+			stat.setDate(3, new java.sql.Date(m.getStartTime().getTimeInMillis()));
+			stat.setString(4, m.getDescription());
 			stat.execute();
 		} catch (SQLException e)
 		{
@@ -109,6 +109,28 @@ public class DataBaseWriter implements ISaveable<Match>
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void deleteBefore(GregorianCalendar cal)
+	{
+		java.sql.Date date = new java.sql.Date(cal.getTimeInMillis());
+		try
+		{
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
+			Connection con = DriverManager.getConnection(path);
+			PreparedStatement del = con.prepareStatement("DELETE FROM Matches WHERE DATADIFF(?, startTime) > 0");
+			del.setDate(1, date);
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 }

@@ -23,11 +23,11 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
 import controller.GoogleCalendarExporter;
-import controller.Match;
 import controller.User;
 import model.DataBaseMatchLoader;
 import model.DataBaseTeamLoader;
 import model.DataBaseWriter;
+import model.Match;
 import model.MatchRepo;
 import model.TeamRepo;
 import model.XMLFileWriter;
@@ -56,7 +56,7 @@ import java.awt.Toolkit;
 public class MainWindow extends JFrame
 {
 	//private static final String databasePath = "jdbc:sqlserver://localhost:1433;databaseName=FootlendarDB;integratedSecurity=true";
-	private static final String databasePath = "jdbc:sqlserver://DESKTOP-41IQBFQ\\\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true";
+	private static final String databasePath = "jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true";
 	private static final long serialVersionUID = 1L;
 	private static NotificationPanel notificationPanel;
 	private CalendarHandler calendarHandler;
@@ -82,25 +82,10 @@ public class MainWindow extends JFrame
 	 */
 	public MainWindow() {
 		
-		TeamRepo.getInstance().setLoader(new DataBaseTeamLoader(databasePath));
-		TeamRepo.getInstance().setSaver(new DataBaseWriter(databasePath));
-		TeamRepo.getInstance().load();
-		//MatchRepo.getInstance().setLoader(new DataBaseMatchLoader(".\\src\\resources\\data.xml"));
-		MatchRepo.getInstance().setLoader(new DataBaseMatchLoader(databasePath));
-		MatchRepo.getInstance().setSaver(new DataBaseWriter(databasePath));
-		MatchRepo.getInstance().load();
-		User.getInstance().load();
+		
 		User.getInstance().setNotifier(new GuiNotifier());
 		
-		// Temp
-				GregorianCalendar cal1 = (GregorianCalendar) Calendar.getInstance();
-				cal1.add(Calendar.MINUTE, 1);
-				GregorianCalendar cal2 = (GregorianCalendar) Calendar.getInstance();
-				cal2.add(Calendar.HOUR_OF_DAY, -1);
-				MatchRepo.getInstance().add( new Match(666, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("Włochy U20"), cal1, "World Cup U20 Final Stage") );
-				MatchRepo.getInstance().add( new Match(667, TeamRepo.getInstance().get("Ecuador U20"), TeamRepo.getInstance().get("Korea Po?udniowa U20"), cal2, "World Cup U20 Final Stage") );
-				MatchRepo.getInstance().add( new Match(668, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("Włochy U20"), new GregorianCalendar(2019, 5, 12, 14, 7), "World Cup U20 Final Stage") );
-		// Temp end
+		
 		
 		frame = this;
 		frame.setVisible(true);

@@ -13,10 +13,10 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import controller.Match;
-import controller.Team;
 import controller.User;
+import model.Match;
 import model.MatchRepo;
+import model.Team;
 import net.miginfocom.swing.MigLayout;
 
 public class NotificationPanel extends JScrollPane

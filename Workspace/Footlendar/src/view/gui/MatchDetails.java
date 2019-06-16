@@ -14,7 +14,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
-import controller.Match;
+import model.Match;
 
 import com.jgoodies.forms.layout.FormSpecs;
 import java.awt.Font;

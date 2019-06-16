@@ -1,6 +1,7 @@
 package model;
 
 import java.io.File;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -75,6 +76,13 @@ public class XMLFileWriter<T extends XMLable> implements ISaveable<T>
 	@Override
 	public void update(T m)
 			throws ParserConfigurationException, TransformerFactoryConfigurationError, TransformerException
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteBefore(GregorianCalendar cal)
 	{
 		// TODO Auto-generated method stub
 		

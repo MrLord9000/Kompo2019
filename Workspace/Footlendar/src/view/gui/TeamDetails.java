@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.ElementAlreadyInCollectionException;
-import controller.Team;
 import controller.User;
+import model.Team;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;

@@ -20,9 +20,6 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import controller.FlashScoreHtmlScoreReader;
 import controller.ILoadable;
 import controller.ISaveable;
-import controller.Match;
-import controller.Score;
-import controller.Team;
 import controller.TestHtmlScoreReader;
 import controller.User;
 

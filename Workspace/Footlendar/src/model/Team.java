@@ -1,9 +1,11 @@
-package controller;
+package model;
 
 import java.awt.Image;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import controller.XMLable;
 
 /**
  * Team class for storing team data

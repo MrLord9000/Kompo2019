@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -6,6 +6,9 @@ import java.util.GregorianCalendar;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+
+import controller.NotifyTimer;
+import controller.XMLable;
 
 /**
  * Main match class. contains all the data regarding a specific match
