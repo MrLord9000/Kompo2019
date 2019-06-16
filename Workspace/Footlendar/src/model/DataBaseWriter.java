@@ -1,11 +1,13 @@
 package model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 
@@ -36,6 +38,10 @@ public class DataBaseWriter implements ISaveable<Match>
 	@Override
 	public void save(Match m)
 	{
+		java.sql.Timestamp time = new java.sql.Timestamp(m.getStartTime().getTimeInMillis());
+		time.toLocalDateTime();
+//		date.setHours(m.getStartTime().get(Calendar.HOUR));
+//		date.setMinutes(m.getStartTime().get(Calendar.MINUTE));
 		try
 		{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
@@ -44,7 +50,7 @@ public class DataBaseWriter implements ISaveable<Match>
 			//stat.setLong(1, m.getId());
 			stat.setString(1, m.getHome().getName());
 			stat.setString(2, m.getAway().getName());
-			stat.setDate(3, new java.sql.Date(m.getStartTime().getTimeInMillis()));
+			stat.setTimestamp(3, time);
 			stat.setString(4, m.getDescription());
 			stat.execute();
 		} catch (SQLException e)
@@ -118,15 +124,16 @@ public class DataBaseWriter implements ISaveable<Match>
 		{
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
 			Connection con = DriverManager.getConnection(path);
-			PreparedStatement del = con.prepareStatement("DELETE FROM Matches WHERE DATADIFF(?, startTime) > 0");
+			PreparedStatement del = con.prepareStatement("DELETE FROM Matches WHERE DATEDIFF(DAYOFYEAR, startTime, ?) > 0");
 			del.setDate(1, date);
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e)
+			del.execute();
+		} 
+		catch (InstantiationException | IllegalAccessException | ClassNotFoundException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (SQLException e)
+		} 
+		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

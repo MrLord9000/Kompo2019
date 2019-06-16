@@ -47,7 +47,7 @@ import javax.swing.SpinnerNumberModel;
 /**
  * Class responsible for displaying dialog for new event creation
  * Handles new team and match creation as well as time setting and description.
- * @author Lord9000
+ * @author Filip Mazurek
  *
  */
 public class AddNewEventDialog extends JDialog
@@ -355,7 +355,7 @@ public class AddNewEventDialog extends JDialog
 		{
 			if(arg0.getActionCommand() == "OK")
 			{
-				MatchRepo.getInstance().add(new Match(new Random().nextInt(), 
+				MatchRepo.getInstance().add(new Match( 
 						TeamRepo.getInstance().get((String) comboBoxHome.getSelectedItem()), 
 						TeamRepo.getInstance().get((String) comboBoxAway.getSelectedItem()), 
 						new GregorianCalendar(datePicker.getModel().getYear(), datePicker.getModel().getMonth(), datePicker.getModel().getDay(), (int)spinnerHours.getValue(), (int)spinnerMinutes.getValue(), 0),

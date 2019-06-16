@@ -15,18 +15,42 @@ import controller.ILoadable;
 
 /**
  * Database loader class. Used in Match Repo for loading data from database
- * @author Adrian Zieliñski
+ * @author Adrian Zieliï¿½ski
  */
 public class DataBaseMatchLoader implements ILoadable<Match>
 {
-	private String path;
+	private static String path;
 	
 	/**
 	 * Class constructor.
 	 * @param path 	Sets the path to the database.
 	 */
 	public DataBaseMatchLoader(String path) {
-		this.path = path;
+		DataBaseMatchLoader.path = path;
+	}
+	
+	public static long getNextId()
+	{
+		try
+		{
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
+			Connection con = DriverManager.getConnection(path);
+			Statement stat = con.createStatement();
+			ResultSet rs = stat.executeQuery("SELECT IDENT_CURRENT('Matches')");
+			//System.out.println("Next ID: " + rs.getLong(1));
+			rs.next();
+			return rs.getLong(1);
+		} 
+		catch (InstantiationException | IllegalAccessException | ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		} 
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return 0;
+		
 	}
 	
 	/**

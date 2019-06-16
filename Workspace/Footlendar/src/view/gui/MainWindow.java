@@ -55,8 +55,8 @@ import java.awt.Toolkit;
  */
 public class MainWindow extends JFrame
 {
-	//private static final String databasePath = "jdbc:sqlserver://localhost:1433;databaseName=FootlendarDB;integratedSecurity=true";
-	private static final String databasePath = "jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true";
+	private static final String databasePath = "jdbc:sqlserver://localhost:1433;databaseName=FootlendarDB;integratedSecurity=true";
+	//private static final String databasePath = "jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true";
 	private static final long serialVersionUID = 1L;
 	private static NotificationPanel notificationPanel;
 	private CalendarHandler calendarHandler;
@@ -240,6 +240,7 @@ public class MainWindow extends JFrame
 		
 		// Left side Notification Pane constructor
 		notificationPanel = new NotificationPanel();
+		notificationPanel.update();
 		
 		// Center days of week panel creation
 		JPanel daysOfWeekPanel = new JPanel();
@@ -250,9 +251,9 @@ public class MainWindow extends JFrame
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(notificationPanel, GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+					.addComponent(notificationPanel, GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
 					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addComponent(CalendarPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(daysOfWeekPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(MenuPanel, GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE))
@@ -263,13 +264,13 @@ public class MainWindow extends JFrame
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(notificationPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
+						.addComponent(notificationPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(MenuPanel, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addComponent(daysOfWeekPanel, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(CalendarPanel, GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)))
+							.addComponent(CalendarPanel, GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE)))
 					.addGap(3))
 		);
 		daysOfWeekPanel.setLayout(new GridLayout(0, 7, 0, 0));

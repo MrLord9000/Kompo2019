@@ -13,7 +13,7 @@ import view.INotifier;
 /**
  * User class holds information about favourite teams and matches, as well as about tracked matches.
  * It is also used to set appropriate notifier.
- * @author Adrian Zieliñski
+ * @author Adrian Zieliï¿½ski
  *
  */
 public class User {
@@ -74,7 +74,33 @@ public class User {
 			ids = ofl2.load();
 			for (Long l : ids)
 			{
-				trackedMatches.add(MatchRepo.getInstance().get(l));
+				Match temp = MatchRepo.getInstance().get(l);
+				if(temp != null)
+				{
+					if(Calendar.getInstance().before(temp.getStartTime()))
+					{
+						trackedMatches.add(temp);					
+					}					
+				}
+			}
+		} 
+		catch (ClassNotFoundException | IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	private void loadFavMatches()
+	{
+		ObjectFileLoader<LinkedList<Long>> ofl2 = new ObjectFileLoader<>(".\\src\\favMatches.bin");
+		LinkedList<Long> ids = null;
+
+		try
+		{
+			ids = ofl2.load();
+			for (Long l : ids)
+			{
+				favMatches.add(MatchRepo.getInstance().get(l));
 			}
 		} 
 		catch (ClassNotFoundException | IOException e)
@@ -87,6 +113,7 @@ public class User {
 	{
 		loadTeams();
 		loadMatches();
+		loadFavMatches();
 	}
 	
 	private void saveTeams()
@@ -150,7 +177,7 @@ public class User {
 		if(team != null && favTeams.contains(team) == false)
 		{
 			favTeams.add(team);
-			saveTeams();
+			save();
 		}
 		else
 		{
@@ -164,7 +191,7 @@ public class User {
 		if(match != null && favMatches.contains(match) == false)
 		{
 			favMatches.add(match);
-			saveFavMatches();
+			save();
 		}
 		else
 		{
@@ -178,7 +205,7 @@ public class User {
 		if(match != null && trackedMatches.contains(match) == false)
 		{
 			trackedMatches.add(match);
-			//saveMatches();
+			save();
 		}
 		else
 		{
@@ -287,6 +314,7 @@ public class User {
 		if(trackedMatches.contains(m))
 		{
 			trackedMatches.remove(m);
+			save();
 			return true;
 		}
 		else
@@ -300,6 +328,7 @@ public class User {
 		if(favMatches.contains(m))
 		{
 			favMatches.remove(m);
+			save();
 			return true;
 		}
 		else

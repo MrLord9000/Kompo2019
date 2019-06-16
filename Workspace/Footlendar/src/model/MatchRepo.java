@@ -26,7 +26,7 @@ import controller.User;
 /**
  * Implemments repository for all matches.
  * This class also holds references to default file loader and saver.
- * @author Adrian Zieliñski
+ * @author Adrian Zieliï¿½ski
  *
  */
 public class MatchRepo implements IRepository<Match, Long> {
@@ -135,6 +135,10 @@ public class MatchRepo implements IRepository<Match, Long> {
 	
 	public void removeBefore(GregorianCalendar before)
 	{
+		if(saver instanceof DataBaseWriter)
+		{
+			saver.deleteBefore(before);
+		}
 		for(Iterator<Match> it = matches.iterator(); it.hasNext();)
 		{
 			Match m = it.next();

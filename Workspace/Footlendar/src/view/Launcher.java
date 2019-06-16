@@ -24,7 +24,8 @@ import view.tui.TextInterface;
  */
 public class Launcher
 {
-	private static final String databasePath = "jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true";
+	private static final String databasePath = "jdbc:sqlserver://localhost:1433;databaseName=FootlendarDB;integratedSecurity=true";
+	//private static final String databasePath = "jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true";
 	
 	public static void main(String[] args)
 	{
@@ -41,9 +42,9 @@ public class Launcher
 		cal1.add(Calendar.MINUTE, 1);
 		GregorianCalendar cal2 = (GregorianCalendar) Calendar.getInstance();
 		cal2.add(Calendar.HOUR_OF_DAY, -1);
-		MatchRepo.getInstance().add( new Match(666, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("W³ochy U20"), cal1, "World Cup U20 Final Stage") );
-		MatchRepo.getInstance().add( new Match(667, TeamRepo.getInstance().get("Ecuador U20"), TeamRepo.getInstance().get("Korea Po?udniowa U20"), cal2, "World Cup U20 Final Stage") );
-		MatchRepo.getInstance().add( new Match(668, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("W³ochy U20"), new GregorianCalendar(2019, 5, 12, 14, 7), "World Cup U20 Final Stage") );
+//		MatchRepo.getInstance().add( new Match(666, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("WÅ‚ochy U20"), cal1, "World Cup U20 Final Stage") );
+//		MatchRepo.getInstance().add( new Match(667, TeamRepo.getInstance().get("Ecuador U20"), TeamRepo.getInstance().get("Korea Po?udniowa U20"), cal2, "World Cup U20 Final Stage") );
+//		MatchRepo.getInstance().add( new Match(668, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("WÅ‚ochy U20"), new GregorianCalendar(2019, 5, 12, 14, 7), "World Cup U20 Final Stage") );
 // Temp end
 		if(args.length > 0)
 		{
@@ -61,7 +62,6 @@ public class Launcher
 				public void run()
 				{
 					MainWindow mainWindow = new MainWindow();
-					
 				}
 		
 			});

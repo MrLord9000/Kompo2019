@@ -48,6 +48,10 @@ public class Match implements XMLable{
 		
 	}
 	
+	public Match(Team team, Team team2, GregorianCalendar gregorianCalendar, String text) {
+		this(DataBaseMatchLoader.getNextId() + 1, team, team2, gregorianCalendar, text);
+	}
+
 	public void setDescription(String desc)
 	{
 		description = desc;
