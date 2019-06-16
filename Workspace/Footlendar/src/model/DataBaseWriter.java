@@ -12,8 +12,9 @@ import controller.ISaveable;
 import controller.Match;
 
 /**
- * Class responsible for implementing database saving
- * @author Adrian Zieliñski
+ * Class responsible for implementing database saving.
+ * Contains methods for both updating and saving to database when needed.
+ * @author Adrian ZieliÅ„ski
  *
  */
 public class DataBaseWriter implements ISaveable<Match>

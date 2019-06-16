@@ -13,6 +13,11 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+/**
+ * Displays information about authors of the program
+ * @author Filip Mazurek
+ *
+ */
 public class AboutDialog extends JDialog
 {
 
@@ -30,9 +35,9 @@ public class AboutDialog extends JDialog
 		lblAbout.setFont(new Font("Century Gothic", Font.PLAIN, 18));
 		JLabel lblProgramCreatedBy = new JLabel("Program created by:");
 		lblProgramCreatedBy.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		JLabel lblFilipMazurek = new JLabel("Filip Mazurek");
+		JLabel lblFilipMazurek = new JLabel("Filip Mazurek 216835");
 		lblFilipMazurek.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		JLabel lblAdrianZieliski = new JLabel("Adrian Zieli\u0144ski");
+		JLabel lblAdrianZieliski = new JLabel("Adrian Zieliński 216936");
 		lblAdrianZieliski.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		JLabel lblProgramowanieKomponentowe = new JLabel("Programowanie Komponentowe 2019");
 		lblProgramowanieKomponentowe.setFont(new Font("Century Gothic", Font.PLAIN, 11));
@@ -49,9 +54,10 @@ public class AboutDialog extends JDialog
 								.addComponent(lblProgramCreatedBy)
 								.addGroup(gl_contentPanel.createSequentialGroup()
 									.addGap(10)
-									.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblAdrianZieliski, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblFilipMazurek)))))
+									.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(lblAdrianZieliski, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(lblFilipMazurek, GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))))
+							.addPreferredGap(ComponentPlacement.RELATED))
 						.addComponent(lblProgramowanieKomponentowe))
 					.addContainerGap(25, Short.MAX_VALUE))
 		);

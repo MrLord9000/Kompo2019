@@ -32,7 +32,8 @@ import controller.ElementAlreadyInCollectionException;
 import controller.User;
 
 /**
- * A single calendar panel class. 
+ * A single calendar panel class.
+ * Handles date, events during specified date and popup menu
  * @author Filip Mazurek
  *
  */
@@ -59,6 +60,11 @@ public class CalendarPanel extends JPanel
 	
 	private CalendarPopupMenu calendarPopupMenu;
 	
+	/**
+	 * Constructor for single calendar panel.
+	 * @param calendarPanel	A reference to parent panel holding this calendar panel. Should have forms layout applied
+	 * @param calendarDate  Reference to the current panel date object
+	 */
 	public CalendarPanel(JPanel calendarPanel, GregorianCalendar calendarDate)
 	{
 		parentPanel = calendarPanel;
@@ -145,6 +151,10 @@ public class CalendarPanel extends JPanel
 		this.setLayout(gl_DayPanel);
 	}
 	
+	/**
+	 * Method responsible for adding events to current panel object.
+	 * @param match	Match to be added to this panel
+	 */
 	public void addEvent(Match match)
 	{
 		if(dayEvents.contains(match) == false)
@@ -153,6 +163,9 @@ public class CalendarPanel extends JPanel
 		}
 	}
 	
+	/**
+	 * This method updates panel info and enables popup if any matches are available.
+	 */
 	public void updatePopup()
 	{
 		if(dayEvents.size() > 0)
@@ -170,6 +183,9 @@ public class CalendarPanel extends JPanel
 		}
 	}
 	
+	/**
+	 * This method clears matches and resets current panel.
+	 */
 	public void clearEvents()
 	{
 		dayEvents.clear();
@@ -178,6 +194,10 @@ public class CalendarPanel extends JPanel
 		lblNewEvents.setText("");
 	}
 	
+	/**
+	 * Method responsible for creating and adding the calendar popup menu
+	 * @param component	A component to attach the popup to
+	 */
 	private void addPopup(final JPanel component) 
 	{
 		calendarPopupMenu = new CalendarPopupMenu(panelDate, dayEvents);
@@ -185,6 +205,10 @@ public class CalendarPanel extends JPanel
 		component.addMouseListener(mousePopupListener);
 	}
 	
+	/**
+	 * Method responsible for removing the calendar popup menu
+	 * @param component A component to remove the popup from
+	 */
 	private void removePopup(final JPanel component)
 	{
 		if(mousePopupListener != null)

@@ -35,6 +35,12 @@ import javax.swing.border.LineBorder;
 import controller.Match;
 import controller.NotifyTimer;
 
+/**
+ * Class responsible for displaying tracked match panel.
+ * It also handles setting the notification time before the match.
+ * @author Filip Mazurek
+ *
+ */
 public class MatchPanel extends JPanel
 {
 	private Match trackedMatch;

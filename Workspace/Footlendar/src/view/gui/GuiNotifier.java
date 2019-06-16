@@ -4,6 +4,13 @@ import javax.swing.JDialog;
 
 import view.INotifier;
 
+/**
+ * Match notifier implementation for GUI application.
+ * 
+ * @author Filip Mazurek
+ * @author Adrian Zieliński
+ *
+ */
 public class GuiNotifier implements INotifier {
 
 	@Override

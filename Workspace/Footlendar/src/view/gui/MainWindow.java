@@ -1,15 +1,15 @@
 package view.gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -37,10 +37,6 @@ import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactoryConfigurationError;
-
 import java.awt.Color;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
@@ -53,12 +49,14 @@ import java.awt.Toolkit;
 
 /**
  * Main application window.
- * Displays the calendar, options bar and notifications panel on the left.
+ * Displays the calendar, options bar and notifications panel.
  * @author Filip Mazurek
  *
  */
 public class MainWindow extends JFrame
 {
+	//private static final String databasePath = "jdbc:sqlserver://localhost:1433;databaseName=FootlendarDB;integratedSecurity=true";
+	private static final String databasePath = "jdbc:sqlserver://DESKTOP-41IQBFQ\\\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true";
 	private static final long serialVersionUID = 1L;
 	private static NotificationPanel notificationPanel;
 	private CalendarHandler calendarHandler;
@@ -84,12 +82,12 @@ public class MainWindow extends JFrame
 	 */
 	public MainWindow() {
 		
-		TeamRepo.getInstance().setLoader(new DataBaseTeamLoader("jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true"));
-		TeamRepo.getInstance().setSaver(new DataBaseWriter("jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true"));
+		TeamRepo.getInstance().setLoader(new DataBaseTeamLoader(databasePath));
+		TeamRepo.getInstance().setSaver(new DataBaseWriter(databasePath));
 		TeamRepo.getInstance().load();
 		//MatchRepo.getInstance().setLoader(new DataBaseMatchLoader(".\\src\\resources\\data.xml"));
-		MatchRepo.getInstance().setLoader(new DataBaseMatchLoader("jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true"));
-		MatchRepo.getInstance().setSaver(new DataBaseWriter("jdbc:sqlserver://DESKTOP-41IQBFQ\\WINCCPLUSMIG2014;databaseName=FootlendarDB;integratedSecurity=true"));
+		MatchRepo.getInstance().setLoader(new DataBaseMatchLoader(databasePath));
+		MatchRepo.getInstance().setSaver(new DataBaseWriter(databasePath));
 		MatchRepo.getInstance().load();
 		User.getInstance().load();
 		User.getInstance().setNotifier(new GuiNotifier());
@@ -99,9 +97,9 @@ public class MainWindow extends JFrame
 				cal1.add(Calendar.MINUTE, 1);
 				GregorianCalendar cal2 = (GregorianCalendar) Calendar.getInstance();
 				cal2.add(Calendar.HOUR_OF_DAY, -1);
-				MatchRepo.getInstance().add( new Match(666, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("W³ochy U20"), cal1, "World Cup U20 Final Stage") );
+				MatchRepo.getInstance().add( new Match(666, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("WÅ‚ochy U20"), cal1, "World Cup U20 Final Stage") );
 				MatchRepo.getInstance().add( new Match(667, TeamRepo.getInstance().get("Ecuador U20"), TeamRepo.getInstance().get("Korea Po?udniowa U20"), cal2, "World Cup U20 Final Stage") );
-				MatchRepo.getInstance().add( new Match(668, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("W³ochy U20"), new GregorianCalendar(2019, 5, 12, 14, 7), "World Cup U20 Final Stage") );
+				MatchRepo.getInstance().add( new Match(668, TeamRepo.getInstance().get("Ukraina U20"), TeamRepo.getInstance().get("WÅ‚ochy U20"), new GregorianCalendar(2019, 5, 12, 14, 7), "World Cup U20 Final Stage") );
 		// Temp end
 		
 		frame = this;
@@ -144,6 +142,9 @@ public class MainWindow extends JFrame
 		menuBar.add(mnFile);
 		
 		JMenuItem mntmSave = new JMenuItem("Save all matches");
+		KeyStroke keyShortSave = KeyStroke.getKeyStroke(
+		        KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK);
+		mntmSave.setAccelerator(keyShortSave);
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -156,6 +157,7 @@ public class MainWindow extends JFrame
 					XMLFileWriter xmlWriter = new XMLFileWriter(chooser.getSelectedFile().getAbsolutePath());
 					MatchRepo.getInstance().setSaver(xmlWriter);
 					MatchRepo.getInstance().save();
+					MatchRepo.getInstance().setSaver(new DataBaseWriter(databasePath));
 				}
 			
 			}
@@ -163,6 +165,9 @@ public class MainWindow extends JFrame
 		mnFile.add(mntmSave);
 		
 		JMenuItem mntmOpen = new JMenuItem("Open saved matches");
+		KeyStroke keyShortOpen = KeyStroke.getKeyStroke(
+		        KeyEvent.VK_L, KeyEvent.CTRL_DOWN_MASK);
+		mntmOpen.setAccelerator(keyShortOpen);
 		mntmOpen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -175,6 +180,7 @@ public class MainWindow extends JFrame
 					XMLMatchLoader xmlLoader = new XMLMatchLoader(chooser.getSelectedFile().getAbsolutePath());
 					MatchRepo.getInstance().setLoader(xmlLoader);
 					MatchRepo.getInstance().load();
+					MatchRepo.getInstance().setLoader(new DataBaseMatchLoader(databasePath));
 					CalendarHandler.updateMatches();
 				}
 			}
@@ -182,6 +188,9 @@ public class MainWindow extends JFrame
 		mnFile.add(mntmOpen);
 		
 		JMenuItem mntmExport = new JMenuItem("Export to Google Calendar");
+		KeyStroke keyShortExport = KeyStroke.getKeyStroke(
+		        KeyEvent.VK_E, KeyEvent.CTRL_DOWN_MASK);
+		mntmExport.setAccelerator(keyShortExport);
 		mntmExport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{

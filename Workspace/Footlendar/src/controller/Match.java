@@ -9,7 +9,7 @@ import org.w3c.dom.Node;
 
 /**
  * Main match class. contains all the data regarding a specific match
- * @author Adrian Zieliñski
+ * @author Adrian ZieliÅ„ski
  *
  */
 public class Match implements XMLable{
@@ -90,6 +90,10 @@ public class Match implements XMLable{
 		return description;
 	}
 	
+	/**
+	 * Gives information about current match
+	 * @return String with info about match: score, teams and time
+	 */
 	public String info()
 	{
 		String s = new String(); 
@@ -120,6 +124,9 @@ public class Match implements XMLable{
 		return s;
 	}
 	
+	/**
+	 * @see info()
+	 */
 	@Override
 	public String toString()
 	{
@@ -142,6 +149,9 @@ public class Match implements XMLable{
 		
 	}
 
+	/**
+	 * Creates XML node from current match object
+	 */
 	@Override
 	public Element createNode(Document doc)
 	{

@@ -44,7 +44,12 @@ import java.util.Random;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-
+/**
+ * Class responsible for displaying dialog for new event creation
+ * Handles new team and match creation as well as time setting and description.
+ * @author Lord9000
+ *
+ */
 public class AddNewEventDialog extends JDialog
 {
 
@@ -152,10 +157,10 @@ public class AddNewEventDialog extends JDialog
 		txtpnEnterDescriptionHere.setText("Enter description here...");
 		
 		spinnerHours = new JSpinner();
-		spinnerHours.setModel(new SpinnerNumberModel(0, null, 23, 1));
+		spinnerHours.setModel(new SpinnerNumberModel(0, 0, 23, 1));
 		
 		spinnerMinutes = new JSpinner();
-		spinnerMinutes.setModel(new SpinnerNumberModel(0, null, 59, 1));
+		spinnerMinutes.setModel(new SpinnerNumberModel(0, 0, 59, 1));
 		
 		JLabel lblH = new JLabel("H");
 		

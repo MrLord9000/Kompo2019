@@ -25,6 +25,12 @@ import controller.Match;
 import controller.User;
 import model.MatchRepo;
 
+/**
+ * Class responsible for handling calendar panel popups.
+ * It covers basic "Add to tracked" functionality as well as "Add to favourite" functionality
+ * @author Lord9000
+ *
+ */
 public class CalendarPopupMenu extends JPopupMenu
 {
 	private DefaultListModel<String> defaultModelIncoming, defaultModelPast;

@@ -21,6 +21,11 @@ import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextPane;
 
+/**
+ * Dialog window class used for conveinent display of match details.
+ * @author Filip Mazurek
+ *
+ */
 public class MatchDetails extends JDialog
 {
 

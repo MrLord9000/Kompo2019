@@ -26,6 +26,11 @@ import model.TeamRepo;
 
 import javax.swing.JScrollPane;
 
+/**
+ * Class responsible for displaying the all elements dialog window with sorting options.
+ * @author Lord9000
+ *
+ */
 public class AllElementsDialog extends JDialog
 {
 

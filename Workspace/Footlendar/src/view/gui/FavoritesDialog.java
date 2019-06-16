@@ -28,6 +28,11 @@ import java.util.LinkedList;
 
 import javax.swing.AbstractListModel;
 
+/**
+ * Dialog for displaying and managing favorite matches and teams
+ * @author Filip Mazurek
+ *
+ */
 public class FavoritesDialog extends JDialog
 {
 

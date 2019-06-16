@@ -9,6 +9,13 @@ import view.gui.GuiNotifier;
 import view.gui.MainWindow;
 import view.tui.TextInterface;
 
+/**
+ * Main program entry point, responsible for receiving and interpreting console arguments
+ * Current available console arguments:
+ * -t	Launch program in text interface mode
+ * @author Filip Mazurek
+ *
+ */
 public class Launcher
 {
 	public static void main(String[] args)

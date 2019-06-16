@@ -26,6 +26,11 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Dialog for deleting matches before a set date in time.
+ * @author Filip Mazurek
+ *
+ */
 public class DeleteDialog extends JDialog
 {
 

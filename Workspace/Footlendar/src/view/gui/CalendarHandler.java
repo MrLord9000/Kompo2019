@@ -15,7 +15,7 @@ import controller.User;
 
 /**
  * Class responsible for controlling the calendar panels, updating matches from MatchRepo and switching current month view.
- * @author fmaz9
+ * @author Filip Mazurek
  *
  */
 public class CalendarHandler
